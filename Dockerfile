@@ -18,4 +18,4 @@ RUN echo "Checking for 'apt.txt'..." \
 USER ${NB_USER}
 
 ## Run an install.R script, if it exists.
-RUN if [ -f install.R ]; then R --quiet -f install.R; fi
+RUN if [ -f glm-examples/install.R ]; then R --quiet -f glm-examples/install.R; fi
