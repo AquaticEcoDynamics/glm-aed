@@ -53,7 +53,6 @@ jobs:
         run: | 
           cd glm-examples/FCR
           $GITHUB_WORKSPACE/glm-source/GLM/glm
-       
       - name: run GLM Woods
         run: |
           cd glm-examples/Woods
@@ -65,10 +64,6 @@ jobs:
       - name: run GLM Gross Dhuenn
         run: |
           cd glm-examples/GrosseDhuenn
-          $GITHUB_WORKSPACE/glm-source/GLM/glm
-      - name: run GLM Ellen Brook
-        run: |
-          cd glm-examples/EllenBrook
           $GITHUB_WORKSPACE/glm-source/GLM/glm
           
       - uses: r-lib/actions/setup-pandoc@v1
