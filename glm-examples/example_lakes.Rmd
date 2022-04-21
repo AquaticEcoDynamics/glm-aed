@@ -27,7 +27,7 @@ run_sim <- function(lake, do_run, base_dir, glm_exec){
 do_run <- FALSE
 ```
 
-# Falling Creek Reservior
+# Falling Creek Reservoir (FCR)
 
 ```{r echo = FALSE}
 lake <- "FCR"
