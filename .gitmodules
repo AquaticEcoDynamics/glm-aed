@@ -1,0 +1,21 @@
+[submodule "glm-source/libutil"]
+	path = glm-source/libutil
+	url = https://github.com/AquaticEcoDynamics/libutil.git
+[submodule "glm-source/libplot"]
+	path = glm-source/libplot
+	url = https://github.com/AquaticEcoDynamics/libplot.git
+[submodule "glm-source/libaed2"]
+	path = glm-source/libaed2
+	url = https://github.com/AquaticEcoDynamics/libaed2.git
+[submodule "glm-source/libaed-water"]
+	path = glm-source/libaed-water
+	url = https://github.com/AquaticEcoDynamics/libaed-water.git
+[submodule "glm-source/libaed-benthic"]
+	path = glm-source/libaed-benthic
+	url = https://github.com/AquaticEcoDynamics/libaed-benthic.git
+[submodule "glm-source/GLM"]
+	path = glm-source/GLM
+	url = https://github.com/AquaticEcoDynamics/GLM.git
+[submodule "glm-source/libaed-demo"]
+	path = glm-source/libaed-demo
+	url = https://github.com/AquaticEcoDynamics/libaed-demo.git
