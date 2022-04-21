@@ -76,9 +76,10 @@ jobs:
       #- uses: r-lib/actions/setup-renv@v1
       - name: Run test and generate plots
         run: |
+          cd glm-examples
           R -e 'source("install.R")'
           R -e 'install.packages("rmarkdown")'
-          R -e 'rmarkdown::render("./glm-examples/example_lakes.Rmd")'
+          R -e 'rmarkdown::render("example_lakes.Rmd")'
           mv $GITHUB_WORKSPACE/glm-examples/example_lakes.md $GITHUB_WORKSPACE/glm-examples/README.md
         
       - name: update binaries and push to remote
