@@ -1,0 +1,9 @@
+glm-examples/FCR/output/*
+glm-examples/Woods/output/*
+glm-examples/Sparkling/output/*
+glm-examples/GrosseDhuenn/output/*
+glm-examples/EllenBrook/output/*
+glm-examples/.DS_Store
+renv/*
+.Rprofile
+.DS_Store

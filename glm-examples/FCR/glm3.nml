@@ -1,0 +1,139 @@
+&glm_setup
+   sim_name = 'FCR'
+   max_layers = 500
+   min_layer_vol = 0.025
+   min_layer_thick = 0.1 !0.2 originally 1 
+   max_layer_thick = 0.2 !originally 1.5, then 0.5
+   non_avg = .true.
+/
+&wq_setup
+   wq_lib = 'aed'
+   wq_nml_file = 'aed/aed.nml'
+   ode_method = 1
+   split_factor = 1
+   bioshade_feedback = .true.
+   repair_state = .true.
+/
+&light
+   light_mode = 0
+   n_bands = 4
+   light_extc = 1, 0.5, 2, 4
+   energy_frac = 0.51, 0.45, 0.035, 0.005
+   Benthic_Imin = 10
+   Kw = 0.5!0.15
+/
+&mixing
+   coef_mix_conv = 0.2
+   coef_wind_stir = 0.23
+   coef_mix_shear = 0.3
+   coef_mix_turb = 0.51
+   coef_mix_KH = 0.3
+   coef_mix_hyp = 0.6458725
+   deep_mixing = .true.
+   coef_mix_shreq = 0
+/
+&morphometry
+   lake_name = 'FallingCreek'
+   latitude = 37.30768
+   longitude = -79.83707
+   bsn_len = 711.699
+   bsn_wid = 226.03
+   bsn_vals = 31
+   H = 497.683, 497.983, 498.283, 498.683, 498.983, 499.283, 499.583, 499.883, 500.183, 500.483, 500.783, 501.083, 501.383, 501.683, 501.983, 502.283, 502.583, 502.883, 503.183, 503.483, 503.783, 504.083, 504.383, 504.683, 505.083, 505.383, 505.683, 505.983, 506.283, 506.583, 506.983
+   A = 0, 61.408883, 494.615572, 1201.23579, 2179.597283, 3239.620513, 4358.358439, 5637.911458, 6929.077352, 8228.697419, 9469.324081, 10811.30792, 12399.67051, 14484.22802, 16834.20941, 19631.05422, 22583.1399, 25790.70893, 28442.99667, 31155.95008, 36269.3312, 42851.13714, 51179.89109, 59666.85885, 68146.39437, 76424.14457, 85430.25429, 95068.47603, 103030.4489, 111302.1604, 119880.9164
+/
+&time
+   timefmt = 2
+   start = '2015-07-08 12:00:00'
+   stop = '2020-12-31 12:00:00'
+   dt = 3600
+   num_days = 1
+   timezone = -5
+/
+&output
+   out_dir = 'output'
+   out_fn = 'output'
+   nsave = 24
+   csv_lake_fname = "lake"
+/
+&init_profiles
+   num_depths = 29
+   lake_depth = 9.3
+   the_depths = 0.1, 0.33, 0.66, 1, 1.33, 1.66, 2, 2.33, 2.66, 3, 3.33, 3.66, 4, 4.33, 4.66, 5, 5.33, 5.66, 6, 6.33, 6.66, 7, 7.33, 7.66, 8, 8.33, 8.66, 9, 9.25
+   the_temps = 25.7279,25.2848,24.8368,24.4897,24.0165,23.4701,23.2128,22.9678,22.7348,22.2422,21.6762,20.9439,19.9116,18.6905,17.9063,16.8599,15.8269,13.1871,12.5998,12.58,12.5726,12.5591,12.5571,12.5542,12.5292,12.527,12.5199,12.5151,12.119
+   the_sals = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   num_wq_vars = 5
+   wq_names = 'OXY_oxy','NIT_amm','NIT_nit','PHS_frp','OGM_doc'
+   wq_init_vals = 359.1481,370.4191,373.3269,373.455,351.2606,341.9009,340.3638,360.9128,369.3069,397.7706,378.5396,378.5887,134.808,15.6059,8.509375,4.36468,3.5225,215.0834,279.5306,291.72187,293.40718,294.77,95.6459,295.7434,296.3697,296.7306,296.4591,295.5828,291.5922,0.388,0.39,0.395,0.4,0.42,0.44345,0.46,0.48,0.5,0.525,0.55,0.5543,0.6,0.7,0.9,1.164,1.5,2,2.3,2.7161,2.85,3,3.5,4.2,4.2,4.3,4.4,4.54545,4.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,0.055,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24,24
+   snow_thickness = 0
+   white_ice_thickness = 0
+   blue_ice_thickness = 0
+   avg_surf_temp = 6
+   restart_variables = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+/
+&meteorology
+   met_sw = .true.
+   lw_type = 'LW_IN'
+   rain_sw = .false.
+   atm_stab = 0
+   catchrain = .false.
+   rad_mode = 1
+   albedo_mode = 4
+   cloud_mode = 4 !this shouldn't be sensitive
+   meteo_fl = 'inputs/met.csv'
+   subdaily = .true.
+   wind_factor = 1
+   sw_factor = 0.9124968
+   lw_factor = 0.9315083
+   at_factor = 1
+   rh_factor = 1
+   rain_factor = 1
+   cd = 0.0013
+   ce = 0.0013
+   ch = 0.001320147
+   rain_threshold = 0.04
+   runoff_coef = 0.2
+   time_fmt = 'YYYY-MM-DD hh:mm:ss'
+/
+&inflow
+   num_inflows = 2
+   names_of_strms = 'weir','SSS'
+   subm_flag = .false., .true.
+   strm_hf_angle = 55, -15
+   strmbd_slope = 0.05, 15
+   inflow_factor = 1, 0.3
+   strmbd_drag = 0.03, 0.03
+   subm_elev = 7.166530546, 1.022787437
+   inflow_fl = 'inputs/inflow1.csv','inputs/inflow2.csv'
+   inflow_varnum = 37
+   inflow_vars = 'FLOW','TEMP','SALT','TRC_tr1','TRC_age','NCS_ss1','NCS_ss2','OXY_oxy','CAR_dic','CAR_pH','CAR_ch4','CAR_ch4_bub','SIL_rsi','NIT_amm','NIT_nit','PHS_frp','PHS_frp_ads','OGM_doc','OGM_poc','OGM_don','OGM_pon','OGM_dop','OGM_pop','OGM_docr','OGM_donr','OGM_dopr','OGM_cpom','PHY_cyano','PHY_cyano_IN','PHY_cyano_IP','PHY_green','PHY_green_IN','PHY_green_IP','PHY_diatom','PHY_diatom_IN','PHY_diatom_IP','BIV_filtfrac'
+!   inflow_vars = 'FLOW','TEMP','SALT','OXY_oxy','CAR_dic','CAR_pH','CAR_ch4','SIL_rsi','NIT_amm','NIT_nit','PHS_frp', !'OGM_doc','OGM_poc','OGM_don','OGM_pon','OGM_dop','OGM_pop','OGM_docr','OGM_donr','OGM_dopr','OGM_cpom','PHY_cyano'!,'PHY_cyano_IN','PHY_cyano_IP','PHY_green','PHY_green_IN','PHY_green_IP','PHY_diatom','PHY_diatom_IN','PHY_diatom_IP'
+/
+&outflow
+   num_outlet = 1
+   flt_off_sw = .false.
+   outl_elvs = 506.9
+   bsn_len_outl = 711.699
+   bsn_wid_outl = 226.03
+   outflow_fl = 'inputs/outflow.csv'
+   outflow_factor = 1
+/
+&snowice
+   snow_albedo_factor = 0.8 !1.0
+   snow_rho_max       = 300 !500
+   snow_rho_min       = 50 !100
+   min_ice_thickness  = 0.001! 0.025
+   dt_iceon_avg       = 0.01 !try 0.005
+   avg_surf_temp_thres = 0.5 !0.5
+/
+&sediment
+   benthic_mode = 2 !see if we turn this off first, see if ice forms
+   sed_heat_model = 1
+   n_zones = 2!3
+   zone_heights = 5, 9.5       !0.5
+   sed_heat_Ksoil = 1.2, 1.2! 1.8, 1.8 default is 1.2
+   sed_temp_depth = 0.5, 0.5! 0.2, 0.2 default is 0.5
+   sed_temp_mean = 11.39072901, 14.85279613
+   sed_temp_amplitude = 3.140616132, 7.134809304
+   sed_temp_peak_doy = 278.4380074, 276.9746504
+/

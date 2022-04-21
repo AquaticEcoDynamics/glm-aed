@@ -1,0 +1,132 @@
+---
+title: "Example Lakes"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(glmtools)
+library(tidyverse)
+base_dir <- here::here()
+switch(Sys.info()[['sysname']],
+Windows= {warning("Windows testing not avaialable yet")},
+Linux  = {glm_exec <- file.path(base_dir, "binaries/ubuntu/20.04/glm")},
+Darwin = {warning("Mac testing not avaialable yet")})
+glm_exec <- file.path(base_dir, "binaries/ubuntu/20.04/glm")
+run_sim <- function(lake, do_run, base_dir, glm_exec){
+  if(do_run){
+    setwd(file.path(base_dir, "glm-examples", lake))
+    system2(glm_exec)
+    setwd(base_dir)
+  }
+}
+```
+
+# Set up
+
+If you want to run the simulations within the document, set `do_run = TRUE`.
+
+```{r}
+do_run <- FALSE
+```
+
+# Example lake 1: Falling Creek Reservior
+
+```{r}
+lake <- "FCR"
+lake_csv <- file.path(base_dir, "glm-examples", lake, "output/lake.csv") 
+nc_file <- file.path(base_dir, "glm-examples", lake, "output/output.nc")
+run_sim(lake, do_run, base_dir, glm_exec)
+```
+
+Lake description:
+
+GLM-AED Configuration description:
+
+## Temperature profiles
+
+```{r FCR, echo = FALSE}
+plot_temp(nc_file, col_lim = c(0,30))
+```
+
+# Example lake 2: Woods Lake
+
+```{r echo = FALSE}
+lake <- "Woods"
+lake_csv <- file.path(base_dir, "glm-examples", lake, "output/lake.csv") 
+nc_file <- file.path(base_dir, "glm-examples", lake, "output/output.nc")
+run_sim(lake, do_run, base_dir, glm_exec)
+```
+
+Lake description:
+
+GLM-AED Configuration description:
+
+## Temperature profiles
+
+```{r Woods, echo = FALSE}
+plot_temp(nc_file, col_lim = c(0,30))
+```
+
+# Example lake 3: Ellen Brook
+
+```{r echo = FALSE}
+lake <- "EllenBrook"
+lake_csv <- file.path(base_dir, "glm-examples", lake, "output/lake.csv") 
+nc_file <- file.path(base_dir, "glm-examples", lake, "output/output.nc")
+run_sim(lake, do_run, base_dir, glm_exec)
+```
+
+Lake description:
+
+GLM-AED Configuration description:
+
+## Surface temperature
+
+```{r EllenBrookSurfTemp, echo = FALSE}
+df <- readr::read_csv(lake_csv) |> 
+  mutate(time = lubridate::as_date(time))
+ggplot2::ggplot(df, aes(x = time, y = `Surface Temp`)) +
+  geom_line() +
+  theme_bw()
+```
+
+
+# Example lake 4: Grosse Dhuenn
+
+```{r echo = FALSE}
+lake <- "GrosseDhuenn"
+lake_csv <- file.path(base_dir, "glm-examples", lake, "output/lake.csv") 
+nc_file <- file.path(base_dir, "glm-examples", lake, "output/output.nc")
+run_sim(lake, do_run, base_dir, glm_exec)
+```
+
+Lake description:
+
+GLM-AED Configuration description:
+
+## Temperature profiles
+
+```{r GrosseDhuenn, echo = FALSE}
+plot_temp(nc_file, col_lim = c(0,30))
+```
+
+
+# Example lake 5: Sparkling
+
+```{r echo = FALSE}
+lake <- "Sparkling"
+lake_csv <- file.path(base_dir, "glm-examples", lake, "output/lake.csv") 
+nc_file <- file.path(base_dir, "glm-examples", lake, "output/output.nc")
+run_sim(lake, do_run, base_dir, glm_exec)
+```
+
+Lake description:
+
+GLM-AED Configuration description:
+
+## Temperature profiles
+
+```{r Sparkling, echo = FALSE}
+plot_temp(nc_file, col_lim = c(0,30))
+```

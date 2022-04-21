@@ -1,0 +1,36 @@
+!-----------------------------------------------------------
+! plots_window defines the size of the window used for
+! display of the plots
+!-----------------------------------------------------------
+
+&plots_window
+  width = 1000
+  height=  300
+/
+
+!-----------------------------------------------------------
+! plots
+!  nplots - the number of plots
+!  title  - list of titles, one for each plot
+!  min_z  - list of minimum values for the z component
+!  max_z  - list of maximum values for the z component
+!
+! For the moment really only the min/max values are worth
+! tinkering with
+!-----------------------------------------------------------
+&plots
+  nplots = 2
+  plot_width = 400
+  plot_height = 200
+
+! These might not work in windows version if the fonts aren't installed
+! title_font = 'times:bold'
+! title_size = 12
+! label_font = 'helvetica'
+! label_size =  10
+
+  title = 'Temperature', 'Salinity'
+  vars  = 'temp','salt'
+  min_z =   5.0, 0.0
+  max_z =  35.0, 1.0
+/

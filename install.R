@@ -1,0 +1,5 @@
+install.packages("tidyverse")
+install.packages("here")
+install.packages("remotes")
+remotes::install_github("CareyLabVT/GLMr")
+remotes::install_github("CareyLabVT/glmtools")
