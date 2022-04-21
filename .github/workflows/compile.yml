@@ -45,10 +45,9 @@ jobs:
         run: | 
            cd $GITHUB_WORKSPACE/glm-source
            ./build_glm.sh
-           mkdir $GITHUB_WORKSPACE/binaries/ubuntu/20.04
+           mkdir -p $GITHUB_WORKSPACE/binaries/ubuntu/20.04
            cp $GITHUB_WORKSPACE/GLM/glm $GITHUB_WORKSPACE/binaries/ubuntu/20.04/glm
            cp $GITHUB_WORKSPACE/glm-source/binaries/ubuntu/20.04/* $GITHUB_WORKSPACE/binaries/ubuntu/20.04/.
-           rm -rf $GITHUB_WORKSPACE/glm-source/binaries
            
       - name: run GLM FCR
         run: | 
@@ -115,6 +114,8 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/glm-source
           ./build_glm.sh
+           mkdir -p $GITHUB_WORKSPACE/binaries/macos/Big_Sur
+           cp $GITHUB_WORKSPACE/glm-source/binaries/macOS/Big_Sur/* $GITHUB_WORKSPACE/binaries/macOS/Big_Sur/.
           
       - name: update binaries and push to remote
         run: |
