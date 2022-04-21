@@ -43,7 +43,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: compile GLM
         run: | 
-           $GITHUB_WORKSPACE/glm-source/build_glm.sh
+           cd $GITHUB_WORKSPACE/glm-source
+           ./build_glm.sh
            mkdir $GITHUB_WORKSPACE/binaries/ubuntu/20.04
            cp $GITHUB_WORKSPACE/GLM/glm $GITHUB_WORKSPACE/binaries/ubuntu/20.04/glm
            cp $GITHUB_WORKSPACE/glm-source/binaries/ubuntu/20.04/* $GITHUB_WORKSPACE/binaries/ubuntu/20.04/.
@@ -111,7 +112,9 @@ jobs:
           brew install netcdf
 
       - name: compile GLM
-        run: ./build_glm.sh
+        run: |
+          cd $GITHUB_WORKSPACE/glm-source
+          ./build_glm.sh
           
       - name: update binaries and push to remote
         run: |
