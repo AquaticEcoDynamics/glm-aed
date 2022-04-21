@@ -4,6 +4,7 @@ glm-examples/Sparkling/output/*
 glm-examples/GrosseDhuenn/output/*
 glm-examples/EllenBrook/output/*
 glm-examples/.DS_Store
+glm-source/binaries
 renv/*
 .Rprofile
 .DS_Store
