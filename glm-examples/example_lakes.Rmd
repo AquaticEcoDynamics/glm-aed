@@ -1,6 +1,9 @@
 ---
 title: "Example Lakes"
-output: github_document
+output: 
+  github_document: default
+  html_document: default
+date: "Last compiled on `r format(Sys.time(), '%d %B, %Y')`"
 ---
 
 ```{r setup, include=FALSE}
