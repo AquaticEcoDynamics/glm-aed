@@ -4,8 +4,8 @@
 !-----------------------------------------------------------
 
 &plots_window
-  width = 1000
-  height=  300
+  width = 1200
+  height=  900
 /
 
 !-----------------------------------------------------------
@@ -19,8 +19,8 @@
 ! tinkering with
 !-----------------------------------------------------------
 &plots
-  nplots = 2
-  plot_width = 400
+  nplots = 9
+  plot_width = 300
   plot_height = 200
 
 ! These might not work in windows version if the fonts aren't installed
@@ -29,8 +29,8 @@
 ! label_font = 'helvetica'
 ! label_size =  10
 
-  title = 'Temperature', 'Tau_b'
-  vars  = 'temp','taub'
-  min_z =   5.0, 0.0
-  max_z =  35.0, 0.5
+  title = 'Temperature', 'BIV_filtfrac','BIV_mussel','BIV_nmp','BIV_resp','BIV_grz','BIV_net_c','OGM_poc','PHY_green'
+  vars  = 'temp','BIV_filtfrac','BIV_mussel','BIV_nmp','BIV_resp','BIV_grz','BIV_net_c','OGM_poc','PHY_green'
+  min_z =   5.0, 0.0, 0,-70,0,0,-100,0,0
+  max_z =  30.0, 1.0, 5500,70,0.05,0.5,100,100,500
 /

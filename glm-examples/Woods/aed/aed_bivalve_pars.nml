@@ -1,0 +1,115 @@
+!-------------------------------------------------------------------------------
+! aed2_bivalve_pars.nml  :  BIVALVE/MUSSEL PARAMETER DATABASE
+!-------------------------------------------------------------------------------
+!-- GENERAL Parameters
+!                      name : [  string] - Name of bivalve group
+!              initial_conc : [    real] - Initial concentration of bivalve (mmolC/m2)
+!                       min : [    real] - Minimum concentration of bivalve (mmolC/m3)
+!                    length : [    real] - Length of bivalve (mm)
+!                       INC : [    real] - Ratio of internal nitrogen to carbon of bivalve (molN/molC)
+!                       IPC : [    real] - Ratio of internal phosphorus to carbon of bivalve (molP/molC)
+!-- FILTRATION & INGESTION Parameters
+!                      Rgrz : [    real] - Maximum ingestion rate of bivalve (mmol/mmol/day) (Spillman et al. 2008) Calculated from Schneider 1992 based on 15 mm mussel
+!                       Ing : [ integer] - Type of maximum ingestion for bivalve; 0=Enter (mmol/mmol/d) or 1=Calculate based on length
+!                       WaI : [    real] - Maximum standard ingestion rate of bivalve (mmol/mmol/day) (Schneider 1992)
+!                       WbI : [    real] - Exponent for weight effect on ingestion of bivalve (-) (Schneider 1992)
+!                    fassim : [    real] - Minimum proportion of food lost as pseudofeces for bivalve (-)
+!                  Cmin_grz : [    real] - Minimum prey concentration for grazing by bivalve (mmolC/m3)
+!                      Kgrz : [    real] - Optimum algae+POC concentration for ingestion of bivalve (mmol/m3)
+!                      minT : [    real] - Lower temperature for no ingestion of bivalve (degC)
+!                      Tmin : [    real] - Lower temperature for optimum ingestion of bivalve (degC)
+!                      Tmax : [    real] - Upper temperature for optimum ingestion of bivalve (degC)
+!                      maxT : [    real] - Upper temperature for no ingestion of bivalve (degC)
+!                      Dmax : [    real] - Upper density for optimum ingestion of bivalve (mmol/m2)
+!                      maxD : [    real] - Upper density for no ingestion of bivalve (mmol/m2)
+!                     SSmax : [    real] - Upper suspended solids for optimum ingestion of bivalve (mg/L)
+!                     maxSS : [    real] - Upper suspended solids for no ingestion of bivalve (mg/L)
+!-- EXCRETION & EGESTION Parameters
+!                     Rexcr : [    real] - Excretion fraction of ingestion for bivalve(-)
+!                     Regst : [    real] - Minimum proportion egested as feces for bivalve (-)
+!                     gegst : [    real] - Gamma coefficient for food availability dependence for bivalve
+!-- RESPIRATION Parameters
+!                     Rresp : [    real] - Respiration rate coefficient of bivalve (/day) (Calculated from Schneider 1992 based on 15 mm mussel)
+!                  saltfunc : [ integer] - Type of salinity function for bivalve; 0=None or 1=Spillman et al. 2008
+!                      minS : [    real] - Lower salinity for no ingestion of bivalve (psu)
+!                      Smin : [    real] - Lower salinity for optimum ingestion of bivalve (psu)
+!                      Smax : [    real] - Upper salinity for optimum ingestion of bivalve (psu)
+!                      maxS : [    real] - Upper salinity for no ingestion of bivalve (psu)
+!                      fR20 : [ integer] - Type of maximum respiration for bivalve; 0=Enter or 1=Calculate based on length (mm)
+!                       War : [    real] - Standard respiration rate of bivalve (mmol/mmol/d) (Schneider 1992)
+!                       Wbr : [    real] - Exponent for weight effect on respiration of bivalve (-)
+!                        fR : [ integer] - Type of respiration function for bivalve; 0=Schneider 1992 or 1=Spillman et al. 2008
+!                theta_resp : [    real] - Temperature multiplier for respiration of bivalve (-)
+!                     TmaxR : [    real] - Upper temperature for optimum respiration of bivalve (degC)
+!                     maxTR : [    real] - Upper temperature for no respiration of bivalve (degC)
+!                     Qresp : [    real] - Respiration curve slope estimate for bivalve (-)
+!                       SDA : [    real] - Specific dynamic action of bivalve (-)
+!-- MORTALITY Parameters
+!                     Rmort : [    real] - Mortality rate coefficient for bivalve (/day)
+!                     Rpred : [    real] - Mortality rate from predation of bivalve (/day)
+!                       fDO : [ integer] - Type of dissolved oxygen function for bivalve; 0=None or 1=XXX or 2=XXX
+!                     K_BDO : [    real] - Basal respiration rate of bivalve (mmol/m3)
+!                       KDO : [    real] - Half saturation constant for metabolic response to DO for bivalve (mmol/m3)
+!-- GENERAL Parameters
+!                  num_prey : [ integer] - Number of state variables for bivalve prey
+!      prey(1)%bivalve_prey : [  string] - State variable name of bivalve prey
+!         prey(1)%Pbiv_prey : [    real] - Preference factors for bivalve predators grazing on prey
+!      prey(2)%bivalve_prey : [  string] - State variable name of bivalve prey
+!         prey(2)%Pbiv_prey : [    real] - Preference factors for bivalve predators grazing on prey
+!      prey(3)%bivalve_prey : [  string] - State variable name of bivalve prey
+!         prey(3)%Pbiv_prey : [    real] - Preference factors for bivalve predators grazing on prey
+&bivalve_params
+  bivalve_param%name                 =       'mussel',     'arthritica', !'Blue'
+  bivalve_param%initial_conc         =           800,          833
+  bivalve_param%min                  =           8.3,          8.3
+  bivalve_param%length               =            15,           15,       !50
+  bivalve_param%INC                  =         0.167,       291.67
+  bivalve_param%IPC                  =         0.008,        64.58
+  bivalve_param%Rgrz                 =           0.9,         0.12
+  bivalve_param%Ing                  =             0,            0,       !0
+  bivalve_param%WaI                  =             0,            0
+  bivalve_param%WbI                  =         -0.39,        -0.39,       !-0.39
+  bivalve_param%fassim               =          0.62,         0.34,       !0.44
+  bivalve_param%Cmin_grz             =          0.105,         0.0005
+  bivalve_param%Kgrz                 =         180.5,        187.5
+  bivalve_param%minT                 =             4,            4,       !5
+  bivalve_param%Tmin                 =            17,           17,       !10
+  bivalve_param%Tmax                 =            20,           20,       !20
+  bivalve_param%maxT                 =            32,           32,       !28
+  bivalve_param%Dmax                 =        3333.3,       6333.3
+  bivalve_param%maxD                 =          5000,        20000
+  bivalve_param%SSmax                =            20,           20
+  bivalve_param%maxSS                =           100,          100
+  bivalve_param%Rexcr                =             0.0,            0
+  bivalve_param%Regst                =             0.015,            0
+  bivalve_param%gegst                =             0.88,            0
+  bivalve_param%Rresp                =           0.02,         0.01,      !0.01
+  bivalve_param%saltfunc             =             0,            0,       !0
+  bivalve_param%minS                 =             0,            0,       !5
+  bivalve_param%Smin                 =             0,            0,       !20
+  bivalve_param%Smax                 =             0,            0,       !35
+  bivalve_param%maxS                 =             0,            0,       !40
+  bivalve_param%fR20                 =             0.02,            0
+  bivalve_param%War                  =        16.759,       16.759
+  bivalve_param%Wbr                  =         -0.25,        -0.25,     !-0.25
+  bivalve_param%fR                   =             1,            1,      ! 1
+  bivalve_param%theta_resp           =          1.07,         1.08
+  bivalve_param%TmaxR                =            30,           30,     !20
+  bivalve_param%maxTR                =            43,           43,     !28
+  bivalve_param%Qresp                =           2.3,          2.3,     !2.3
+  bivalve_param%SDA                  =         0.285,        0.285,     !0.285
+  bivalve_param%Rmort                =             0,            0,     !0.03
+  bivalve_param%Rpred                =             0,            0
+  bivalve_param%fDO                  =             0,            0,      ! 0
+  bivalve_param%K_BDO                =           160,          160,       !160
+  bivalve_param%KDO                  =             8,            8,       !8
+  bivalve_param%num_prey             =             2,            1,       !5
+  bivalve_param%prey(1)%bivalve_prey =     'OGM_poc',    'OGM_poc',    !'OGM_poc'
+  bivalve_param%prey(1)%Pbiv_prey    =           0.5,            1
+  bivalve_param%prey(2)%bivalve_prey =   'PHY_green',  'PHY_green'
+  bivalve_param%prey(2)%Pbiv_prey    =           0.5,            1
+  bivalve_param%prey(3)%bivalve_prey =   'PHY_diatom',  'PHY_diatom'
+  bivalve_param%prey(3)%Pbiv_prey    =           0.2,            1
+  bivalve_param%prey(4)%bivalve_prey =   'PHY_crypto',  'PHY_crypto'
+  bivalve_param%prey(4)%Pbiv_prey    =           0.1,            1
+/

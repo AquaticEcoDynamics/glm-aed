@@ -1,0 +1,109 @@
+!-------------------------------------------------------------------------------
+! aed_phyto_pars.nml
+!-------------------------------------------------------------------------------
+!-- GENERAL parameters
+!                    p_name : [  string] - Name of phytoplankton group
+!                 p_initial : [    real] - Initial concentration of phytoplankton (mmol C/m3)
+!                        p0 : [    real] - Minimum concentration of phytoplankton (mmol C/m3)
+!                       w_p : [    real] - sedimentation rate (m/d)
+!                       Xcc : [    real] - carbon to chlorophyll ratio (mg C/mg chla)
+!-- GROWTH parameters
+!                  R_growth : [    real] - Phyto max growth rate @20C (/day)
+!                 fT_Method : [ integer] - Specifies temperature limitation function of growth (-); 0 = no temperature limitation 1= CAEDYM style
+!              theta_growth : [    real] - Arrenhius temperature scaling for growth function (-)
+!                     T_std : [    real] - Standard temperature (deg C)
+!                     T_opt : [    real] - Optimum temperature (deg C)
+!                     T_max : [    real] - Maximum temperature (deg C)
+!-- LIGHT parameters
+!                lightModel : [ integer] - Type of light response function [0 = no photoinhibition; 1 = photoinhibition]
+!                       I_K : [    real] - Half saturation constant for light limitation of growth (microE/m^2/s) used if lightModel=0
+!                       I_S : [    real] - saturating light intensity  (microE/m^2/s) used if lightModel=1
+!                     KePHY : [    real] - Specific attenuation coefficient  ((mmol C m^3^-1)^1 m^-1)
+!-- RESPIRATION parameters
+!                      f_pr : [    real] - Fraction of primary production lost to exudation (-)
+!                    R_resp : [    real] - Phytoplankton respiration/metabolic loss rate @ 20 (degC)
+!                theta_resp : [    real] - Arrhenius temperature scaling factor for respiration (-)
+!                    k_fres : [    real] - Fraction of metabolic loss that is true respiration (-)
+!                    k_fdom : [    real] - Fraction of metabolic loss that is DOM (-)
+!-- SALINITY parameters
+!                    salTol : [ integer] - Type of salinity limitation function (-)
+!                     S_bep : [    real] - Salinity limitation value at maximum salinity S_maxsp (-)
+!                   S_maxsp : [    real] - Maximum salinity (g/kg)
+!                     S_opt : [    real] - Optimal salinity (g/kg)
+!-- NITROGEN parameters
+!              simDINUptake : [ integer] - Simulate DIN uptake (0 = false, 1 = true)
+!              simDONUptake : [ integer] - Simulate DON uptake (0 = false, 1 = true)
+!              simNFixation : [ integer] - Simulate N fixation (0 = false, 1 = true)
+!             simINDynamics : [ integer] - Simulate internal N  (0 = assumed fixed C:N, 2 = dynamic C:N)
+!                       N_o : [    real] - Nitrogen concentraion below which uptake is 0 (mmol N/m^3)
+!                       K_N : [    real] - Half-saturation concentration of nitrogen (mmol N/m^3)
+!                    X_ncon : [    real] - Constant internal nitrogen concentration (mmol N/ mmol C) used if simINDynamics = 0 or 1
+!                    X_nmin : [    real] - minimum internal nitrogen concentration (mmol N/ mmol C) used if simINDynamics = 2
+!                    X_nmax : [    real] - maximum internal nitrogen concentration (mmol N/ mmol C) used if simINDynamics = 2
+!                 R_nuptake : [    real] - maximum nitrogen uptake rate(mmol N/m^3/d) used if simINDynamics = 2
+!                    k_nfix : [    real] - growth rate reduction under maximum nitrogen fixation (/day) used if simNFixation >0
+!                    R_nfix : [    real] - nitrogen fixation rate (mmol N/mmol C/day)
+!-- PHOSPHORUS parameters
+!              simDIPUptake : [ integer] - Simulate DIP uptake (0 = false, 1 = true)
+!             simIPDynamics : [ integer] - Simulate internal phosphorus dynamics (0 = assumed fixed C:P, 2 = dynamic C:P)
+!                       P_0 : [    real] - Phosphorus concentraion below which uptake is 0 (mmol P/m^3)
+!                       K_P : [    real] - Half-saturation concentration of phosphorus (mmol P/m^3)
+!                    X_pcon : [    real] - Constant internal phosphorus concentration (mmol P/ mmol C) used if simIPDynamics = 0 or 1
+!                    X_pmin : [    real] - Minimum internal phosphorus concentration (mmol P/mmol C) used if simIPDynamics = 2
+!                    X_pmax : [    real] - Maximum internal phosphorus concentration (mmol P/mmol C) used if simIPDynamics = 2
+!                 R_puptake : [    real] - Maximum phosphorus uptake rate(mmol P/m^3/d) used if simIPDynamics = 2
+!-- SILICA parameter
+!               simSiUptake : [ integer] - Simulate Si uptake (0 = false, 1 = true)
+!                      Si_0 : [    real] - Silica concentraion below which uptake is 0 (mmol Si/m^3)
+!                      K_Si : [    real] - Half-saturation concentration of silica (mmol Si /m3)
+!                   X_sicon : [    real] - Constant interal silica concentration (mmol Si/mmol C)
+&phyto_data
+  pd%p_name               =       'phy01',      'phy02',      'green',      'phy04',      'phy05',      'phy06',     'diatom',     'crypto',   'crypto 2',      'phy09',      'phy10',      'phy11'
+  pd%p_initial            =            10,           10,         0.04,           10,           10,           10,          8.4,          0.4,          2.4,           10,           10,           10
+  pd%p0                   =          0.03,         0.03,         0.03,         0.03,         0.03,         0.03,         0.03,         0.03,         0.03,         0.03,         0.03,         0.03
+  pd%w_p                  =             0,            0,        -0.01,            0,            0,            0,       -0.600,       -0.020,            0,            0,            0,            0
+  pd%Xcc                  =            50,           50,           40,           50,           50,           50,           40,           40,           40,           50,           50,           50
+  pd%R_growth             =           1.1,          1.1,          0.7,          1.1,          1.1,          1.1,          3.0,          1.5,          0.7,          1.1,          1.1,          1.1
+  pd%fT_Method            =             1,            1,            0,            1,            1,            1,            0,            0,            0,            1,            1,            1
+  pd%theta_growth         =          1.06,         1.06,         1.08,         1.06,         1.05,         1.06,         1.05,         1.09,         1.06,         1.06,         1.06,         1.06
+  pd%T_std                =            20,           20,           20,           20,           20,           20,           15,           15,           20,           20,           20,           20
+  pd%T_opt                =            28,           28,           27,           28,           25,           28,           20,           24,           28,           28,           28,           28
+  pd%T_max                =            35,           35,           33,           35,           31,           35,           31,           36,           34,           35,           35,           35
+  pd%lightModel           =             0,            0,            0,            0,            0,            0,            0,            0,            0,            0,            0,            0
+  pd%I_K                  =            25,           25,           25,           25,           25,           25,           10,           10,           25,           25,           25,           25
+  pd%I_S                  =           100,          100,          100,          100,          100,          100,          100,          100,          100,          100,          100,          100
+  pd%KePHY                =         0.005,        0.005,        0.005,        0.005,        0.005,        0.005,        0.001,        0.001,        0.005,        0.005,        0.005,        0.005
+  pd%f_pr                 =         0.005,        0.005,        0.005,        0.005,        0.005,        0.005,        0.002,        0.002,        0.005,        0.005,        0.005,        0.005
+  pd%R_resp               =          0.08,         0.08,        0.012,         0.08,         0.08,         0.08,         0.12,         0.09,        0.012,         0.08,         0.08,         0.08
+  pd%theta_resp           =          1.05,         1.05,         1.06,         1.05,         1.05,         1.05,         1.07,         1.07,         1.05,         1.05,         1.05,         1.05
+  pd%k_fres               =           0.6,          0.6,          0.6,          0.6,          0.6,          0.6,          0.6,          0.6,          0.6,          0.6,          0.6,          0.6
+  pd%k_fdom               =          0.05,         0.05,         0.05,         0.05,         0.05,         0.05,         0.05,         0.05,         0.05,         0.05,         0.05,         0.05
+  pd%salTol               =             0,            0,            0,            0,            0,            0,            0,            0,            0,            0,            0,            0
+  pd%S_bep                =             2,            2,            2,            2,            2,            2,            2,            2,            2,            2,            2,            2
+  pd%S_maxsp              =            35,           35,           35,           35,           35,           35,           35,           35,           35,           35,           35,           35
+  pd%S_opt                =             1,            1,            1,            1,            1,            1,            1,            1,            1,            1,            1,            1
+  pd%simDINUptake         =             1,            1,            1,            1,            1,            1,            1,            1,            1,            1,            1,            1
+  pd%simDONUptake         =             0,            0,            0,            0,            0,            0,            0,            0,            0,            0,            0,            0
+  pd%simNFixation         =             0,            0,            0,            0,            0,            0,            0,            0,            0,            0,            0,            0
+  pd%simINDynamics        =             2,            2,            2,            2,            2,            2,            2,            2,            2,            2,            2,            2
+  pd%N_o                  =          0.25,         0.25,         0.25,         0.25,         0.25,         0.25,         0.25,         0.25,         0.25,         0.25,         0.25,         0.25
+  pd%K_N                  =             4,            4,         3.21,            4,            4,            4,         3.57,         3.57,         3.21,            4,            4,            4
+  pd%X_ncon               =         0.035,        0.035,        0.035,        0.035,        0.035,        0.035,        0.035,        0.035,        0.035,        0.035,        0.035,        0.035
+  pd%X_nmin               =          0.02,         0.02,         0.02,         0.02,         0.02,         0.02,         0.02,         0.02,         0.02,         0.02,         0.02,         0.02
+  pd%X_nmax               =          0.07,         0.07,         0.07,         0.07,         0.07,         0.07,         0.07,         0.07,         0.07,         0.07,         0.07,         0.07
+  pd%R_nuptake            =          0.02,         0.02,         0.02,         0.02,         0.02,         0.02,         0.02,         0.02,         0.02,         0.02,         0.02,         0.02
+  pd%k_nfix               =           0.7,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7
+  pd%R_nfix               =         0.035,        0.035,        0.035,        0.035,        0.035,        0.035,        0.035,        0.035,        0.035,        0.035,        0.035,        0.035
+  pd%simDIPUptake         =             1,            1,            1,            1,            1,            1,            1,            1,            1,            1,            1,            1
+  pd%simIPDynamics        =             2,            2,            2,            2,            2,            2,            2,            2,            2,            2,            2,            2
+  pd%P_0                  =          0.03,         0.03,         0.03,         0.03,         0.03,         0.03,         0.03,         0.03,         0.03,         0.03,         0.03,         0.03
+  pd%K_P                  =          0.15,         0.15,         0.16,         0.15,         0.15,         0.15,         0.16,         0.16,         0.16,         0.15,         0.15,         0.15
+  pd%X_pcon               =        0.0015,       0.0015,       0.0015,       0.0015,       0.0015,       0.0015,       0.0015,       0.0015,       0.0015,       0.0015,       0.0015,       0.0015
+  pd%X_pmin               =        0.0005,       0.0005,       0.0005,       0.0005,       0.0005,       0.0005,       0.0005,       0.0005,       0.0005,       0.0005,       0.0005,       0.0005
+  pd%X_pmax               =         0.005,        0.005,        0.005,        0.005,        0.005,        0.005,        0.005,        0.005,        0.005,        0.005,        0.005,        0.005
+  pd%R_puptake            =         0.001,        0.001,        0.001,        0.001,        0.001,        0.001,        0.001,        0.001,        0.001,        0.001,        0.001,        0.001
+  pd%simSiUptake          =             0,            0,            0,            0,            0,            0,            0,            0,            0,            0,            0,            0
+  pd%Si_0                 =           0.3,          0.3,          0.3,          0.3,          0.3,          0.3,          0.3,          0.3,          0.3,          0.3,          0.3,          0.3
+  pd%K_Si                 =           2.5,          2.5,          2.5,          2.5,          2.5,          2.5,          2.5,          2.5,          2.5,          2.5,          2.5,          2.5
+  pd%X_sicon              =           0.4,          0.4,          0.4,          0.4,          0.4,          0.4,          0.4,          0.4,          0.4,          0.4,          0.4,          0.4
+/
