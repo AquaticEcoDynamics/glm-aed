@@ -1,0 +1,67 @@
+!-------------------------------------------------------------------------------
+! aed2_zoop_pars.nml
+!-------------------------------------------------------------------------------
+!                 zoop_name : [  string] - Name of zooplankton group
+!              zoop_initial : [    real] - Initial concentration of zooplankton (mmol/m3)
+!                   min_zoo : [    real] - Minimum concentration of zooplankton (mmol/m3)
+!                  Rgrz_zoo : [    real] - Zooplankton grazing rate (/day)
+!                fassim_zoo : [    real] - Assimilation efficiency for zooplankton grazing (-)
+!                  Kgrz_zoo : [    real] - Half saturation constant for zooplankton grazing (mmol/m3)
+!             theta_grz_zoo : [    real] - Temperature multiplier for zooplankton grazing (-)
+!                 Rresp_zoo : [    real] - Respiration rate coefficient (/day)
+!                 Rmort_zoo : [    real] - Mortaility rate coefficient (/day)
+!                ffecal_zoo : [    real] - Fecal Pellet fraction of respiration (-)
+!                 fexcr_zoo : [    real] - Excretion fraction of respiration (-)
+!                ffecal_sed : [    real] - Fraction of fecal pellets that sink directly to sediments (hard fraction) (-)
+!            theta_resp_zoo : [    real] - Temperature multiplier for zooplankton respiration (-)
+!                  Tstd_zoo : [    real] - Standard temperature for zooplankton respiration temperature dependence (oC)
+!                  Topt_zoo : [    real] - Optimal temperature for zooplankton temperature dependence (oC)
+!                  Tmax_zoo : [    real] - Maximum temperature for zooplankton temperature dependence (oC)
+!              saltfunc_zoo : [ integer] - Type of salinity limitation function used in mortality
+!                  Smin_zoo : [    real] - Minimum salinity for zooplankton survival (psu)
+!                  Smax_zoo : [    real] - Maximum salinity for zooplankton survival (psu)
+!                  Sint_zoo : [    real] - Intercept for salinity = 0 (psu)
+!                   INC_zoo : [    real] - Ratio of internal nitrogen to carbon (/)
+!                   IPC_zoo : [    real] - Ratio of internal phosphorus to carbon (/)
+!                 DOmin_zoo : [    real] - Minimum concentration of oxygen for zooplankton survival (mmolO2/m3)
+!              Cmin_grz_zoo : [    real] - Minumum prey concentration for grazing by zooplankton (mmol/m3)
+!                  num_prey : [ integer] - Number of state variables for zooplankton prey
+!         prey(1)%zoop_prey : [  string] - State variable name for zooplankton prey
+!         prey(1)%Pzoo_prey : [    real] - Preference factors for zooplankton predators grazing on prey
+!         prey(2)%zoop_prey : [  string] - State variable name for zooplankton prey
+!         prey(2)%Pzoo_prey : [    real] - Preference factors for zooplankton predators grazing on prey
+!         prey(3)%zoop_prey : [  string] - State variable name for zooplankton prey
+!         prey(3)%Pzoo_prey : [    real] - Preference factors for zooplankton predators grazing on prey
+&zoop_params
+  zoop_param%zoop_name            =       'zoo01',      'zoo02',      'zoo03',      'zoo04',      'zoo05',      'zoo06',      'zoo07',      'zoo08',      'zoo09',      'zoo10',      'zoo11',      'zoo12'
+  zoop_param%zoop_initial         =           2.9,          4.3,           40,           40,           40,           40,           40,           40,           40,           40,           16,           40
+  zoop_param%min_zoo              =           0.1,          0.1,          0.1,         0.03,         0.03,         0.03,         0.03,         0.03,         0.03,         0.03,          0.1,          0.1
+  zoop_param%Rgrz_zoo             =           1.1,         1.67,          0.5,          0.5,          0.5,          0.5,          0.5,          0.5,          0.5,          0.5,          1.5,          0.5
+  zoop_param%fassim_zoo           =           0.9,            1,          0.9,          0.9,          0.9,          0.9,          0.9,          0.9,          0.9,          0.9,          0.9,          0.9
+  zoop_param%Kgrz_zoo             =          41.7,         58.3,            1,            1,            1,            1,            1,            1,            1,            1,           40,            1
+  zoop_param%theta_grz_zoo        =          1.08,         1.08,         1.08,         1.08,         1.08,         1.08,         1.08,         1.08,         1.08,         1.08,         1.08,         1.08
+  zoop_param%Rresp_zoo            =          0.08,         0.08,          0.3,          0.3,          0.3,          0.3,          0.3,          0.3,          0.3,          0.3,          0.1,          0.3
+  zoop_param%Rmort_zoo            =          0.01,         0.01,          0.1,          0.1,          0.1,          0.1,          0.1,          0.1,          0.1,          0.1,         0.01,          0.1
+  zoop_param%ffecal_zoo           =           0.1,         0.05,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2
+  zoop_param%fexcr_zoo            =           0.7,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7
+  zoop_param%ffecal_sed           =          0.15,         0.15,         0.15,         0.15,         0.15,         0.15,         0.15,         0.15,         0.15,         0.15,         0.15,         0.15
+  zoop_param%theta_resp_zoo       =             1,            1,         1.08,         1.08,         1.08,         1.08,         1.08,         1.08,         1.08,         1.08,         1.08,         1.08
+  zoop_param%Tstd_zoo             =            20,           20,           20,           20,           20,           20,           20,           20,           20,           20,           20,           20
+  zoop_param%Topt_zoo             =            22,           22,           22,           22,           22,           22,           22,           22,           22,           22,           22,           22
+  zoop_param%Tmax_zoo             =            38,           34,           30,           30,           30,           30,           30,           30,           30,           30,           30,           30
+  zoop_param%saltfunc_zoo         =             1,            1,            1,            1,            1,            1,            1,            1,            1,            1,            1,            1
+  zoop_param%Smin_zoo             =             0,            0,            0,            0,            0,            0,            0,            0,            0,            0,            0,            0
+  zoop_param%Smax_zoo             =            35,           35,           35,           35,           35,           35,           35,           35,           35,           35,           35,           35
+  zoop_param%Sint_zoo             =            10,           10,           10,           10,           10,           10,           10,           10,           10,           10,           10,           10
+  zoop_param%INC_zoo              =           0.2,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2
+  zoop_param%IPC_zoo              =          0.01,         0.01,         0.01,         0.01,         0.01,         0.01,         0.01,         0.01,         0.01,         0.01,         0.01,         0.01
+  zoop_param%DOmin_zoo            =            10,           10,           10,           10,           10,           10,           10,           10,           10,           10,           10,           10
+  zoop_param%Cmin_grz_zoo         =          0.05,         0.05,         0.05,         0.05,         0.05,         0.05,         0.05,         0.05,         0.05,         0.05,         0.05,         0.05
+  zoop_param%num_prey             =             3,            3,            3,            3,            3,            3,            3,            3,            3,            3,            3,            3
+  zoop_param%prey(1)%zoop_prey    =   'PHY_green',  'PHY_green',  'PHY_green',  'PHY_green',  'PHY_green',  'PHY_green',  'PHY_green',  'PHY_green',  'PHY_green',  'PHY_green',  'PHY_green',  'PHY_green'
+  zoop_param%prey(1)%Pzoo_prey    =           0.5,          0.4,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7,          0.7
+  zoop_param%prey(2)%zoop_prey    =  'PHY_diatom', 'PHY_diatom', 'PHY_diatom', 'PHY_diatom', 'PHY_diatom', 'PHY_diatom', 'PHY_diatom', 'PHY_diatom', 'PHY_diatom', 'PHY_diatom', 'PHY_diatom', 'PHY_diatom'
+  zoop_param%prey(2)%Pzoo_prey    =           0.3,          0.1,          0.1,          0.1,          0.1,          0.1,          0.1,          0.1,          0.1,          0.1,          0.1,          0.1
+  zoop_param%prey(3)%zoop_prey    =     'OGM_poc',    'OGM_poc',    'OGM_poc',    'OGM_poc',    'OGM_poc',    'OGM_poc',    'OGM_poc',    'OGM_poc',    'OGM_poc',    'OGM_poc',    'OGM_poc',    'OGM_poc'
+  zoop_param%prey(3)%Pzoo_prey    =           0.2,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2,          0.2
+/
