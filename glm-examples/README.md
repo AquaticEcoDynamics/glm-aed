@@ -1,6 +1,6 @@
 Example Lakes
 ================
-Last compiled on 2022-05-18 14:32:45
+Last compiled on 2022-05-18 23:43:24
 
 # Falling Creek Reservoir (FCR)
 
@@ -25,3 +25,9 @@ Last compiled on 2022-05-18 14:32:45
 ## Temperature profiles
 
 ![](example_lakes_files/figure-gfm/Sparkling-1.png)<!-- -->
+
+# Lake Alexandrina
+
+## Temperature profiles
+
+![](example_lakes_files/figure-gfm/LakeAlexandrina-1.png)<!-- -->
