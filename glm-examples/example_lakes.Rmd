@@ -86,3 +86,18 @@ run_sim(lake, do_run, base_dir, glm_exec)
 ```{r Sparkling, echo = FALSE}
 plot_temp(nc_file, col_lim = c(0,30))
 ```
+
+# Lake Alexandrina
+
+```{r echo = FALSE}
+lake <- "LakeAlexandrina"
+lake_csv <- file.path(base_dir, "glm-examples", lake, "output/lake.csv") 
+nc_file <- file.path(base_dir, "glm-examples", lake, "output/output.nc")
+run_sim(lake, do_run, base_dir, glm_exec)
+```
+
+## Temperature profiles
+
+```{r LakeAlexandrina, echo = FALSE}
+plot_temp(nc_file, col_lim = c(0,35))
+```
