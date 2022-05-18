@@ -1,8 +1,9 @@
-glm-examples/FCR/output/*
-glm-examples/Woods/output/*
-glm-examples/Sparkling/output/*
-glm-examples/GrosseDhuenn/output/*
-glm-examples/EllenBrook/output/*
+glm-examples/FCR/output/output.nc
+glm-examples/Woods/output/output.nc
+glm-examples/Sparkling/output/output.nc
+glm-examples/GrosseDhuenn/output/output.nc
+glm-examples/EllenBrook/output/output.nc
+glm-examples/LakeAlexandrina/output/output.nc
 glm-examples/.DS_Store
 glm-source/binaries
 renv/*
