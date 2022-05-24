@@ -4,9 +4,6 @@ cd GLM
 . ./GLM_CONFIG
 cd ..
 
-export WITH_PLOTS=false
-export WITH_XPLOTS=false
-
 # export FC=ifort
 
 while [ $# -gt 0 ] ; do
