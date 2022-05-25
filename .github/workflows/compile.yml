@@ -115,7 +115,7 @@ jobs:
           cd $GITHUB_WORKSPACE/glm-source
           ./build_glm.sh
            mkdir -p $GITHUB_WORKSPACE/binaries/macos/Big_Sur
-           cp $GITHUB_WORKSPACE/glm-source/binaries/macOS/Big_Sur/* $GITHUB_WORKSPACE/binaries/macOS/Big_Sur/.
+           cp -r $GITHUB_WORKSPACE/glm-source/binaries/macOS/Big_Sur/* $GITHUB_WORKSPACE/binaries/macOS/Big_Sur/.
           
       - name: update binaries and push to remote
         run: |
