@@ -330,6 +330,6 @@ fi
 if [ -x ${CURDIR}/glm+ ] ; then
   /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm_$VERSION
 fi
-./admin/make_release_info.sh > ${BINPATH}/glm_$VERSION/ReleaseInfo.txt
+#./admin/make_release_info.sh > ${BINPATH}/glm_$VERSION/ReleaseInfo.txt
 
 exit 0
