@@ -44,6 +44,7 @@ jobs:
       - name: compile GLM
         run: | 
            cd $GITHUB_WORKSPACE/glm-source
+           chmod u+x ./admin/make_release_info.sh
            ./build_glm.sh
            mkdir -p $GITHUB_WORKSPACE/binaries/ubuntu/20.04
            cp $GITHUB_WORKSPACE/glm-source/binaries/ubuntu/20.04/* $GITHUB_WORKSPACE/binaries/ubuntu/20.04/.
