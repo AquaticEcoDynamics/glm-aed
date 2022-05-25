@@ -1,12 +1,19 @@
-#!/bin/bash
+#!/bin/sh
 
 cd GLM
 . ./GLM_CONFIG
 cd ..
+export OSTYPE=`uname -s`
 
-# export FC=ifort
+if [ "$OSTYPE" = "FreeBSD" ] ; then
+  export FC=flang
+else
+  export FC=gfortran
+fi
 
+ARGS=""
 while [ $# -gt 0 ] ; do
+  ARGS="$ARGS $1"
   case $1 in
     --debug)
       export DEBUG=true
@@ -23,6 +30,9 @@ while [ $# -gt 0 ] ; do
     --ifort)
       export FC=ifort
       ;;
+    --flang)
+      export FC=flang
+      ;;
     *)
       ;;
   esac
@@ -30,7 +40,6 @@ while [ $# -gt 0 ] ; do
 done
 
 export MAKE=make
-export OSTYPE=`uname -s`
 if [ "$OSTYPE" = "Darwin" ] ; then
   if [ "$HOMEBREW" = "" ] ; then
     brew -v > /dev/null 2>&1
@@ -47,11 +56,9 @@ if [ "$OSTYPE" = "Darwin" ] ; then
   fi
 else
   if [ "$OSTYPE" = "FreeBSD" ] ; then
-    export FC=flang
     export MAKE=gmake
   fi
 fi
-
 
 # see if FC is defined, if not look for gfortran at least v8
 if [ "$FC" = "" ] ; then
@@ -74,6 +81,14 @@ if [ "$FC" = "" ] ; then
 fi
 
 if [ "$FC" = "ifort" ] ; then
+  start_sh="$(ps -p "$$" -o  command= | awk '{print $1}')"
+  # ifort config scripts wont work with /bin/sh
+  # so we restart using bash
+  if [ "$start_sh" = "/bin/sh" ] ;  then
+     echo Restart using bash because ifort cant use /bin/sh
+     /bin/bash $0 $ARGS
+     exit $?
+  fi
   if [ -d /opt/intel/oneapi ] ; then
      . /opt/intel/oneapi/setvars.sh
   else
@@ -158,17 +173,17 @@ if [ "${AED}" = "true" ] ; then
     ${MAKE} || exit 1
     DAEDBENDIR=`pwd`
   fi
-  if [ -d ${CURDIR}/../libaed-riparian ] ; then
-    echo build libaed-riparian
-    cd  ${CURDIR}/../libaed-riparian
-    ${MAKE} || exit 1
-    DAEDRIPDIR=`pwd`
-  fi
   if [ -d ${CURDIR}/../libaed-demo ] ; then
     echo build libaed-demo
     cd  ${CURDIR}/../libaed-demo
     ${MAKE} || exit 1
     DAEDDMODIR=`pwd`
+  fi
+  if [ -d ${CURDIR}/../libaed-riparian ] ; then
+    echo build libaed-riparian
+    cd  ${CURDIR}/../libaed-riparian
+    ${MAKE} || exit 1
+    DAEDRIPDIR=`pwd`
   fi
   if [ -d ${CURDIR}/../libaed-dev ] ; then
     echo build libaed-dev
@@ -187,7 +202,7 @@ cd ${UTILDIR}
 ${MAKE} || exit 1
 
 cd ${CURDIR}/..
-if [ "$FC" = "flang" ] && [ -d flang_extra ] ; then
+if [ "$FC" = "flang" -a -d flang_extra ] ; then
   echo making flang extras
   cd flang_extra
   ${MAKE} || exit 1
@@ -213,10 +228,16 @@ ${CURDIR}/vers.sh $VERSION
 #${CURDIR}/vers.sh $VERSION
 cd ${CURDIR}/..
 
+
+# =====================================================================
+# Package building bit
+
+# ***************************** Linux *********************************
 if [ "$OSTYPE" = "Linux" ] ; then
   if [ $(lsb_release -is) = Ubuntu ] ; then
-    if [ ! -d binaries/ubuntu/$(lsb_release -rs) ] ; then
-      mkdir -p binaries/ubuntu/$(lsb_release -rs)/
+    BINPATH=binaries/ubuntu/$(lsb_release -rs)
+    if [ ! -d "${BINPATH}" ] ; then
+      mkdir -p "${BINPATH}"/
     fi
     cd ${CURDIR}
     if [ -x glm+ ] ; then
@@ -239,35 +260,76 @@ if [ "$OSTYPE" = "Linux" ] ; then
 
     cd ..
 
-    mv glm*.deb binaries/ubuntu/$(lsb_release -rs)/
+    mv glm*.deb ${BINPATH}/
   else
+    BINPATH="binaries/$(lsb_release -is)/$(lsb_release -rs)"
     echo "No package build for $(lsb_release -is)"
   fi
 fi
+
+# ****************************** MacOS ********************************
 if [ "$OSTYPE" = "Darwin" ] ; then
   MOSLINE=`grep 'SOFTWARE LICENSE AGREEMENT FOR ' '/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf'`
   # pre Lion :   MOSNAME=`echo ${MOSLINE} | awk -F 'Mac OS X ' '{print $NF}'  | tr -d '\\' | tr ' ' '_'`
   # pre Sierra : MOSNAME=`echo ${MOSLINE} | awk -F 'OS X ' '{print $NF}'  | tr -d '\\' | tr ' ' '_'`
   MOSNAME=`echo ${MOSLINE} | awk -F 'macOS ' '{print $NF}'  | tr -d '\\' | tr ' ' '_'`
 
-  if [ ! -d "binaries/macos/${MOSNAME}" ] ; then
-     mkdir -p "binaries/macos/${MOSNAME}"
+  BINPATH="binaries/macos/${MOSNAME}"
+  if [ ! -d "${BINPATH}" ] ; then
+     mkdir -p "${BINPATH}"
   fi
   cd ${CURDIR}/macos
   if [ "${HOMEBREW}" = "" ] ; then
     HOMEBREW=false
   fi
   /bin/bash macpkg.sh ${HOMEBREW}
-  mv ${CURDIR}/macos/glm_*.zip "${CURDIR}/../binaries/macos/${MOSNAME}/"
+  mv ${CURDIR}/macos/glm_*.zip "${CURDIR}/../${BINPATH}/"
 
   if [ "${DAEDDEVDIR}" != "" -a -d "${DAEDDEVDIR}" ] ; then
     /bin/bash macpkg.sh ${HOMEBREW} glm+
-    mv ${CURDIR}/macos/glm+_*.zip "${CURDIR}/../binaries/macos/${MOSNAME}/"
+    mv ${CURDIR}/macos/glm+_*.zip "${CURDIR}/../${BINPATH}/"
   else
     echo No GLM+
   fi
 
   cd ${CURDIR}/..
 fi
+
+# ***************************** FreeBSD *******************************
+if [ "$OSTYPE" = "FreeBSD" ] ; then
+  USRENV=`uname -K`
+  BINPATH="binaries/freebsd/${USRENV}"
+  if [ ! -d "${BINPATH}" ] ; then
+    mkdir -p "${BINPATH}"
+  fi
+
+  cd ${CURDIR}/freebsd
+
+  VERSRUL=`grep '^version:' create_pkg.sh | cut -f2 -d\"`
+  if [ "$VERSION" != "$VERSRUL" ] ; then
+    echo sed -e "s/version: \"${VERSRUL}\"/version: \"${VERSION}\"/" -i.x create_pkg.sh
+    sed -e "s/version: \"${VERSRUL}\"/version: \"${VERSION}\"/" -i.x create_pkg.sh
+    /bin/rm create_pkg.sh.x
+  fi
+
+  /bin/sh create_pkg.sh glm
+  if [ -x ../glm+ ] ; then
+    /bin/sh create_pkg.sh glm+
+  fi
+
+  mv *.pkg ${CURDIR}/../${BINPATH}
+
+  cd ${CURDIR}/..
+fi
+
+if [ -x ${BINPATH}/glm_$VERSION ] ; then
+  /bin/rm -r ${BINPATH}/glm_$VERSION
+fi
+/bin/mkdir ${BINPATH}/glm_$VERSION
+/bin/cp ${CURDIR}/glm ${BINPATH}/glm_$VERSION
+if [ -x ${CURDIR}/glm+ ] ; then
+  /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm_$VERSION
+fi
+./admin/make_release_info.sh > ${BINPATH}/glm_$VERSION/ReleaseInfo.txt
 
 exit 0
