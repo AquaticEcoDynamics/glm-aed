@@ -140,9 +140,11 @@ jobs:
       - name: Checkout submodules
         run: git submodule update --init --recursive
         
-      #- name: compile GLM
-      #  run: gfortran
-        
+  #    - name: compile GLM
+  #       run: |
+  #        cd $GITHUB_WORKSPACE\glm-source\GLM
+  #        .\build_glm.bat
+          
       - name: update binaries and push to remote
         run: |
           git config --global user.name "github-actions[bot]"
