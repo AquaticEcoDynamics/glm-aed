@@ -3,10 +3,20 @@
 cd GLM
 . ./GLM_CONFIG
 cd ..
-export OSTYPE=`uname -s`
 
+case `uname` in
+  "Darwin"|"Linux"|"FreeBSD")
+    export OSTYPE=`uname -s`
+    ;;
+  MINGW*)
+    export OSTYPE="Msys"
+    ;;
+esac
+
+export CC=gcc
 if [ "$OSTYPE" = "FreeBSD" ] ; then
   export FC=flang
+  export CC=clang
 else
   export FC=gfortran
 fi
@@ -212,6 +222,15 @@ cd ${CURDIR}
 if [ -f obj/aed_external.o ] ; then
   /bin/rm obj/aed_external.o
 fi
+
+# Update versions in resource files
+cd ${CURDIR}/win
+${CURDIR}/vers.sh $VERSION
+#cd ${CURDIR}/win-dll
+#${CURDIR}/vers.sh $VERSION
+cd ${CURDIR}
+VERSION=`grep GLM_VERSION src/glm.h | cut -f2 -d\"`
+
 ${MAKE} AEDBENDIR=$DAEDBENDIR AEDDMODIR=$DAEDDMODIR || exit 1
 if [ "${DAEDDEVDIR}" != "" -a -d ${DAEDDEVDIR} ] ; then
   echo now build plus version
@@ -219,15 +238,7 @@ if [ "${DAEDDEVDIR}" != "" -a -d ${DAEDDEVDIR} ] ; then
   ${MAKE} glm+ AEDBENDIR=$DAEDBENDIR AEDDMODIR=$DAEDDMODIR AEDRIPDIR=$DAEDRIPDIR AEDDEVDIR=$DAEDDEVDIR || exit 1
 fi
 
-
-VERSION=`grep GLM_VERSION src/glm.h | cut -f2 -d\"`
-
-cd ${CURDIR}/win
-${CURDIR}/vers.sh $VERSION
-#cd ${CURDIR}/win-dll
-#${CURDIR}/vers.sh $VERSION
 cd ${CURDIR}/..
-
 
 # =====================================================================
 # Package building bit
@@ -322,6 +333,41 @@ if [ "$OSTYPE" = "FreeBSD" ] ; then
   cd ${CURDIR}/..
 fi
 
+# ***************************** Msys *******************************
+if [ "$OSTYPE" = "Msys" ] ; then
+  cd ${CURDIR}/..
+
+  VERSION=`grep GLM_VERSION GLM/src/glm.h | cut -f2 -d\"`
+  BINPATH="binaries/windows"
+
+  if [ ! -d "${BINPATH}" ] ; then
+    mkdir -p "${BINPATH}"
+  fi
+  mkdir glm_$VERSION
+  cp win-3rd-party/x64-Release/bin/libnetcdf.dll glm_$VERSION
+  for dll in libgfortran-5.dll libgcc_s_seh-1.dll libquadmath-0.dll libwinpthread-1.dll ; do
+    dllp=`find /c/ProgramData/chocolatey/lib/mingw/tools/install/mingw64/ -name $dll 2> /dev/null | head -1`
+    echo \"$dllp\"
+    cp "$dllp" glm_$VERSION
+  done
+  /bin/cp "${CURDIR}/glm" glm_$VERSION
+# gzip -o "${BINPATH}/glm_$VERSION.zip" glm_$VERSION
+  powershell -Command "Compress-Archive -LiteralPath glm_$VERSION -DestinationPath glm_$VERSION.zip"
+  mv  glm_$VERSION.zip ${BINPATH}
+
+  if [ -x ${CURDIR}/glm+ ] ; then
+    mkdir glm+_$VERSION
+    cp glm_$VERSION/*.dll glm+_$VERSION
+    /bin/cp "${CURDIR}/glm+" glm+_$VERSION
+#   gzip -o "${BINPATH}/glm+_$VERSION.zip" glm+_$VERSION
+    powershell -Command "Compress-Archive -LiteralPath glm+_$VERSION -DestinationPath glm+_$VERSION.zip"
+    mv  glm+_$VERSION.zip ${BINPATH}
+    /bin/rm -r glm+_$VERSION
+  fi
+  /bin/rm -r glm_$VERSION
+fi
+
+# ***************************** All *******************************
 if [ -x ${BINPATH}/glm_$VERSION ] ; then
   /bin/rm -r ${BINPATH}/glm_$VERSION
 fi
@@ -330,6 +376,6 @@ fi
 if [ -x ${CURDIR}/glm+ ] ; then
   /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm_$VERSION
 fi
-#./admin/make_release_info.sh > ${BINPATH}/glm_$VERSION/ReleaseInfo.txt
+./admin/make_release_info.sh > ${BINPATH}/glm_$VERSION/ReleaseInfo.txt
 
 exit 0

@@ -1,0 +1,17 @@
+zlib-*
+freetype-*
+jpeg*
+libpng-*
+libgd-*
+curl-*
+szip-*
+hdf5-*
+netcdf-4*
+netcdf-c*
+netcdf-fortran-*
+.vs
+*.user
+*.db
+*.u2d
+*.VC.opendb
+*.VC.db

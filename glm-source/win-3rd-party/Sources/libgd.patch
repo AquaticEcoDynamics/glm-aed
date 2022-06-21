@@ -1,0 +1,13 @@
+diff -NaBur libgd-2.3.3-orig/src/gd.h libgd-2.3.3/src/gd.h
+--- libgd-2.3.3-orig/src/gd.h	2021-09-11 12:52:47.000000000 +0800
++++ libgd-2.3.3/src/gd.h	2022-06-18 07:44:58.447612000 +0800
+@@ -78,7 +78,8 @@
+ # define BGD_MALLOC __attribute__ ((__malloc__))
+ #endif
+ 
+-#define BGD_DECLARE(rt) BGD_EXPORT_DATA_PROT rt BGD_STDCALL
++//#define BGD_DECLARE(rt) BGD_EXPORT_DATA_PROT rt BGD_STDCALL
++#define BGD_DECLARE(rt) rt
+ 
+ /* VS2012+ disable keyword macroizing unless _ALLOW_KEYWORD_MACROS is set
+    We define inline, and strcasecmp if they're missing
