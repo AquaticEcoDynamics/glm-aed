@@ -12,7 +12,8 @@ case `uname` in
     export OSTYPE="Msys"
     ;;
 esac
-
+uname
+exho OSTYPE is $OSTYPE
 
 export CC=gcc
 if [ "$OSTYPE" = "FreeBSD" ] ; then
