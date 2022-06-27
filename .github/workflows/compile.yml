@@ -148,8 +148,8 @@ jobs:
           choco install cmake
 
       - name: compile GLM
-         shell: bash
-         run: |
+        shell: bash
+        run: |
           cd $GITHUB_WORKSPACE/glm-source/win-3rd-party/Sources
           ./build_all.sh
           cd $GITHUB_WORKSPACE/glm-source
