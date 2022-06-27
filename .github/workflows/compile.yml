@@ -140,12 +140,12 @@ jobs:
       - name: Checkout submodules
         run: git submodule update --init --recursive
 
-#     - name: Install packages
-#       run: |
-#         choco install make
-#         choco install mingw
-#         choco install git
-#         choco install cmake
+      - name: Install packages
+        run: |
+          choco install make
+          choco install mingw
+          choco install git
+          choco install cmake
 
 #      - name: compile GLM
 #         shell: bash
