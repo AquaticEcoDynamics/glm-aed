@@ -13,6 +13,7 @@ case `uname` in
     ;;
 esac
 
+
 export CC=gcc
 if [ "$OSTYPE" = "FreeBSD" ] ; then
   export FC=flang
