@@ -206,7 +206,7 @@ fi
 if [ "$WITH_PLOTS" = "true" ] ; then
   cd ${PLOTDIR}
   if [ "$OSTYPE" = "Msys" ] ; then
-	${MAKE} --version
+    ls -C
     ${MAKE} --makefile="Makefile.msys" || exit 1
   else
     ${MAKE} || exit 1

@@ -16,49 +16,6 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains three jobs called "macOS","Ubuntu", and "windows"
-  windows:
-    # The type of runner that the job will run on
-    runs-on: windows-latest
-
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      - name: Checkout submodules
-        run: git submodule update --init --recursive
-
-      - name: Install packages
-        run: |
-          choco install make
-          choco install mingw
-          choco install git
-          choco install cmake
-
-      - name: compile GLM
-        shell: bash
-        run: |
-          cd $GITHUB_WORKSPACE/glm-source/win-3rd-party/Sources
-          ./build_all.sh
-          cd $GITHUB_WORKSPACE/glm-source/libplot
-          git pull
-          cd $GITHUB_WORKSPACE/glm-source
-          ./build_glm.sh
-          mkdir -p $GITHUB_WORKSPACE/binaries/windows
-          cp -r $GITHUB_WORKSPACE/glm-source/binaries/windows/* $GITHUB_WORKSPACE/binaries/windows/.
-
-      - name: update binaries and push to remote
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull
-          git add -A
-          git commit -m "Update Windows binaries"
-          git push
-
   ubuntu20:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
@@ -167,4 +124,45 @@ jobs:
           git pull
           git add -A
           git commit -m "Update MacOS binaries"
+          git push
+
+  windows:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
+
+      - name: Install packages
+        run: |
+          choco install make
+          choco install mingw
+          choco install git
+          choco install cmake
+
+      - name: compile GLM
+        shell: bash
+        run: |
+          cd $GITHUB_WORKSPACE/glm-source/win-3rd-party/Sources
+          ./build_all.sh
+          cd $GITHUB_WORKSPACE/glm-source
+          ./build_glm.sh
+          mkdir -p $GITHUB_WORKSPACE/binaries/windows
+          cp -r $GITHUB_WORKSPACE/glm-source/binaries/windows/* $GITHUB_WORKSPACE/binaries/windows/.
+
+      - name: update binaries and push to remote
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull
+          git add -A
+          git commit -m "Update Windows binaries"
           git push
