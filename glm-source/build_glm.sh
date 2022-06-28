@@ -205,6 +205,7 @@ fi
 
 if [ "$WITH_PLOTS" = "true" ] ; then
   cd ${PLOTDIR}
+  ${MAKE} clean
   ${MAKE} || exit 1
 fi
 
