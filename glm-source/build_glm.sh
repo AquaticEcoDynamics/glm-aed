@@ -13,7 +13,7 @@ case `uname` in
     ;;
 esac
 uname
-exho OSTYPE is $OSTYPE
+echo OSTYPE is $OSTYPE
 
 export CC=gcc
 if [ "$OSTYPE" = "FreeBSD" ] ; then
