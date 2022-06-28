@@ -359,6 +359,7 @@ if [ "$OSTYPE" = "Msys" ] ; then
     mkdir glm+_$VERSION
     cp glm_$VERSION/*.dll glm+_$VERSION
     /bin/cp "${CURDIR}/glm+" glm+_$VERSION
+
 #   gzip -o "${BINPATH}/glm+_$VERSION.zip" glm+_$VERSION
     powershell -Command "Compress-Archive -LiteralPath glm+_$VERSION -DestinationPath glm+_$VERSION.zip"
     mv  glm+_$VERSION.zip ${BINPATH}
