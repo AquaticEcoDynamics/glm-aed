@@ -43,6 +43,8 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/glm-source/win-3rd-party/Sources
           ./build_all.sh
+          cd $GITHUB_WORKSPACE/glm-source/libplot
+          git pull
           cd $GITHUB_WORKSPACE/glm-source
           ./build_glm.sh
           mkdir -p $GITHUB_WORKSPACE/binaries/windows
