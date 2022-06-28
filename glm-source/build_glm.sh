@@ -13,7 +13,6 @@ case `uname` in
     ;;
 esac
 
-
 export CC=gcc
 if [ "$OSTYPE" = "FreeBSD" ] ; then
   export FC=flang
@@ -206,8 +205,11 @@ fi
 
 if [ "$WITH_PLOTS" = "true" ] ; then
   cd ${PLOTDIR}
-  ${MAKE} clean
-  ${MAKE} || exit 1
+  if [ "$OSTYPE" = "Msys" ] ; then
+    ${MAKE} -f Makefile.msys || exit 1
+  else
+    ${MAKE} || exit 1
+  fi
 fi
 
 cd ${UTILDIR}
