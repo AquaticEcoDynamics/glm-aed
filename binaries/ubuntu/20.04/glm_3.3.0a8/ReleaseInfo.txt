@@ -1,0 +1,13 @@
+This build is produced from the following git points :
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+The plus version also has :
+
