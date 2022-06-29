@@ -384,6 +384,5 @@ if [ "$OSTYPE" != "Msys" ] ; then
 fi
 
 echo Finished build for $OSTYPE
-pwd
 
 exit 0
