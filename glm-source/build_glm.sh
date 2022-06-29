@@ -368,6 +368,9 @@ if [ "$OSTYPE" = "Msys" ] ; then
     /bin/rm -r glm+_$VERSION
   fi
   /bin/rm -r glm_$VERSION
+  echo done packaging of windows version
+
+  cd ${CURDIR}/..
 fi
 
 # ***************************** All *******************************
