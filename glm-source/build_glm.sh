@@ -368,7 +368,6 @@ if [ "$OSTYPE" = "Msys" ] ; then
     /bin/rm -r glm+_$VERSION
   fi
   /bin/rm -r glm_$VERSION
-  echo done packaging of windows version
 
   cd ${CURDIR}/..
 fi
@@ -382,6 +381,12 @@ fi
 if [ -x ${CURDIR}/glm+ ] ; then
   /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm_$VERSION
 fi
-./admin/make_release_info.sh > ${BINPATH}/glm_$VERSION/ReleaseInfo.txt
+if [ "$OSTYPE" != "Msys" ] ; then
+  # dont bother if its a windows build - too hard...
+  ./admin/make_release_info.sh > ${BINPATH}/glm_$VERSION/ReleaseInfo.txt
+fi
+
+echo Finished build for $OSTYPE
+pwd
 
 exit 0
