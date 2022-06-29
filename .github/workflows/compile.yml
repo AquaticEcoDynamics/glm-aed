@@ -166,7 +166,7 @@ jobs:
           echo changing directory :
           cd $GITHUB_WORKSPACE/glm-source/binaries/windows
           echo moving files :
-          mv * $GITHUB_WORKSPACE/binaries/windows
+          cp *.zip $GITHUB_WORKSPACE/binaries/windows
           echo other way of moving files :
         # mv $GITHUB_WORKSPACE/glm-source/binaries/windows/* $GITHUB_WORKSPACE/binaries/windows
 
