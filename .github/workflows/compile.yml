@@ -157,11 +157,11 @@ jobs:
           cd $GITHUB_WORKSPACE/glm-source
           ./build_glm.sh
           ls -l
-          echo source ( $GITHUB_WORKSPACE/glm-source ) has :
+          echo source X $GITHUB_WORKSPACE/glm-source X has :
           ls -l $GITHUB_WORKSPACE/glm-source
-          echo binaries ( $GITHUB_WORKSPACE/glm-source/binaries/windows ) has :
+          echo binaries X $GITHUB_WORKSPACE/glm-source/binaries/windows X has :
           ls -l $GITHUB_WORKSPACE/glm-source/binaries/windows
-          echo making directory ( $GITHUB_WORKSPACE/binaries/windows ) :
+          echo making directory X $GITHUB_WORKSPACE/binaries/windows X :
           mkdir -p $GITHUB_WORKSPACE/binaries/windows
           echo moving files :
           mv $GITHUB_WORKSPACE\glm-source\binaries\windows\* $GITHUB_WORKSPACE\binaries\windows
