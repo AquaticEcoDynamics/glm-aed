@@ -232,10 +232,12 @@ cd ${CURDIR}
 VERSION=`grep GLM_VERSION src/glm.h | cut -f2 -d\"`
 
 ${MAKE} AEDBENDIR=$DAEDBENDIR AEDDMODIR=$DAEDDMODIR || exit 1
-if [ "${DAEDDEVDIR}" != "" -a -d ${DAEDDEVDIR} ] ; then
-  echo now build plus version
-  /bin/rm obj/aed_external.o
-  ${MAKE} glm+ AEDBENDIR=$DAEDBENDIR AEDDMODIR=$DAEDDMODIR AEDRIPDIR=$DAEDRIPDIR AEDDEVDIR=$DAEDDEVDIR || exit 1
+if [ "${DAEDDEVDIR}" != "" ] ; then
+  if [ -d ${DAEDDEVDIR} ] ; then
+    echo now build plus version
+    /bin/rm obj/aed_external.o
+    ${MAKE} glm+ AEDBENDIR=$DAEDBENDIR AEDDMODIR=$DAEDDMODIR AEDRIPDIR=$DAEDRIPDIR AEDDEVDIR=$DAEDDEVDIR || exit 1
+  fi
 fi
 
 cd ${CURDIR}/..

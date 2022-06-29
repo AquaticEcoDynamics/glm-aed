@@ -6,7 +6,9 @@ export PLUSLIST="libaed-riparian libaed-dev libaed2-plus"
 
 
 extract_vers () {
-  export RPO=`cat .git/config | grep -w url | rev | cut -d'/' -f 1 | rev`
+# export RPO=`cat .git/config | grep -w url | rev | cut -d'/' -f 1 | rev`
+# mingw doesnt have rev, so do it this way.
+  export RPO=`cat .git/config | grep -w url | tr '/' '\n' | tail -1`
   export VRS=`cat .git/ORIG_HEAD | cut -c -7`
   echo "$VRS $RPO"
 }
