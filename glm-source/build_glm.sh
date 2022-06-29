@@ -304,8 +304,6 @@ if [ "$OSTYPE" = "Darwin" ] ; then
   else
     echo No GLM+
   fi
-
-  cd ${CURDIR}/..
 fi
 
 # ***************************** FreeBSD *******************************
@@ -331,8 +329,6 @@ if [ "$OSTYPE" = "FreeBSD" ] ; then
   fi
 
   mv *.pkg ${CURDIR}/../${BINPATH}
-
-  cd ${CURDIR}/..
 fi
 
 # ***************************** Msys *******************************
@@ -369,10 +365,11 @@ if [ "$OSTYPE" = "Msys" ] ; then
   fi
   /bin/rm -r glm_$VERSION
 
-  cd ${CURDIR}/..
 fi
 
 # ***************************** All *******************************
+cd ${CURDIR}/..
+
 if [ -x ${BINPATH}/glm_$VERSION ] ; then
   /bin/rm -r ${BINPATH}/glm_$VERSION
 fi
