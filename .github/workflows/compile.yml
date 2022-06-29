@@ -158,11 +158,13 @@ jobs:
           ./build_glm.sh
           ls -l
           echo source has :
-          ls $GITHUB_WORKSPACE/glm-source
+          ls -l $GITHUB_WORKSPACE/glm-source
           echo binaries has :
-          ls $GITHUB_WORKSPACE/glm-source/binaries/windows/
+          ls -l $GITHUB_WORKSPACE/glm-source/binaries/windows
+          echo making directory :
           mkdir -p $GITHUB_WORKSPACE/binaries/windows
-          cp -r $GITHUB_WORKSPACE/glm-source/binaries/windows/* $GITHUB_WORKSPACE/binaries/windows/.
+          echo mving files :
+          mv $GITHUB_WORKSPACE/glm-source/binaries/windows/* $GITHUB_WORKSPACE/binaries/windows
 
       - name: update binaries and push to remote
         run: |
