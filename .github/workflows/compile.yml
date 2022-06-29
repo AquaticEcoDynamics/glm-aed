@@ -156,7 +156,7 @@ jobs:
           ./build_all.sh
           cd $GITHUB_WORKSPACE/glm-source
           ./build_glm.sh
-          ls $GITHUB_WORKSPACE/binaries/windows
+          ls $GITHUB_WORKSPACE/glm-source/binaries/windows/
           mkdir -p $GITHUB_WORKSPACE/binaries/windows
           cp -r $GITHUB_WORKSPACE/glm-source/binaries/windows/* $GITHUB_WORKSPACE/binaries/windows/.
 

@@ -384,5 +384,6 @@ if [ "$OSTYPE" != "Msys" ] ; then
 fi
 
 echo Finished build for $OSTYPE
+ls -l ${CURDIR}/../${BINPATH}
 
 exit 0
