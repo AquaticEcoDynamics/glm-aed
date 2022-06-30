@@ -169,7 +169,8 @@ jobs:
           echo now dir the GLM dir
           dir ..\..\glm-source\GLM
           echo now try running glm
-          ..\..\glm-source\GLM\glm.exe
+          ..\..\glm-source\GLM\glm.exe > glm.log
+          type glm.log
           echo run completed
           
       - name: update binaries and push to remote
