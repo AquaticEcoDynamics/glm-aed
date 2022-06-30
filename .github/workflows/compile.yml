@@ -162,9 +162,10 @@ jobs:
           cp -r * $GITHUB_WORKSPACE/binaries/windows
 
       - name: run GLM FCR
+        shell: bash
         run: | 
           cd glm-examples/FCR
-          "$GITHUB_WORKSPACE/glm-source/GLM/glm.exe"
+          $GITHUB_WORKSPACE/glm-source/GLM/glm.exe
           echo run completed
           
       - name: update binaries and push to remote
