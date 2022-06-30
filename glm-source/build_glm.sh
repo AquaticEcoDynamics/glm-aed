@@ -378,11 +378,7 @@ fi
 if [ -x ${CURDIR}/glm+ ] ; then
   /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm_$VERSION
 fi
-# the make release doent seem to work at all
-#if [ "$OSTYPE" != "Msys" ] ; then
-#  # dont bother if its a windows build - too hard...
-#  ./admin/make_release_info.sh > ${BINPATH}/glm_$VERSION/ReleaseInfo.txt
-#fi
+./admin/make_release_info.sh > ${BINPATH}/glm_$VERSION/ReleaseInfo.txt
 
 echo Finished build for $OSTYPE
 ls -l ${CURDIR}/../${BINPATH}

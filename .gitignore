@@ -9,3 +9,4 @@ glm-source/binaries
 renv/*
 .Rprofile
 .DS_Store
+.*.swp
