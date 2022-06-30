@@ -26,6 +26,10 @@ do_list () {
 }
 
 do_it () {
+  echo config
+  cat "${PATH}/config"
+  echo head
+  cat "${PATH}/HEAD"
   echo "This build is produced from the following git points :"
   echo
   extract_vers
