@@ -5,6 +5,7 @@ export MAINLIST="GLM libplot libutil libaed-water libaed-benthic libaed-demo lib
 export PLUSLIST="libaed-riparian libaed-dev libaed2-plus"
 export PATH="../.git/modules/glm-source/GLM"
 
+ls $PATH
 
 extract_vers () {
 # export RPO=`cat .git/config | grep -w url | rev | cut -d'/' -f 1 | rev`
