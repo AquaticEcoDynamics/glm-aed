@@ -3,7 +3,7 @@
 export OUTFILE="ReleaseInfo.txt"
 export MAINLIST="GLM libplot libutil libaed-water libaed-benthic libaed-demo libaed2"
 export PLUSLIST="libaed-riparian libaed-dev libaed2-plus"
-export PATH="../../.git/modules/glm-source/GLM"
+export PATH="../.git/modules/glm-source/GLM"
 
 
 extract_vers () {
