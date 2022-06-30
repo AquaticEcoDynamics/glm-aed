@@ -169,7 +169,8 @@ jobs:
           echo now dir the GLM dir
           ls ../../glm-source/GLM
           echo now try running glm
-          ../../glm-source/GLM/glm.exe >& glm.log
+          #../../glm-source/GLM/glm.exe >& glm.log
+          $GITHUB_WORKSPACE/binaries/windows/glm_3.3.0a8/glm.exe
           cat glm.log
           rm glm.log
           echo run completed

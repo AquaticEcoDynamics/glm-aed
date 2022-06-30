@@ -370,17 +370,19 @@ fi
 # ***************************** All *******************************
 cd ${CURDIR}/..
 
-if [ -x ${BINPATH}/glm_$VERSION ] ; then
-  /bin/rm -r ${BINPATH}/glm_$VERSION
-fi
-/bin/mkdir ${BINPATH}/glm_$VERSION
-/bin/cp ${CURDIR}/glm ${BINPATH}/glm_$VERSION
-if [ -x ${CURDIR}/glm+ ] ; then
-  /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm_$VERSION
-fi
+#if [ -x ${BINPATH}/glm_$VERSION ] ; then
+#  /bin/rm -r ${BINPATH}/glm_$VERSION
+#fi
+#/bin/mkdir ${BINPATH}/glm_$VERSION
+#/bin/cp ${CURDIR}/glm ${BINPATH}/glm_$VERSION
+#if [ -x ${CURDIR}/glm+ ] ; then
+#  /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm_$VERSION
+#fi
 ./admin/make_release_info.sh > ${BINPATH}/glm_$VERSION/ReleaseInfo.txt
 
 echo Finished build for $OSTYPE
 ls -l ${CURDIR}/../${BINPATH}
+echo bin dir includes
+ls -l ${CURDIR}/../${BINPATH}/glm_$VERSION
 
 exit 0
