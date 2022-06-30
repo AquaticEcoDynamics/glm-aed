@@ -167,9 +167,9 @@ jobs:
           cd glm-examples/FCR
           ls
           echo now dir the GLM dir
-          ls ..\..\glm-source\GLM
+          ls ../../glm-source\GLM
           echo now try running glm
-          ..\..\glm-source\GLM\glm.exe >& glm.log
+          ../../glm-source/GLM/glm.exe >& glm.log
           cat glm.log
           rm glm.log
           echo run completed
