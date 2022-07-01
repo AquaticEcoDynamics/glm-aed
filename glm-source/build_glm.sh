@@ -368,20 +368,18 @@ if [ "$OSTYPE" = "Msys" ] ; then
 fi
 
 # ***************************** All *******************************
-echo now at : `pwd`
 cd ${CURDIR}/..
-echo and now at : `pwd`
 
 if [ -d ${BINPATH}/glm_$VERSION ] ; then
   /bin/mv ${BINPATH}/glm_$VERSION ${BINPATH}/glm_latest
 else
-  /bin/mkdir ${BINPATH}/glm_latestVERSION
+  /bin/mkdir ${BINPATH}/glm_latest
 fi
-/bin/cp ${CURDIR}/glm ${BINPATH}/glm_latestVERSION
+/bin/cp ${CURDIR}/glm ${BINPATH}/glm_latest
 if [ -x ${CURDIR}/glm+ ] ; then
-  /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm_latestVERSION
+  /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm_latest
 fi
-./admin/make_release_info.sh > ${BINPATH}/glm_latest/ReleaseInfo.txt
+bash ./admin/make_release_info.sh > ${BINPATH}/glm_latest/ReleaseInfo.txt
 
 echo Finished build for $OSTYPE
 ls -l ${CURDIR}/../${BINPATH}

@@ -27,12 +27,14 @@ do_list () {
 
 do_it () {
   echo 0
-  ls ../.git
+  ls ../
   echo 1
-  ls ../.git/modules
+  ls ../.git
   echo 2
-  ls ../.git/modules/glm-source
+  ls ../.git/modules
   echo 3
+  ls ../.git/modules/glm-source
+  echo 4
   ls ../.git/modules/glm-source/GLM
   echo config
   cat "${PATH}/config"
