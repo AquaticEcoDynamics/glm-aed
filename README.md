@@ -1,13 +1,12 @@
 ![image](glm-examples/example_lakes_files/figure-gfm/lakenz.png)
 
 # GLM-AED
-[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
+[![Latest release](https://badgen.net/github/release/Naereen/Strapdown.js)](https://github.com/AquaticEcoDynamics/glm-aed/releases)
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
 [![macOS](https://svgshare.com/i/ZjP.svg)](https://svgshare.com/i/ZjP.svg)
 [![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg)
+[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/AquaticEcoDynamics/glm-aed/HEAD?urlpath=rstudio)
-[![Latest release](https://badgen.net/github/release/Naereen/Strapdown.js)](https://github.com/AquaticEcoDynamics/glm-aed/releases)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6363500.svg)](https://doi.org/10.5281/zenodo.6363500) (BADGE PENDING RELEASE)
 
 <br>
 
@@ -21,14 +20,20 @@ GLM is suitable for simulating conditions in a wide range of natural and enginee
 
 The repository includes:
 
+- `binaries` : model pre-compiled executables for mac, linux and windows.
 - `glm-source` : model source code, including GLM and AED as linked sub-modules.
 - `glm-examples` : model example simulations, including all required input files.
+- `workflows` : github workflows for autimated compilation and testing.
 
 <br>
 
 ## Citing code
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6363500.svg)](https://doi.org/10.5281/zenodo.6363500) (BADGE PENDING RELEASE)
+
 Pending Authors (Pending year). General Lake Model - Aquatic Ecosystem Dynamics (GLM-AED) V XXXX. [Software]. Zenodo. (Pending Zenado DOI)
+
+<br>
 
 ## Cloning the repo with all submodule code
 
@@ -43,6 +48,8 @@ git clone --recurse-submodules https://github.com/AquaticEcoDynamics/glm-aed.git
 ```
 git clone --recurse-submodules -b v3.3.0 https://github.com/AquaticEcoDynamics/glm-aed.git
 ```
+
+<br>
 
 ## Archiving all code
 
