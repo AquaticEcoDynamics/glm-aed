@@ -379,12 +379,8 @@ fi
 if [ -x ${CURDIR}/glm+ ] ; then
   /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm_latest
 fi
-echo my path was $PATH
 ./admin/make_release_info.sh > ${BINPATH}/glm_latest/ReleaseInfo.txt
 
 echo Finished build for $OSTYPE
-ls -l ${CURDIR}/../${BINPATH}
-echo bin dir includes
-ls -l ${CURDIR}/../${BINPATH}/glm_latest
 
 exit 0
