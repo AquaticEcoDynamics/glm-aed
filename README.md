@@ -23,7 +23,7 @@ The repository includes:
 - `binaries` : model pre-compiled executables for mac, linux and windows.
 - `glm-source` : model source code, including GLM and AED as linked sub-modules.
 - `glm-examples` : model example simulations, including all required input files.
-- `workflows` : github workflows for autimated compilation and testing.
+- `workflows` : github workflows for automated compilation and testing.
 
 <br>
 
@@ -55,6 +55,10 @@ git clone --recurse-submodules -b v3.3.0 https://github.com/AquaticEcoDynamics/g
 
 If you want to create an archive of all the code (including the submodules), first clone the repository as described above and zip entire repository.  The zip file can be uploaded to Zenado to get a DOI.  An automated integration with Zenodo will not archive the code from the submodules.
 
+<br>
+
 ## Additional information
 
-See repository Wiki for additional information on editing the repository and adding new example lakes.
+See repository [Wiki](https://github.com/AquaticEcoDynamics/glm-aed/wiki) for additional information on getting started using GLM-AED, workign with the repository, and updating or adding new example lakes.
+
+
