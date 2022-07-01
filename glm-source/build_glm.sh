@@ -370,17 +370,23 @@ fi
 # ***************************** All *******************************
 cd ${CURDIR}/..
 
+echo Finished build for $OSTYPE
+
 if [ -d ${BINPATH}/glm_$VERSION ] ; then
   /bin/mv ${BINPATH}/glm_$VERSION ${BINPATH}/glm_latest
 else
   /bin/mkdir ${BINPATH}/glm_latest
 fi
+echo "glm_$VERSION" > ${BINPATH}/glm_latest/VERSION
 /bin/cp ${CURDIR}/glm ${BINPATH}/glm_latest
 if [ -x ${CURDIR}/glm+ ] ; then
   /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm_latest
 fi
+
+echo Generating ReleaseInfo.txt
+
 ./admin/make_release_info.sh > ${BINPATH}/glm_latest/ReleaseInfo.txt
 
-echo Finished build for $OSTYPE
+echo Finished packaging for $OSTYPE
 
 exit 0
