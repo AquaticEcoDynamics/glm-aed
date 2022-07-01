@@ -349,7 +349,7 @@ if [ "$OSTYPE" = "Msys" ] ; then
     cp "$dllp" glm_$VERSION
   done
   /bin/cp "${CURDIR}/glm" glm_$VERSION
-# gzip -o "${BINPATH}/glm_$VERSION.zip" glm_$VERSION
+  # zip up the bundle
   powershell -Command "Compress-Archive -LiteralPath glm_$VERSION -DestinationPath glm_$VERSION.zip"
   mv  glm_$VERSION.zip ${BINPATH}
 
@@ -358,26 +358,28 @@ if [ "$OSTYPE" = "Msys" ] ; then
     cp glm_$VERSION/*.dll glm+_$VERSION
     /bin/cp "${CURDIR}/glm+" glm+_$VERSION
 
-#   gzip -o "${BINPATH}/glm+_$VERSION.zip" glm+_$VERSION
+    # zip up the + bundle
     powershell -Command "Compress-Archive -LiteralPath glm+_$VERSION -DestinationPath glm+_$VERSION.zip"
     mv  glm+_$VERSION.zip ${BINPATH}
-#   /bin/rm -r glm+_$VERSION
+    mv glm+_$VERSION ${BINPATH}
   fi
-# /bin/rm -r glm_$VERSION
+  mv glm_$VERSION ${BINPATH}
 
 fi
 
 # ***************************** All *******************************
+echo now at : `pwd`
 cd ${CURDIR}/..
+echo and now at : `pwd`
 
-#if [ -x ${BINPATH}/glm_$VERSION ] ; then
+#if [ -d ${BINPATH}/glm_$VERSION ] ; then
 #  /bin/rm -r ${BINPATH}/glm_$VERSION
 #fi
-#/bin/mkdir ${BINPATH}/glm_$VERSION
-#/bin/cp ${CURDIR}/glm ${BINPATH}/glm_$VERSION
-#if [ -x ${CURDIR}/glm+ ] ; then
-#  /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm_$VERSION
-#fi
+/bin/mkdir ${BINPATH}/glm_$VERSION
+/bin/cp ${CURDIR}/glm ${BINPATH}/glm_$VERSION
+if [ -x ${CURDIR}/glm+ ] ; then
+  /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm_$VERSION
+fi
 ./admin/make_release_info.sh > ${BINPATH}/glm_$VERSION/ReleaseInfo.txt
 
 echo Finished build for $OSTYPE
