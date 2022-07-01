@@ -67,6 +67,8 @@ If you want to create an archive of all the code (including the submodules), fir
 
 See repository [Wiki](https://github.com/AquaticEcoDynamics/glm-aed/wiki) for additional information on getting started using GLM-AED, working with the repository, and updating or adding new example lakes.
 
+<br>
 
-![image](glm-source/admin/aed.png)
+<img src="glm-source/admin/aed.png" alt="AED" width="100"/>
+
 
