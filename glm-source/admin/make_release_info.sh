@@ -10,8 +10,8 @@ ls $PATH
 extract_vers () {
 # export RPO=`cat .git/config | grep -w url | rev | cut -d'/' -f 1 | rev`
 # mingw doesnt have rev, so do it this way.
-  export RPO=`cat ${GITCPATH}/config | grep -w url | tr '/' '\n' | tail -1`
-  export VRS=`cat ${GITCPATH}/HEAD | cut -c -7`
+  export RPO=`cat "${GITCPATH}/config" | grep -w url | tr '/' '\n' | tail -1`
+  export VRS=`cat "${GITCPATH}/HEAD" | cut -c -7`
   echo "$VRS $RPO"
 }
 
@@ -26,22 +26,21 @@ do_list () {
 }
 
 do_it () {
-# echo PATH=$PATH
-# export PATH=$PATH:/usr/bin:/bin
-  echo 0
-  ls ../
-  echo 1
-  ls ../.git
-  echo 2
-  ls ../.git/modules
-  echo 3
-  ls ../.git/modules/glm-source
-  echo 4
-  ls ../.git/modules/glm-source/GLM
-  echo XXXXX config
-  cat "${GITCPATH}/config"
-  echo XXXXX head
-  cat "${GITCPATH}/HEAD"
+# echo "make_release_info.sh : from " `pwd`
+# echo 0
+# ls ../
+# echo 1
+# ls ../.git
+# echo 2
+# ls ../.git/modules
+# echo 3
+# ls ../.git/modules/glm-source
+# echo 4
+# ls ../.git/modules/glm-source/GLM
+# echo XXXXX config
+# cat "${GITCPATH}/config"
+# echo XXXXX head
+# cat "${GITCPATH}/HEAD"
   echo "This build is produced from the following git points :"
   echo
   extract_vers
