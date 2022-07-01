@@ -3,47 +3,30 @@
 export OUTFILE="ReleaseInfo.txt"
 export MAINLIST="GLM libplot libutil libaed-water libaed-benthic libaed-demo libaed2"
 export PLUSLIST="libaed-riparian libaed-dev libaed2-plus"
-export GITCPATH="../.git/modules/glm-source/GLM"
+export GITCPATH="../.git/modules/glm-source"
 
 ls $PATH
 
 extract_vers () {
 # export RPO=`cat .git/config | grep -w url | rev | cut -d'/' -f 1 | rev`
 # mingw doesnt have rev, so do it this way.
-  export RPO=`cat "${GITCPATH}/config" | grep -w url | tr '/' '\n' | tail -1`
-  export VRS=`cat "${GITCPATH}/HEAD" | cut -c -7`
+  export RPO=`cat "${GITCPATH}/$1/config" | grep -w url | tr '/' '\n' | tail -1`
+  export VRS=`cat "${GITCPATH}/$1/HEAD" | cut -c -7`
   echo "$VRS $RPO"
 }
 
 do_list () {
   for src in $* ; do
     if [ -d $src ] ; then
-      cd $src
-        extract_vers
-      cd ..
+      extract_vers $src
     fi
   done
 }
 
 do_it () {
-# echo "make_release_info.sh : from " `pwd`
-# echo 0
-# ls ../
-# echo 1
-# ls ../.git
-# echo 2
-# ls ../.git/modules
-# echo 3
-# ls ../.git/modules/glm-source
-# echo 4
-# ls ../.git/modules/glm-source/GLM
-# echo XXXXX config
-# cat "${GITCPATH}/config"
-# echo XXXXX head
-# cat "${GITCPATH}/HEAD"
   echo "This build is produced from the following git points :"
   echo
-  extract_vers
+  extract_vers GLM
   do_list ${MAINLIST}
 
   # For the PLUS versions :
