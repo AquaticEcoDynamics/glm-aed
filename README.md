@@ -10,7 +10,7 @@
 
 <br>
 
-The **General Lake Model** (**GLM**) is a water balance and one-dimensional vertical stratification hydrodynamic model, which is dynamically coupled with the AED water quality modelling library. This repository houses the coupled model code libraries, example applications, and binaries (ready-to-run executable files). 
+The **General Lake Model** (**GLM**) is a water balance and one-dimensional vertical stratification hydrodynamic model, which is dynamically coupled with the **AED** water quality modelling library. This repository houses the coupled model code libraries, example applications, and binaries (ready-to-run executable files). 
 
 GLM is suitable for simulating conditions in a wide range of natural and engineered lakes, including shallow (well-mixed) and deep (stratified) systems. The model has been successfully applied to systems from the scale of individual ponds and wetlands, to actively operated reservoirs, upto the scale of the Great Lakes.
 
@@ -37,13 +37,13 @@ Pending Authors (Pending year). General Lake Model - Aquatic Ecosystem Dynamics 
 
 ## Getting the latest executables
 
-For users who only need access to the model executable download, the executable for your chosen platform can be downloaded without getting the full repository. Simply navigate to the binaries/os folder, click on the relevant file (e.g., `glm_3.3.0.zip`) and click the "*download*" button on the right.
+For users who only need access to a model executable, the executable for your chosen platform can be downloaded without getting the full repository. Simply navigate to the binaries/os folder, click on the relevant file (e.g., `glm_3.3.0.zip`) and click the "*download*" button on the right.
 
 <br>
 
-## Cloning the repo with all submodule code
+## Cloning the repo with all sub-module code
 
-A basic clone will not include the code in the submodules so an extra argument is needed `--recurse-submodules`
+To access the full repository, including the model examples, the repository must be cloned or downloaded in full. Note that a basic clone will not include the code/files in the linked sub-modules, so an extra argument is needed `--recurse-submodules`
 
 ### Cloning the latest code
 ```
