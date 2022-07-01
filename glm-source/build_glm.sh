@@ -372,19 +372,20 @@ echo now at : `pwd`
 cd ${CURDIR}/..
 echo and now at : `pwd`
 
-#if [ -d ${BINPATH}/glm_$VERSION ] ; then
-#  /bin/rm -r ${BINPATH}/glm_$VERSION
-#fi
-/bin/mkdir ${BINPATH}/glm_$VERSION
-/bin/cp ${CURDIR}/glm ${BINPATH}/glm_$VERSION
-if [ -x ${CURDIR}/glm+ ] ; then
-  /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm_$VERSION
+if [ -d ${BINPATH}/glm_$VERSION ] ; then
+  /bin/mv ${BINPATH}/glm_$VERSION ${BINPATH}/glm_latest
+else
+  /bin/mkdir ${BINPATH}/glm_latestVERSION
 fi
-./admin/make_release_info.sh > ${BINPATH}/glm_$VERSION/ReleaseInfo.txt
+/bin/cp ${CURDIR}/glm ${BINPATH}/glm_latestVERSION
+if [ -x ${CURDIR}/glm+ ] ; then
+  /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm_latestVERSION
+fi
+./admin/make_release_info.sh > ${BINPATH}/glm_latest/ReleaseInfo.txt
 
 echo Finished build for $OSTYPE
 ls -l ${CURDIR}/../${BINPATH}
 echo bin dir includes
-ls -l ${CURDIR}/../${BINPATH}/glm_$VERSION
+ls -l ${CURDIR}/../${BINPATH}/glm_latest
 
 exit 0

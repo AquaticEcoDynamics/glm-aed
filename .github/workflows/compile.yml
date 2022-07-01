@@ -165,15 +165,8 @@ jobs:
         shell: bash
         run: | 
           cd glm-examples/FCR
-          ls
-          echo now dir the binary dir
-          #ls ../../glm-source/GLM
-          ls $GITHUB_WORKSPACE/binaries/windows/glm_3.3.0a8/
           echo now try running glm
-          $GITHUB_WORKSPACE/binaries/windows/glm_3.3.0a8/glm.exe
-          #../../glm-source/GLM/glm.exe >& glm.log
-          #cat glm.log
-          #rm glm.log
+          $GITHUB_WORKSPACE/binaries/windows/glm_latest/glm.exe
           echo run completed
           
       - name: update binaries and push to remote

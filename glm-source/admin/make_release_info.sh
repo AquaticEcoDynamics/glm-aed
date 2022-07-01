@@ -26,6 +26,14 @@ do_list () {
 }
 
 do_it () {
+  echo 0
+  ls ../.git
+  echo 1
+  ls ../.git/modules
+  echo 2
+  ls ../.git/modules/glm-source
+  echo 3
+  ls ../.git/modules/glm-source/GLM
   echo config
   cat "${PATH}/config"
   echo head
