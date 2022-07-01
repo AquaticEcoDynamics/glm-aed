@@ -27,17 +27,17 @@ The repository includes:
 
 <br>
 
-## Getting the latest executables
-
-For users who only need access to the model executable download, the executable for your chosen platform can be downloaded without getting the full repository. Simply navigate to the binaries/os folder, click on the relevant file (e.g., glm_3.3.0.zip) and click the "download" button on the right.
-
-<br>
-
-## Citing code
+## Citing this code
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6363500.svg)](https://doi.org/10.5281/zenodo.6363500) (BADGE PENDING RELEASE)
 
 Pending Authors (Pending year). General Lake Model - Aquatic Ecosystem Dynamics (GLM-AED) V XXXX. [Software]. Zenodo. (Pending Zenado DOI)
+
+<br>
+
+## Getting the latest executables
+
+For users who only need access to the model executable download, the executable for your chosen platform can be downloaded without getting the full repository. Simply navigate to the binaries/os folder, click on the relevant file (e.g., `glm_3.3.0.zip`) and click the "*download*" button on the right.
 
 <br>
 
@@ -54,12 +54,6 @@ git clone --recurse-submodules https://github.com/AquaticEcoDynamics/glm-aed.git
 ```
 git clone --recurse-submodules -b v3.3.0 https://github.com/AquaticEcoDynamics/glm-aed.git
 ```
-
-<br>
-
-## Archiving all code
-
-If you want to create an archive of all the code (including the submodules), first clone the repository as described above and zip entire repository.  The zip file can be uploaded to Zenado to get a DOI.  An automated integration with Zenodo will not archive the code from the submodules.
 
 <br>
 
