@@ -10,7 +10,7 @@
 
 <br>
 
-The **General Lake Model** (**GLM**) is a water balance and one-dimensional vertical stratification hydrodynamic model, which is dynamically coupled with the AED water quality modelling library. This repository houses the coupled model code libraries, example applications, and binaries. 
+The **General Lake Model** (**GLM**) is a water balance and one-dimensional vertical stratification hydrodynamic model, which is dynamically coupled with the AED water quality modelling library. This repository houses the coupled model code libraries, example applications, and binaries (ready-to-run executable files). 
 
 GLM is suitable for simulating conditions in a wide range of natural and engineered lakes, including shallow (well-mixed) and deep (stratified) systems. The model has been successfully applied to systems from the scale of individual ponds and wetlands, to actively operated reservoirs, upto the scale of the Great Lakes.
 
@@ -24,6 +24,12 @@ The repository includes:
 - `glm-source` : model source code, including GLM and AED as linked sub-modules.
 - `glm-examples` : model example simulations, including all required input files.
 - `workflows` : github workflows for automated compilation and testing.
+
+<br>
+
+## Getting the latest executables
+
+For users who only need access to the model executable download, the executable for your chosen platform can be downloaded without getting the full repository. Simply navigate to the binaries/os folder, click on the relevant file (e.g., glm_3.3.0.zip) and click the "download" button on the right.
 
 <br>
 
@@ -59,6 +65,8 @@ If you want to create an archive of all the code (including the submodules), fir
 
 ## Additional information
 
-See repository [Wiki](https://github.com/AquaticEcoDynamics/glm-aed/wiki) for additional information on getting started using GLM-AED, workign with the repository, and updating or adding new example lakes.
+See repository [Wiki](https://github.com/AquaticEcoDynamics/glm-aed/wiki) for additional information on getting started using GLM-AED, working with the repository, and updating or adding new example lakes.
 
+
+![image](glm-source/admin/aed.png)
 
