@@ -26,6 +26,8 @@ do_list () {
 }
 
 do_it () {
+  echo PATH=$PATH
+  export PATH=$PATH:/usr/bin:/bin
   echo 0
   ls ../
   echo 1
