@@ -361,9 +361,9 @@ if [ "$OSTYPE" = "Msys" ] ; then
 #   gzip -o "${BINPATH}/glm+_$VERSION.zip" glm+_$VERSION
     powershell -Command "Compress-Archive -LiteralPath glm+_$VERSION -DestinationPath glm+_$VERSION.zip"
     mv  glm+_$VERSION.zip ${BINPATH}
-    /bin/rm -r glm+_$VERSION
+#   /bin/rm -r glm+_$VERSION
   fi
-  /bin/rm -r glm_$VERSION
+# /bin/rm -r glm_$VERSION
 
 fi
 

@@ -166,12 +166,12 @@ jobs:
         run: | 
           cd glm-examples/FCR
           ls
-          echo now dir the GLM dir
+          echo now dir the binary dir
           #ls ../../glm-source/GLM
           ls $GITHUB_WORKSPACE/binaries/windows/glm_3.3.0a8/
           echo now try running glm
-          #../../glm-source/GLM/glm.exe >& glm.log
           $GITHUB_WORKSPACE/binaries/windows/glm_3.3.0a8/glm.exe
+          #../../glm-source/GLM/glm.exe >& glm.log
           #cat glm.log
           #rm glm.log
           echo run completed
