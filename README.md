@@ -1,6 +1,6 @@
 ![image](glm-examples/example_lakes_files/figure-gfm/lakenz.png)
 
-# GLM-AED
+# GLM-AED 
 [![Latest release](https://badgen.net/github/release/Naereen/Strapdown.js)](https://github.com/AquaticEcoDynamics/glm-aed/releases)
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
 [![macOS](https://svgshare.com/i/ZjP.svg)](https://svgshare.com/i/ZjP.svg)
@@ -10,9 +10,9 @@
 
 <br>
 
-The **General Lake Model** (**GLM**) is a water balance and one-dimensional vertical stratification hydrodynamic model, which is dynamically coupled with the **AED** water quality modelling library. This repository houses the coupled model code libraries, example applications, and binaries (ready-to-run executable files). 
+<a href="url"><img src="glm-source/admin/glm-icon2.png" align="right" width="50" ></a> The **General Lake Model** (**GLM**) is a water balance and one-dimensional vertical stratification hydrodynamic model, which is dynamically coupled with the **AED** water quality modelling library. This repository houses the coupled model code libraries, example applications, and binaries (ready-to-run executable files). 
 
-GLM is suitable for simulating conditions in a wide range of natural and engineered lakes, including shallow (well-mixed) and deep (stratified) systems. The model has been successfully applied to systems from the scale of individual ponds and wetlands, to actively operated reservoirs, upto the scale of the Great Lakes.
+<a href="url"><img src="glm-source/admin/aed-icon2.png" align="right" width="50" ></a> GLM-AED is suitable for simulating conditions in a wide range of natural and engineered lakes, including shallow (well-mixed) and deep (stratified) systems. The model has been successfully applied to systems from the scale of individual ponds and wetlands, to actively operated reservoirs, upto the scale of the Great Lakes. 
 
 <br>
 
@@ -63,6 +63,6 @@ See repository [Wiki](https://github.com/AquaticEcoDynamics/glm-aed/wiki) for ad
 
 <br>
 
-<img src="glm-source/admin/aed.png" alt="AED" width="100"/>
+[<img src="glm-source/admin/aed.png" alt="AED" width="100"/>](https://aquatic.science.uwa.edu.au)
 
 
