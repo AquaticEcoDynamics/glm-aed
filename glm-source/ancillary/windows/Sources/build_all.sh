@@ -29,7 +29,7 @@ export NETCDFV=4.8.1
 #@REM netcdf-fortran : https://www.unidata.ucar.edu/downloads/netcdf/index.jsp
 #@REM 
 
-export DSTDIR=x64-Release
+export DSTDIR=msys
 export ZLIB=zlib-${ZLIBV}
 export FREETYPE2=freetype-${FRREETYPE2V}
 export JPEG=jpegsrc.v${JPEGV}
@@ -39,7 +39,7 @@ export CURL=curl-${CURLV}
 export SZIP=szip-${SZIPV}
 export HDF5=hdf5-${HDF5V}
 export NETCDF=netcdf-c-${NETCDFV}
-export NETCDFF=netcdf-fortran-${NETCDFFV}
+#export NETCDFF=netcdf-fortran-${NETCDFFV}
 
 if [ ! -f ${ZLIB}.tar.gz ] ; then
    curl  http://www.zlib.net/${ZLIB}.tar.gz -o ${ZLIB}.tar.gz
@@ -338,6 +338,7 @@ export LDFLAGS="-L${FINALDIR}/lib"
    echo '****************' done building in $SZIP
 
 # build curl
+# curl depends on zlib
    unpack_src  $CURL
    cd $CURL
    cmake "." \
@@ -367,6 +368,7 @@ export CPPFLAGS="-I${FINALDIR}/include"
 export LDFLAGS="-L${FINALDIR}/lib"
 
 # build hdf5
+# hdf5 depends on szip and zlib
    unpack_src  $HDF5
    cd $HDF5
    mkdir build
@@ -415,7 +417,7 @@ export LDFLAGS="-L${FINALDIR}/lib"
 		-DENABLE_TESTS=0 \
         -DCMAKE_FIND_ROOT_PATH=$FINALDIR \
 		-DCMAKE_PREFIX_PATH=$FINALDIR \
-		-DHDF5_C_LIRARY=$FINALDIR \
+		-DHDF5_C_LIBRARY=$FINALDIR \
 		-DHDF5_ROOT=$FINALDIR \
 		-DSZIP_ROOT=$FINALDIR \
 		-DZLIB_ROOT=$FINALDIR \
@@ -464,4 +466,3 @@ export LDFLAGS="-L${FINALDIR}/lib"
 #   echo '****************' done building in $NETCDFF
 
 exit 0
-

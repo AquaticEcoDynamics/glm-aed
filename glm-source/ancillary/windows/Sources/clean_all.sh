@@ -11,7 +11,7 @@ export HDF5V=1.12.0
 export NETCDFV=4.8.1
 #export NETCDFFV=4.5.4
 
-export DSTDIR=x64-Release
+export DSTDIR=msys
 export ZLIB=zlib-${ZLIBV}
 export FREETYPE2=freetype-${FRREETYPE2V}
 export JPEG=jpegsrc.v${JPEGV}

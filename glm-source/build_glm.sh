@@ -212,9 +212,9 @@ cd ${UTILDIR}
 ${MAKE} || exit 1
 
 cd ${CURDIR}/..
-if [ "$FC" = "flang" -a -d flang_extra ] ; then
+if [ "$OSTYPE" = "FreeBSD" -a -d ancillary/freebsd ] ; then
   echo making flang extras
-  cd flang_extra
+  cd ancillary/freebsd
   ${MAKE} || exit 1
 fi
 
@@ -308,7 +308,7 @@ fi
 
 # ***************************** FreeBSD *******************************
 if [ "$OSTYPE" = "FreeBSD" ] ; then
-  USRENV=`uname -K`
+  USRENV=`uname -r`
   BINPATH="binaries/freebsd/${USRENV}"
   if [ ! -d "${BINPATH}" ] ; then
     mkdir -p "${BINPATH}"
@@ -342,7 +342,7 @@ if [ "$OSTYPE" = "Msys" ] ; then
     mkdir -p "${BINPATH}"
   fi
   mkdir glm_$VERSION
-  cp win-3rd-party/x64-Release/bin/libnetcdf.dll glm_$VERSION
+  cp ancillary/windows/msys/bin/libnetcdf.dll glm_$VERSION
   for dll in libgfortran-5.dll libgcc_s_seh-1.dll libquadmath-0.dll libwinpthread-1.dll ; do
     dllp=`find /c/ProgramData/chocolatey/lib/mingw/tools/install/mingw64/ -name $dll 2> /dev/null | head -1`
     echo \"$dllp\"
@@ -360,11 +360,10 @@ if [ "$OSTYPE" = "Msys" ] ; then
 
     # zip up the + bundle
     powershell -Command "Compress-Archive -LiteralPath glm+_$VERSION -DestinationPath glm+_$VERSION.zip"
-    mv  glm+_$VERSION.zip ${BINPATH}
+    mv glm+_$VERSION.zip ${BINPATH}
     mv glm+_$VERSION ${BINPATH}
   fi
   mv glm_$VERSION ${BINPATH}
-
 fi
 
 # ***************************** All *******************************
@@ -375,17 +374,28 @@ echo Finished build for $OSTYPE
 if [ -d ${BINPATH}/glm_$VERSION ] ; then
   /bin/mv ${BINPATH}/glm_$VERSION ${BINPATH}/glm_latest
 else
-  /bin/mkdir ${BINPATH}/glm_latest
+  if [ ! -d ${BINPATH}/glm_latest ] ; then
+    /bin/mkdir ${BINPATH}/glm_latest
+  fi
 fi
 echo "glm_$VERSION" > ${BINPATH}/glm_latest/VERSION
 /bin/cp ${CURDIR}/glm ${BINPATH}/glm_latest
-if [ -x ${CURDIR}/glm+ ] ; then
-  /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm_latest
-fi
-
 echo Generating ReleaseInfo.txt
-
 ./admin/make_release_info.sh > ${BINPATH}/glm_latest/ReleaseInfo.txt
+
+if [ -x ${CURDIR}/glm+ ] ; then
+  if [ -d ${BINPATH}/glm+_$VERSION ] ; then
+    /bin/mv ${BINPATH}/glm+_$VERSION ${BINPATH}/glm+_latest
+  else
+    if [ ! -d ${BINPATH}/glm+_latest ] ; then
+      /bin/mkdir ${BINPATH}/glm+_latest
+    fi
+  fi
+  echo "glm+_$VERSION" > ${BINPATH}/glm+_latest/VERSION
+  /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm+_latest
+  echo Generating ReleaseInfo.txt
+  ./admin/make_release_info.sh > ${BINPATH}/glm+_latest/ReleaseInfo.txt
+fi
 
 echo Finished packaging for $OSTYPE
 

@@ -152,7 +152,7 @@ jobs:
       - name: compile GLM
         shell: bash
         run: |
-          cd $GITHUB_WORKSPACE/glm-source/win-3rd-party/Sources
+          cd $GITHUB_WORKSPACE/glm-source/ancilliary/windows/Sources
           ./build_all.sh
           cd $GITHUB_WORKSPACE/glm-source
           ./build_glm.sh
