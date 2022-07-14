@@ -1,0 +1,88 @@
+        SUMMARY OF THE HDF5 CONFIGURATION
+        =================================
+
+General Information:
+-------------------
+                   HDF5 Version: 1.12.0
+                  Configured on: 2022-07-14
+                  Configured by: Unix Makefiles
+                    Host system: Windows-10.0.20348
+              Uname information: Windows
+                       Byte sex: little-endian
+             Installation point: D:/a/glm-aed/glm-aed/glm-source/ancillary/windows/msys
+
+Compiling Options:
+------------------
+                     Build Mode: RelWithDebInfo
+              Debugging Symbols: OFF
+                        Asserts: OFF
+                      Profiling: OFF
+             Optimization Level: OFF
+
+Linking Options:
+----------------
+                      Libraries: 
+  Statically Linked Executables: OFF
+                        LDFLAGS: -LD:/a/glm-aed/glm-aed/glm-source/ancillary/windows/msys/lib
+                     H5_LDFLAGS: 
+                     AM_LDFLAGS: 
+                Extra libraries: m;dl;ws2_32;wsock32
+                       Archiver: C:/ProgramData/chocolatey/bin/ar.exe
+                         Ranlib: C:/ProgramData/chocolatey/bin/ranlib.exe
+
+Languages:
+----------
+                              C: YES
+                     C Compiler: C:/ProgramData/chocolatey/bin/gcc.exe 11.2.0
+                       CPPFLAGS: 
+                    H5_CPPFLAGS: 
+                    AM_CPPFLAGS: 
+                         CFLAGS:   -std=c99 -ID:/a/glm-aed/glm-aed/glm-source/ancillary/windows/msys/include -fstdarg-opt  -Wall -Wcast-qual -Wconversion -Wextra -Wfloat-equal -Wformat=2 -Winit-self -Winvalid-pch -Wmissing-include-dirs -Wno-c++-compat -Wno-format-nonliteral -Wshadow -Wundef -Wwrite-strings -pedantic -fmessage-length=0
+                      H5_CFLAGS: 
+                      AM_CFLAGS: 
+               Shared C Library: NO
+               Static C Library: YES
+
+                        Fortran: OFF
+               Fortran Compiler:  
+                  Fortran Flags: 
+               H5 Fortran Flags: 
+               AM Fortran Flags: 
+         Shared Fortran Library: NO
+         Static Fortran Library: YES
+
+                            C++: ON
+                   C++ Compiler: C:/ProgramData/chocolatey/bin/c++.exe 11.2.0
+                      C++ Flags:  
+                   H5 C++ Flags: 
+                   AM C++ Flags: 
+             Shared C++ Library: NO
+             Static C++ Library: YES
+
+                            JAVA: OFF
+                 JAVA Compiler:  
+
+Features:
+---------
+                   Parallel HDF5: OFF
+Parallel Filtered Dataset Writes: 
+              Large Parallel I/O: 
+              High-level library: ON
+                Build HDF5 Tests: OFF
+                Build HDF5 Tools: ON
+                    Threadsafety: OFF
+             Default API mapping: v112
+  With deprecated public symbols: ON
+          I/O filters (external):  DEFLATE DECODE
+                             MPE: 
+                      Direct VFD: 
+              (Read-Only) S3 VFD: 
+            (Read-Only) HDFS VFD: 
+                         dmalloc: 
+  Packages w/ extra debug output: 
+                     API Tracing: OFF
+            Using memory checker: OFF
+ Memory allocation sanity checks: OFF
+          Function Stack Tracing: OFF
+       Strict File Format Checks: OFF
+    Optimization Instrumentation: 

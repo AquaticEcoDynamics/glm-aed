@@ -1,0 +1,13 @@
+prefix=/usr/local
+exec_prefix=/usr/local
+libdir=D:/a/glm-aed/glm-aed/glm-source/ancillary/windows/msys/lib
+sharedlibdir=D:/a/glm-aed/glm-aed/glm-source/ancillary/windows/msys/lib
+includedir=D:/a/glm-aed/glm-aed/glm-source/ancillary/windows/msys/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.12
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}

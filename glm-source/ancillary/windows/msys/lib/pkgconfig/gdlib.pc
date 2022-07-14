@@ -1,0 +1,13 @@
+prefix=/d/a/glm-aed/glm-aed/glm-source/ancillary/windows/msys
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: gd
+Description: GD graphics library
+Version: 2.3.3
+Requires:
+Requires.private: 
+Cflags: -I${includedir}
+Libs.private:  -L/d/a/glm-aed/glm-aed/glm-source/ancillary/windows/msys/lib  -lz -L/d/a/glm-aed/glm-aed/glm-source/ancillary/windows/msys/lib -L/d/a/glm-aed/glm-aed/glm-source/ancillary/windows/msys/lib -lpng16 -L/d/a/glm-aed/glm-aed/glm-source/ancillary/windows/msys/lib  -ljpeg 
+Libs: -L${libdir} -lgd
