@@ -13,7 +13,7 @@ library(tidyverse)
 base_dir <- here::here()
 switch(Sys.info()[['sysname']],
        Windows= {warning("Windows testing not avaialable yet")},
-       Linux  = {glm_exec <- file.path(base_dir, "binaries/ubuntu/20.04/glm")},
+       Linux  = {glm_exec <- file.path(base_dir, "binaries/ubuntu/20.04/glm_lastest/glm")},
        Darwin = {warning("Mac testing not avaialable yet")})
 glm_exec <- file.path(base_dir, "binaries/ubuntu/20.04/glm")
 run_sim <- function(lake, do_run, base_dir, glm_exec){
