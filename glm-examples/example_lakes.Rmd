@@ -13,9 +13,8 @@ library(tidyverse)
 base_dir <- here::here()
 switch(Sys.info()[['sysname']],
        Windows= {warning("Windows testing not avaialable yet")},
-       Linux  = {glm_exec <- file.path(base_dir, "binaries/ubuntu/20.04/glm_lastest/glm")},
+       Linux  = {glm_exec <- file.path(base_dir, "binaries/ubuntu/20.04/glm_latest/glm")},
        Darwin = {warning("Mac testing not avaialable yet")})
-glm_exec <- file.path(base_dir, "binaries/ubuntu/20.04/glm")
 run_sim <- function(lake, do_run, base_dir, glm_exec){
   if(do_run){
     setwd(file.path(base_dir, "glm-examples", lake))
@@ -23,7 +22,11 @@ run_sim <- function(lake, do_run, base_dir, glm_exec){
     setwd(base_dir)
   }
 }
-# If you want to run the simulations within the document, set `do_run = TRUE`.
+```
+
+If you want to run the simulations, set `do_run = TRUE`.
+
+```{r echo = FALSE}
 do_run <- FALSE
 ```
 
