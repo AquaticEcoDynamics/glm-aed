@@ -5,6 +5,16 @@ glm-examples/GrosseDhuenn/output/output.nc
 glm-examples/EllenBrook/output/output.nc
 glm-examples/LakeAlexandrina/output/output.nc
 glm-examples/.DS_Store
+glm-examples/FCR/output/lake.csv
+glm-examples/GrosseDhuenn/output/WQ_2.csv
+glm-examples/GrosseDhuenn/output/lake.csv
+glm-examples/LakeAlexandrina/output/lake.csv
+glm-examples/Sparkling/output/lake.csv
+glm-examples/Sparkling/output/overflow.csv
+glm-examples/Woods/output/WQ_0.csv
+glm-examples/Woods/output/lake.csv
+glm-examples/Woods/output/outlet_00.csv
+glm-examples/Woods/output/overflow.csv
 glm-source/binaries
 renv/*
 .Rprofile
