@@ -5,8 +5,6 @@ export MAINLIST="GLM libplot libutil libaed-water libaed-benthic libaed-demo lib
 export PLUSLIST="libaed-riparian libaed-dev libaed2-plus"
 export GITCPATH="../.git/modules/glm-source"
 
-ls $PATH
-
 extract_vers () {
 # export RPO=`cat .git/config | grep -w url | rev | cut -d'/' -f 1 | rev`
 # mingw doesnt have rev, so do it this way.

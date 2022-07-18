@@ -224,12 +224,12 @@ if [ -f obj/aed_external.o ] ; then
 fi
 
 # Update versions in resource files
+VERSION=`grep GLM_VERSION src/glm.h | cut -f2 -d\"`
 cd ${CURDIR}/win
 ${CURDIR}/vers.sh $VERSION
 #cd ${CURDIR}/win-dll
 #${CURDIR}/vers.sh $VERSION
 cd ${CURDIR}
-VERSION=`grep GLM_VERSION src/glm.h | cut -f2 -d\"`
 
 ${MAKE} AEDBENDIR=$DAEDBENDIR AEDDMODIR=$DAEDDMODIR || exit 1
 if [ "${DAEDDEVDIR}" != "" ] ; then
