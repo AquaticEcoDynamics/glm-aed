@@ -1,6 +1,8 @@
 Example Lakes
 ================
-Last compiled on 2022-07-18 01:04:31
+Last compiled on 2022-07-18 10:22:22
+
+If you want to run the simulations, set `do_run = TRUE`.
 
 # Falling Creek Reservoir (FCR)
 
