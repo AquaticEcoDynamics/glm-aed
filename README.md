@@ -29,9 +29,19 @@ The repository includes:
 
 ## Citing this code
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6363500.svg)](https://doi.org/10.5281/zenodo.6363500) (BADGE PENDING RELEASE)
+[![DOI](https://zenodo.org/badge/483888457.svg)](https://zenodo.org/badge/latestdoi/483888457)
 
-Pending Authors (Pending year). General Lake Model - Aquatic Ecosystem Dynamics (GLM-AED) V XXXX. [Software]. Zenodo. (Pending Zenado DOI)
+Users may need to cite the model in general, or a specific model code package/bundle/version. 
+
+Citing a specific code bundle, please use the appropriate DOI, eg.: 
+
+*Hipsey, M.R., Boon, C., Bruce, L.C., Thomas, Q., Weber, M., Winslow, L., Read, J.S., & Hamilton, D.P. (2022). AquaticEcoDynamics/glm-aed: v3.3.0 (v3.3.0). Zenodo. https://doi.org/10.5281/zenodo.7047527.*
+
+Citing the GLM or AED models: 
+
+*Hipsey, M.R., Bruce, L.C., Boon, C., Busch, B., Carey, C.C., Hamilton, D.P., Hanson, P.C., Read, J.S., de Sousa, E., Weber, M. and Winslow, L.A., 2019. A General Lake Model (GLM 3.0) for linking with high-frequency sensor data from the Global Lake Ecological Observatory Network (GLEON). Geoscientific Model Development, 12(1), pp.473-523.*
+
+*Hipsey, M.R., ed. (2022) Modelling Aquatic Eco-Dynamics: Overview of the AED modular simulation platform. Zenodo. https://doi.org/10.5281/zenodo.6516222.*
 
 <br>
 
