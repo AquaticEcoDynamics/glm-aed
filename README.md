@@ -67,6 +67,12 @@ git clone --recurse-submodules -b v3.3.0 https://github.com/AquaticEcoDynamics/g
 
 <br>
 
+## Getting hold of older versions
+
+Releases from 2022 are available by sorting through the releases section. For users seeking older bundles of the code, please visit the AED [releases]https://github.com/AquaticEcoDynamics/releases repository.
+
+<br>
+
 ## Additional information
 
 See repository [Wiki](https://github.com/AquaticEcoDynamics/glm-aed/wiki) for additional information on getting started using GLM-AED, working with the repository, and updating or adding new example lakes.
