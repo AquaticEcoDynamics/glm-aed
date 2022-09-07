@@ -36,8 +36,8 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install libnetcdf-dev
           sudo apt-get install libgd3
-          sudo apt-get install libgd3=2.2.5-5.2ubuntu2.1
-          sudo apt-get install libgd-dev
+          # sudo apt-get --allow-downgrades install libgd3=2.2.5-5.2ubuntu2.1
+          sudo apt-get -y --allow-downgrades install libgd-dev
           sudo apt-get install gfortran
           sudo apt-get install devscripts
           sudo apt-get install debhelper
