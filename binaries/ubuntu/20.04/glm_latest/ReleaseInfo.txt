@@ -1,11 +1,11 @@
 This build is produced from the following git points :
 
-2487219 GLM.git
-2487219 GLM.git
+b00a7b4 GLM.git
+b00a7b4 GLM.git
 68e29b1 libplot.git
 c592493 libutil.git
-5d6cf5d libaed-water.git
-37b12f8 libaed-benthic.git
+5127f5f libaed-water.git
+cdf5de4 libaed-benthic.git
 52e633e libaed-demo.git
 45e9d95 libaed2.git
 
