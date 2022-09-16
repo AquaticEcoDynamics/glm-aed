@@ -77,6 +77,8 @@ Releases from 2022 are available by sorting through the releases section. For us
 
 See repository [Wiki](https://github.com/AquaticEcoDynamics/glm-aed/wiki) for additional information on getting started using GLM-AED, working with the repository, and updating or adding new example lakes.
 
+For new users, please also visit the [glm-workbook](https://aquaticecodynamics.github.io/glm-workbook/) which contains some practical exercises and case-studies for users new to lake modelling.
+
 <br>
 
 [<img src="glm-source/admin/aed.png" alt="AED" width="100"/>](https://aquatic.science.uwa.edu.au)
