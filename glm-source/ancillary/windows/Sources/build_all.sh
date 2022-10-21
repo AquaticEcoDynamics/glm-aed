@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export ZLIBV=1.2.12
+export ZLIBV=1.2.13
 export FRREETYPE2V=2.12.1
 export JPEGV=9e
 export LIBPNGV=1.6.37
