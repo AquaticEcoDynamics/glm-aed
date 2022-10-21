@@ -1,7 +1,7 @@
 This build is produced from the following git points :
 
-8c89233 GLM.git
-8c89233 GLM.git
+3cd15a4 GLM.git
+3cd15a4 GLM.git
 68e29b1 libplot.git
 b1aba81 libutil.git
 637765d libaed-water.git
