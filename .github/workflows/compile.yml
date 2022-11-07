@@ -111,8 +111,6 @@ jobs:
         run:  | 
           sudo apt-get update -y
           sudo apt-get install libnetcdf-dev
-          sudo apt-get install libgd3
-          sudo apt-get -y --allow-downgrades install libgd3=2.2.5-5.2ubuntu2.1
           sudo apt-get install libgd-dev
           sudo apt-get install gfortran
           sudo apt-get install devscripts
@@ -126,6 +124,15 @@ jobs:
            ./build_glm.sh
            mkdir -p $GITHUB_WORKSPACE/binaries/ubuntu/22.04
            cp -r $GITHUB_WORKSPACE/glm-source/binaries/ubuntu/22.04/* $GITHUB_WORKSPACE/binaries/ubuntu/22.04/.
+           
+      - name: update binaries and push to remote
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull
+          git add -A
+          git commit -m "Update Ubuntu 22.04 binaries"
+          git push
           
   macOS:
     # The type of runner that the job will run on
