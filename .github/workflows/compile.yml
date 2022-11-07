@@ -92,6 +92,41 @@ jobs:
           git commit -m "Update Ubuntu 20.04 binaries"
           git push
           
+  ubuntu22:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-22.04
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
+
+      # Runs a single command using the runners shell
+      - name: Getting packages
+        run:  | 
+          sudo apt-get update -y
+          sudo apt-get install libnetcdf-dev
+          sudo apt-get install libgd3
+          sudo apt-get -y --allow-downgrades install libgd3=2.2.5-5.2ubuntu2.1
+          sudo apt-get install libgd-dev
+          sudo apt-get install gfortran
+          sudo apt-get install devscripts
+          sudo apt-get install debhelper
+
+      # Runs a set of commands using the runners shell
+      - name: compile GLM
+        run: | 
+           cd $GITHUB_WORKSPACE/glm-source
+           chmod u+x ./admin/make_release_info.sh
+           ./build_glm.sh
+           mkdir -p $GITHUB_WORKSPACE/binaries/ubuntu/22.04
+           cp -r $GITHUB_WORKSPACE/glm-source/binaries/ubuntu/22.04/* $GITHUB_WORKSPACE/binaries/ubuntu/22.04/.
+          
   macOS:
     # The type of runner that the job will run on
     runs-on: macos-latest
