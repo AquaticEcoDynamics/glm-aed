@@ -26,13 +26,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      
+
       - name: Checkout submodules
         run: git submodule update --init --recursive
 
       # Runs a single command using the runners shell
       - name: Getting packages
-        run:  | 
+        run: | 
           sudo apt-get update -y
           sudo apt-get install libnetcdf-dev
           sudo apt-get install libgd3
@@ -44,13 +44,13 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: compile GLM
-        run: | 
+        run: |
            cd $GITHUB_WORKSPACE/glm-source
            chmod u+x ./admin/make_release_info.sh
            ./build_glm.sh
            mkdir -p $GITHUB_WORKSPACE/binaries/ubuntu/20.04
            cp -r $GITHUB_WORKSPACE/glm-source/binaries/ubuntu/20.04/* $GITHUB_WORKSPACE/binaries/ubuntu/20.04/.
-           
+
       - name: run GLM FCR
         run: | 
           cd glm-examples/FCR
@@ -71,7 +71,7 @@ jobs:
         run: |
           cd glm-examples/LakeAlexandrina
           $GITHUB_WORKSPACE/glm-source/GLM/glm
-          
+
       - uses: r-lib/actions/setup-pandoc@v1
       - uses: r-lib/actions/setup-r@v1
       #- uses: r-lib/actions/setup-renv@v1
@@ -82,7 +82,7 @@ jobs:
           R -e 'install.packages("rmarkdown")'
           R -e 'rmarkdown::render("example_lakes.Rmd")'
           mv $GITHUB_WORKSPACE/glm-examples/example_lakes.md $GITHUB_WORKSPACE/glm-examples/README.md
-        
+
       - name: update binaries and push to remote
         run: |
           git config --global user.name "github-actions[bot]"
@@ -92,9 +92,54 @@ jobs:
           git commit -m "Update Ubuntu 20.04 binaries"
           git push
 
+  ubuntu22:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-22.04
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
+
+      # Runs a single command using the runners shell
+      - name: Getting packages
+        run:  |
+          sudo apt-get update -y
+          sudo apt-get install libnetcdf-dev
+          sudo apt-get install libgd3
+          sudo apt-get -y --allow-downgrades install libgd3=2.2.5-5.2ubuntu2.1
+          sudo apt-get install libgd-dev
+          sudo apt-get install gfortran
+          sudo apt-get install devscripts
+          sudo apt-get install debhelper
+
+      # Runs a set of commands using the runners shell
+      - name: compile GLM
+        run: | 
+           cd $GITHUB_WORKSPACE/glm-source
+           chmod u+x ./admin/make_release_info.sh
+           ./build_glm.sh
+           mkdir -p $GITHUB_WORKSPACE/binaries/ubuntu/22.04
+           cp -r $GITHUB_WORKSPACE/glm-source/binaries/ubuntu/22.04/* $GITHUB_WORKSPACE/binaries/ubuntu/22.04/.
+ 
+      - name: update binaries and push to remote
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull
+          git add -A
+          git commit -m "Update Ubuntu 22.04 binaries"
+          git push
+
   macOS:
     # The type of runner that the job will run on
-    runs-on: macos-latest
+    ##runs-on: macos-latest
+    runs-on: macos-11.7
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
@@ -115,6 +160,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/glm-source
           ./build_glm.sh
+          grep 'SOFTWARE LICENSE AGREEMENT FOR ' '/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf' | awk -F 'macOS ' '{print $NF}' | tr -d '\\' | tr ' ' '_'
            mkdir -p $GITHUB_WORKSPACE/binaries/macos/Big_Sur
            cp -r $GITHUB_WORKSPACE/glm-source/binaries/macOS/Big_Sur/* $GITHUB_WORKSPACE/binaries/macOS/Big_Sur/.
  
@@ -168,7 +214,7 @@ jobs:
           echo now try running glm
           $GITHUB_WORKSPACE/binaries/windows/glm_latest/glm.exe
           echo run completed
-          
+
       - name: update binaries and push to remote
         run: |
           git config --global user.name "github-actions[bot]"
