@@ -112,7 +112,6 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install libnetcdf-dev
           sudo apt-get install libgd3
-          sudo apt-get -y --allow-downgrades install libgd3=2.2.5-5.2ubuntu2.1
           sudo apt-get install libgd-dev
           sudo apt-get install gfortran
           sudo apt-get install devscripts
@@ -138,8 +137,8 @@ jobs:
 
   macOS:
     # The type of runner that the job will run on
-    ##runs-on: macos-latest
-    runs-on: macos-11.7
+    runs-on: macos-latest
+    ##runs-on: macos-11
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
@@ -160,9 +159,9 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE/glm-source
           ./build_glm.sh
-          grep 'SOFTWARE LICENSE AGREEMENT FOR ' '/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf' | awk -F 'macOS ' '{print $NF}' | tr -d '\\' | tr ' ' '_'
-           mkdir -p $GITHUB_WORKSPACE/binaries/macos/Big_Sur
-           cp -r $GITHUB_WORKSPACE/glm-source/binaries/macOS/Big_Sur/* $GITHUB_WORKSPACE/binaries/macOS/Big_Sur/.
+          MOSDIR=`grep 'SOFTWARE LICENSE AGREEMENT FOR ' '/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf' | awk -F 'macOS ' '{print $NF}' | tr -d '\\' | tr ' ' '_'`
+          mkdir -p $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}
+          cp -r $GITHUB_WORKSPACE/glm-source/binaries/macos/${MOSDIR}/* $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}/.
  
       - name: update binaries and push to remote
         run: |
