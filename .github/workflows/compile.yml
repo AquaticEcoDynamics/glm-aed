@@ -228,7 +228,7 @@ jobs:
           choco install make
           choco install mingw
           choco install git
-          choco install cmake
+          choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
 
       - name: compile GLM
         shell: bash
