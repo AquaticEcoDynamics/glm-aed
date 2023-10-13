@@ -1,15 +1,15 @@
 #!/bin/sh
 
-export ZLIBV=1.2.13
-export FRREETYPE2V=2.12.1
+export ZLIBV=1.3
+export FRREETYPE2V=2.13.2
 export JPEGV=9e
-export LIBPNGV=1.6.37
+export LIBPNGV=1.6.40
 export GD=gd-2.3.3
-export CURLV=7.83.1
+export CURLV=8.3.0
 export SZIPV=2.1.1
-export HDF5V=1.12.0
+export HDF5V=1.14.2
 export NETCDFV=4.8.1
-#export NETCDFFV=4.5.4
+#export NETCDFFV=4.6.1
 
 #@REM The directory Build has project files to build the libraries using
 #@REM VisualStudio 2017/2019 ; use all_libs.sln. They are set up to
@@ -41,73 +41,79 @@ export HDF5=hdf5-${HDF5V}
 export NETCDF=netcdf-c-${NETCDFV}
 #export NETCDFF=netcdf-fortran-${NETCDFFV}
 
+# there may be issues with certificates on a number of sites
+#export MINUS_K='-k'
+
 if [ ! -f ${ZLIB}.tar.gz ] ; then
-   curl  http://www.zlib.net/${ZLIB}.tar.gz -o ${ZLIB}.tar.gz
+   curl ${MINUS_K}  http://www.zlib.net/${ZLIB}.tar.gz -o ${ZLIB}.tar.gz
    if [ $? != 0 ] ; then
       echo failed to fetch ${ZLIB}.tar.gz
    fi
 fi
 
 if [ ! -f ${FREETYPE2}.tar.gz ] ; then
-   curl  -L https://download.savannah.gnu.org/releases/freetype/${FREETYPE2}.tar.gz -o ${FREETYPE2}.tar.gz
+   curl ${MINUS_K}  -L https://download.savannah.gnu.org/releases/freetype/${FREETYPE2}.tar.gz -o ${FREETYPE2}.tar.gz
    if [ $? != 0 ] ; then
       echo failed to fetch ${FREETYPE2}.tar.gz
    fi
 fi
 
 if [ ! -f ${JPEG}.tar.gz ] ; then
-   curl  http://www.ijg.org/files/${JPEG}.tar.gz -o ${JPEG}.tar.gz
+   curl ${MINUS_K}  http://www.ijg.org/files/${JPEG}.tar.gz -o ${JPEG}.tar.gz
    if [ $? != 0 ] ; then
       echo failed to fetch ${JPEG}.tar.gz
    fi
 fi
 
 if [ ! -f ${LIBPNG}.tar.gz ] ; then
-   curl  -L http://prdownloads.sourceforge.net/libpng/${LIBPNG}.tar.gz -o ${LIBPNG}.tar.gz
+   curl ${MINUS_K}  -L http://prdownloads.sourceforge.net/libpng/${LIBPNG}.tar.gz -o ${LIBPNG}.tar.gz
    if [ $? != 0 ] ; then
       echo failed to fetch ${LIBPNG}.tar.gz
    fi
 fi
 
 if [ ! -f ${LIBGD}.tar.gz ] ; then
-   curl  -L https://github.com/libgd/libgd/releases/download/${GD}/${LIBGD}.tar.gz -o ${LIBGD}.tar.gz
+   curl ${MINUS_K}  -L https://github.com/libgd/libgd/releases/download/${GD}/${LIBGD}.tar.gz -o ${LIBGD}.tar.gz
    if [ $? != 0 ] ; then
       echo failed to fetch ${LIBGD}.tar.gz
    fi
 fi
 
 if [ ! -f ${CURL}.tar.gz ] ; then
-   curl  -L https://curl.haxx.se/download/${CURL}.tar.gz -o ${CURL}.tar.gz
+   curl ${MINUS_K}  -L https://curl.haxx.se/download/${CURL}.tar.gz -o ${CURL}.tar.gz
    if [ $? != 0 ] ; then
       echo failed to fetch ${CURL}.tar.gz
    fi
 fi
 
 if [ ! -f ${SZIP}.tar.gz ] ; then
-   curl  https://support.hdfgroup.org/ftp/lib-external/szip/${SZIPV}/src/${SZIP}.tar.gz -o ${SZIP}.tar.gz
+   curl ${MINUS_K}  https://support.hdfgroup.org/ftp/lib-external/szip/${SZIPV}/src/${SZIP}.tar.gz -o ${SZIP}.tar.gz
    if [ $? != 0 ] ; then
       echo failed to fetch ${SZIP}.tar.gz
    fi
 fi
 
 if [ ! -f ${HDF5}.tar.gz ] ; then
-   curl  -L "https://www.hdfgroup.org/package/hdf5-1-12-0-tar-gz/?wpdmdl=14582&refresh=629d65fd013e61654482429" -o ${HDF5}.tar.gz
+   HMAJ=`echo ${HDF5V} | cut -f2 -d\.`
+   HMIN=`echo ${HDF5V} | cut -f3 -d\.`
+   HDFDV="HDF5_${HVER}_${HMAJ}_${HMIN}"
+   HDF5URL="https://hdf-wordpress-1.s3.amazonaws.com/wp-content/uploads/manual/HDF5/${HDFDV}/src/${HDF5}.tar.gz"
+   echo fetching ${HDF5}.tar.gz from \"${HDF5URL}\"
+   curl ${MINUS_K}  -L ${HDF5URL} -o ${HDF5}.tar.gz
    if [ $? != 0 ] ; then
       echo failed to fetch ${HDF5}.tar.gz
    fi
 fi
 
 if [ ! -f ${NETCDF}.tar.gz ] ; then
-   # curl https://downloads.unidata.ucar.edu/netcdf-c/${NETCDFV}/${NETCDF}.tar.gz -o ${NETCDF}.tar.gz
-   curl -LJO https://github.com/Unidata/netcdf-c/archive/refs/tags/v${NETCDFV}.tar.gz
+      curl ${MINUS_K} https://downloads.unidata.ucar.edu/netcdf-c/${NETCDFV}/${NETCDF}.tar.gz -o ${NETCDF}.tar.gz
    if [ $? != 0 ] ; then
       echo failed to fetch ${NETCDF}.tar.gz
    fi
 fi
 
 #if [ ! -f ${NETCDFF}.tar.gz ] ; then
-#   # curl https://downloads.unidata.ucar.edu/netcdf-fortran/${NETCDFFV}/${NETCDFF}.tar.gz -o ${NETCDFF}.tar.gz
-#   curl -LJO https://github.com/Unidata/netcdf-fortran/archive/refs/tags/v${NETCDFFV}.tar.gz
+#   curl ${MINUS_K} https://downloads.unidata.ucar.edu/netcdf-fortran/${NETCDFFV}/${NETCDFF}.tar.gz -o ${NETCDFF}.tar.gz
 #   if [ $? != 0 ] ; then
 #      echo failed to fetch ${NETCDFF}.tar.gz
 #   fi
