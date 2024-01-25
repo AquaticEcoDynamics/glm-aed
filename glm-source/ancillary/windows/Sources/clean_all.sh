@@ -1,13 +1,13 @@
 #!/bin/sh
 
-export ZLIBV=1.2.12
+export ZLIBV=1.3.1
 export FRREETYPE2V=2.12.1
-export JPEGV=9e
+export JPEGV=9f
 export LIBPNGV=1.6.37
 export GD=gd-2.3.3
-export CURLV=7.83.1
+export CURLV=8.5.0
 export SZIPV=2.1.1
-export HDF5V=1.12.0
+export HDF5V=1.14.3
 export NETCDFV=4.8.1
 #export NETCDFFV=4.5.4
 

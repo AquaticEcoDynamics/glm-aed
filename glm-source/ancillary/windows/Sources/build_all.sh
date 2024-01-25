@@ -5,9 +5,9 @@ export FRREETYPE2V=2.13.2
 export JPEGV=9f
 export LIBPNGV=1.6.40
 export GD=gd-2.3.3
-export CURLV=8.3.0
+export CURLV=8.5.0
 export SZIPV=2.1.1
-export HDF5V=1.14.2
+export HDF5V=1.14.3
 export NETCDFV=4.8.1
 #export NETCDFFV=4.6.1
 
@@ -42,7 +42,7 @@ export NETCDF=netcdf-c-${NETCDFV}
 #export NETCDFF=netcdf-fortran-${NETCDFFV}
 
 # there may be issues with certificates on a number of sites
-#export MINUS_K='-k'
+export MINUS_K='-k'
 
 if [ ! -f ${ZLIB}.tar.gz ] ; then
    curl ${MINUS_K}  http://www.zlib.net/${ZLIB}.tar.gz -o ${ZLIB}.tar.gz
@@ -94,11 +94,13 @@ if [ ! -f ${SZIP}.tar.gz ] ; then
 fi
 
 if [ ! -f ${HDF5}.tar.gz ] ; then
+   HVER=`echo ${HDF5V} | cut -f1 -d\.`
    HMAJ=`echo ${HDF5V} | cut -f2 -d\.`
    HMIN=`echo ${HDF5V} | cut -f3 -d\.`
    HDFDV="HDF5_${HVER}_${HMAJ}_${HMIN}"
    HDF5URL="https://hdf-wordpress-1.s3.amazonaws.com/wp-content/uploads/manual/HDF5/${HDFDV}/src/${HDF5}.tar.gz"
    echo fetching ${HDF5}.tar.gz from \"${HDF5URL}\"
+   echo curl ${MINUS_K}  -L ${HDF5URL} -o ${HDF5}.tar.gz
    curl ${MINUS_K}  -L ${HDF5URL} -o ${HDF5}.tar.gz
    if [ $? != 0 ] ; then
       echo failed to fetch ${HDF5}.tar.gz
@@ -121,7 +123,7 @@ fi
 
 #===============================================================================
 export CC=gcc
-export FC=gfortran
+#export FC=gfortran
 
 CWD=`pwd`
 cd ..
@@ -138,6 +140,7 @@ fi
 if [ ! -d "${FINALDIR}"/lib ] ; then
   mkdir "${FINALDIR}"/lib
 fi
+echo FINALDIR = $FINALDIR
 echo -n > fail.log
 
    # The jpeg package and directory names differ, so it's a special case
@@ -417,17 +420,23 @@ export LDFLAGS="-L${FINALDIR}/lib"
 # netcdf depends on hdf5 and curl
    unpack_src  $NETCDF
    cd $NETCDF
+   # not sure if this is a bug in windows cmake or in netcdf-c bundle, but
+   # cmake looks for these
+   mkdir fuzz
+   touch fuzz/CMakeLists.txt
    cmake "." \
         -G "Unix Makefiles" \
-		-DENABLE_DAP=0 \
-		-DENABLE_TESTS=0 \
+                -DENABLE_DAP=0 \
+                -DENABLE_TESTS=0 \
+                -DENABLE_BYTERANGE=0 \
+                -DCURL_LIBRARIES=0 \
         -DCMAKE_FIND_ROOT_PATH=$FINALDIR \
-		-DCMAKE_PREFIX_PATH=$FINALDIR \
-		-DHDF5_C_LIBRARY=$FINALDIR \
-		-DHDF5_ROOT=$FINALDIR \
-		-DSZIP_ROOT=$FINALDIR \
-		-DZLIB_ROOT=$FINALDIR \
-		-DHDF5_DIR=$FINALDIR\cmake\hdf5 \
+                -DCMAKE_PREFIX_PATH=$FINALDIR \
+                -DHDF5_C_LIBRARY=$FINALDIR \
+                -DHDF5_ROOT=$FINALDIR \
+                -DSZIP_ROOT=$FINALDIR \
+                -DZLIB_ROOT=$FINALDIR \
+                -DHDF5_DIR=$FINALDIR\cmake\hdf5 \
         -DCMAKE_CXX_FLAGS="-I$FINALDIR/include" \
         -DCMAKE_INSTALL_PREFIX="$FINALDIR"
    if [ $? = 0 ] ; then
