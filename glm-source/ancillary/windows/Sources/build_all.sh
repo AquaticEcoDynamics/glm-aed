@@ -1,8 +1,8 @@
 #!/bin/sh
 
-export ZLIBV=1.3
+export ZLIBV=1.3.1
 export FRREETYPE2V=2.13.2
-export JPEGV=9e
+export JPEGV=9f
 export LIBPNGV=1.6.40
 export GD=gd-2.3.3
 export CURLV=8.3.0
