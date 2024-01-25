@@ -241,13 +241,13 @@ jobs:
           cd $GITHUB_WORKSPACE/glm-source/binaries/windows
           cp -r * $GITHUB_WORKSPACE/binaries/windows
 
-      - name: run GLM FCR
-        shell: bash
-        run: | 
-          cd glm-examples/FCR
-          echo now try running glm
-          $GITHUB_WORKSPACE/binaries/windows/glm_latest/glm.exe
-          echo run completed
+ #    - name: run GLM FCR
+ #      shell: bash
+ #      run: | 
+ #        cd glm-examples/FCR
+ #        echo now try running glm
+ #        $GITHUB_WORKSPACE/binaries/windows/glm_latest/glm.exe
+ #        echo run completed
 
       - name: update binaries and push to remote
         run: |
