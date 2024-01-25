@@ -4,8 +4,8 @@ f83530e GLM.git
 f83530e GLM.git
 b361a50 libplot.git
 9bb9eea libutil.git
-5aa4a43 libaed-water.git
-a59463d libaed-benthic.git
+9309fe1 libaed-water.git
+134c3a7 libaed-benthic.git
 4742d67 libaed-demo.git
 45e9d95 libaed2.git
 
