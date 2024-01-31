@@ -13,12 +13,14 @@ case `uname` in
     ;;
 esac
 
-export CC=gcc
 if [ "$OSTYPE" = "FreeBSD" ] ; then
   export FC=flang
   export CC=clang
+  export MAKE=gmake
 else
   export FC=gfortran
+  export CC=gcc
+  export MAKE=make
 fi
 
 ARGS=""
@@ -27,6 +29,9 @@ while [ $# -gt 0 ] ; do
   case $1 in
     --debug)
       export DEBUG=true
+      ;;
+    --mdebug)
+      export MDEBUG=true
       ;;
     --fence)
       export FENCE=true
@@ -43,13 +48,16 @@ while [ $# -gt 0 ] ; do
     --flang)
       export FC=flang
       ;;
+    --no-gui)
+      export WITH_PLOTS=false
+      export WITH_XPLOTS=false
+      ;;
     *)
       ;;
   esac
   shift
 done
 
-export MAKE=make
 if [ "$OSTYPE" = "Darwin" ] ; then
   if [ "$HOMEBREW" = "" ] ; then
     brew -v > /dev/null 2>&1
@@ -63,10 +71,6 @@ if [ "$OSTYPE" = "Darwin" ] ; then
     else
       export HOMEBREW=true
     fi
-  fi
-else
-  if [ "$OSTYPE" = "FreeBSD" ] ; then
-    export MAKE=gmake
   fi
 fi
 
@@ -91,25 +95,30 @@ if [ "$FC" = "" ] ; then
 fi
 
 if [ "$FC" = "ifort" ] ; then
-  start_sh="$(ps -p "$$" -o  command= | awk '{print $1}')"
-  # ifort config scripts wont work with /bin/sh
-  # so we restart using bash
-  if [ "$start_sh" = "/bin/sh" ] ;  then
-     echo Restart using bash because ifort cant use /bin/sh
-     /bin/bash $0 $ARGS
-     exit $?
+  if [ "$OSTYPE" = "Linux" ] ; then
+    start_sh="$(ps -p "$$" -o  command= | awk '{print $1}')"
+    # ifort config scripts wont work with /bin/sh
+    # so we restart using bash
+    if [ "$start_sh" = "/bin/sh" ] ;  then
+       echo Restart using bash because ifort cant use /bin/sh
+       /bin/bash $0 $ARGS
+       exit $?
+    fi
   fi
-  if [ -d /opt/intel/oneapi ] ; then
+
+  if [ -x /opt/intel/setvars.sh ] ; then
+     . /opt/intel/setvars.sh
+  elif [ -d /opt/intel/oneapi ] ; then
      . /opt/intel/oneapi/setvars.sh
   else
     if [ -d /opt/intel/bin ] ; then
        . /opt/intel/bin/compilervars.sh intel64
     fi
-    which ifort > /dev/null 2>&1
-    if [ $? != 0 ] ; then
-       echo ifort compiler requested, but not found
-       exit 1
-    fi
+  fi
+  which ifort > /dev/null 2>&1
+  if [ $? != 0 ] ; then
+     echo ifort compiler requested, but not found
+     exit 1
   fi
 fi
 
@@ -195,6 +204,12 @@ if [ "${AED}" = "true" ] ; then
     ${MAKE} || exit 1
     DAEDRIPDIR=`pwd`
   fi
+  if [ -d ${CURDIR}/../libaed-light ] ; then
+    echo build libaed-light
+    cd  ${CURDIR}/../libaed-light
+    ${MAKE} || exit 1
+    DAEDLGTDIR=`pwd`
+  fi
   if [ -d ${CURDIR}/../libaed-dev ] ; then
     echo build libaed-dev
     cd  ${CURDIR}/../libaed-dev
@@ -236,7 +251,7 @@ if [ "${DAEDDEVDIR}" != "" ] ; then
   if [ -d ${DAEDDEVDIR} ] ; then
     echo now build plus version
     /bin/rm obj/aed_external.o
-    ${MAKE} glm+ AEDBENDIR=$DAEDBENDIR AEDDMODIR=$DAEDDMODIR AEDRIPDIR=$DAEDRIPDIR AEDDEVDIR=$DAEDDEVDIR || exit 1
+    ${MAKE} glm+ AEDBENDIR=$DAEDBENDIR AEDDMODIR=$DAEDDMODIR AEDRIPDIR=$DAEDRIPDIR AEDLGTDIR=$DAEDLGTDIR AEDDEVDIR=$DAEDDEVDIR || exit 1
   fi
 fi
 
