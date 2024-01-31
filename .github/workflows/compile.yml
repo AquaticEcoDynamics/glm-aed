@@ -151,9 +151,9 @@ jobs:
 
       - name: Install packages
         run: |
-          #brew reinstall gcc
+          brew reinstall gcc
           brew install netcdf
-          brew install gd
+      #   brew install gd
 
       - name: compile GLM
         run: |
@@ -188,7 +188,7 @@ jobs:
 
       - name: Install packages
         run: |
-          #brew reinstall gcc
+          brew reinstall gcc
           brew install netcdf
           brew install gd
 
