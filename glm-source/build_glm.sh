@@ -69,6 +69,7 @@ if [ "$OSTYPE" = "Darwin" ] ; then
         export MACPORTS=true
       fi
     else
+      export CFLAGS="$CFLAGS -I/usr/local/include"
       export HOMEBREW=true
     fi
   fi

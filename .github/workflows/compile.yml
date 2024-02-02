@@ -135,45 +135,9 @@ jobs:
           git commit -m "Update Ubuntu 22.04 binaries"
           git push
 
-# macOS-BS:
-#   # The type of runner that the job will run on
-#   runs-on: macos-11
-#   env:
-#     GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-
-#   # Steps represent a sequence of tasks that will be executed as part of the job
-#   steps:
-#     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-#     - uses: actions/checkout@v4
-#
-#     - name: Checkout submodules
-#       run: git submodule update --init --recursive
-
-#     - name: Install packages
-#       run: |
-#         brew reinstall gcc
-#         brew install netcdf
-
-#     - name: compile GLM
-#       run: |
-#         cd $GITHUB_WORKSPACE/glm-source
-#         ./build_glm.sh
-#         MOSDIR=`grep 'SOFTWARE LICENSE AGREEMENT FOR ' '/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf' | awk -F 'macOS ' '{print $NF}' | tr -d '\\' | tr ' ' '_'`
-#         mkdir -p $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}
-#         cp -r $GITHUB_WORKSPACE/glm-source/binaries/macos/${MOSDIR}/* $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}/.
-#
-#     - name: update binaries and push to remote
-#       run: |
-#         git config --global user.name "github-actions[bot]"
-#         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-#         git pull
-#         git add -A
-#         git commit -m "Update MacOS binaries"
-#         git push
-
-  macOS-S:
+  macOS:
     # The type of runner that the job will run on
-    runs-on: macos-14
+    runs-on: macos-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
