@@ -69,7 +69,6 @@ if [ "$OSTYPE" = "Darwin" ] ; then
         export MACPORTS=true
       fi
     else
-      export CFLAGS="$CFLAGS -I/usr/local/include -I/opt/homebrew/include"
       export HOMEBREW=true
     fi
   fi
@@ -111,10 +110,8 @@ if [ "$FC" = "ifort" ] ; then
      . /opt/intel/setvars.sh
   elif [ -d /opt/intel/oneapi ] ; then
      . /opt/intel/oneapi/setvars.sh
-  else
-    if [ -d /opt/intel/bin ] ; then
-       . /opt/intel/bin/compilervars.sh intel64
-    fi
+  elif [ -d /opt/intel/bin ] ; then
+     . /opt/intel/bin/compilervars.sh intel64
   fi
   which ifort > /dev/null 2>&1
   if [ $? != 0 ] ; then
@@ -171,12 +168,12 @@ if [ "$FABM" = "true" ] ; then
 fi
 
 if [ "${AED2}" = "true" ] ; then
-  cd ${AED2DIR}
+  cd "${AED2DIR}"
   ${MAKE} || exit 1
   cd ..
   if [ "${AED2PLS}" != "" ] ; then
-    if [ -d ${AED2PLS} ] ; then
-      cd ${AED2PLS}
+    if [ -d "${AED2PLS}" ] ; then
+      cd "${AED2PLS}"
       ${MAKE} || exit 1
       cd ..
     fi
@@ -184,79 +181,91 @@ if [ "${AED2}" = "true" ] ; then
 fi
 
 if [ "${AED}" = "true" ] ; then
-  cd  ${CURDIR}/../libaed-water
+  echo "build libaed-water"
+  cd "${CURDIR}/../libaed-water"
   ${MAKE} || exit 1
   DAEDWATDIR=`pwd`
-  if [ -d ${CURDIR}/../libaed-benthic ] ; then
+  if [ -d "${CURDIR}/../libaed-benthic" ] ; then
     echo build libaed-benthic
-    cd  ${CURDIR}/../libaed-benthic
+    cd "${CURDIR}/../libaed-benthic"
     ${MAKE} || exit 1
     DAEDBENDIR=`pwd`
   fi
-  if [ -d ${CURDIR}/../libaed-demo ] ; then
+  if [ -d "${CURDIR}/../libaed-demo" ] ; then
     echo build libaed-demo
-    cd  ${CURDIR}/../libaed-demo
+    cd "${CURDIR}/../libaed-demo"
     ${MAKE} || exit 1
     DAEDDMODIR=`pwd`
   fi
-  if [ -d ${CURDIR}/../libaed-riparian ] ; then
+  if [ -d "${CURDIR}/../libaed-riparian" ] ; then
     echo build libaed-riparian
-    cd  ${CURDIR}/../libaed-riparian
+    cd "${CURDIR}/../libaed-riparian"
     ${MAKE} || exit 1
     DAEDRIPDIR=`pwd`
   fi
-  if [ -d ${CURDIR}/../libaed-light ] ; then
+  if [ -d "${CURDIR}/../libaed-light" ] ; then
     echo build libaed-light
-    cd  ${CURDIR}/../libaed-light
+    cd "${CURDIR}/../libaed-light"
     ${MAKE} || exit 1
     DAEDLGTDIR=`pwd`
   fi
-  if [ -d ${CURDIR}/../libaed-dev ] ; then
+  if [ -d "${CURDIR}/../libaed-dev" ] ; then
     echo build libaed-dev
-    cd  ${CURDIR}/../libaed-dev
+    cd "${CURDIR}/../libaed-dev"
     ${MAKE} || exit 1
     DAEDDEVDIR=`pwd`
   fi
 fi
 
-if [ "$WITH_PLOTS" = "true" ] ; then
-  cd ${PLOTDIR}
+if [ -d "${UTILDIR}" ] ; then
+  echo "making libutil"
+  cd "${UTILDIR}"
   ${MAKE} || exit 1
+  cd "${CURDIR}/.."
 fi
 
-cd ${UTILDIR}
-${MAKE} || exit 1
-
-cd ${CURDIR}/..
-if [ "$OSTYPE" = "FreeBSD" -a -d ancillary/freebsd ] ; then
+if [ "$OSTYPE" = "FreeBSD" ] ; then
   echo making flang extras
   cd ancillary/freebsd
+  ./fetch.sh
+  ${MAKE} || exit 1
+elif [ "$OSTYPE" = "Msys" ] ; then
+  if [ ! -d ancillary/windows/msys ] ; then
+    echo making windows ancillary extras
+    cd ancillary/windows/Sources
+    ./build_all.sh || exit 1
+  fi
+fi
+
+if [ "$WITH_PLOTS" = "true" ] ; then
+  echo "making libplot"
+  cd "${PLOTDIR}"
   ${MAKE} || exit 1
 fi
 
-cd ${CURDIR}
+cd "${CURDIR}"
 if [ -f obj/aed_external.o ] ; then
   /bin/rm obj/aed_external.o
 fi
 
 # Update versions in resource files
 VERSION=`grep GLM_VERSION src/glm.h | cut -f2 -d\"`
-cd ${CURDIR}/win
+cd "${CURDIR}/win"
 ${CURDIR}/vers.sh $VERSION
 #cd ${CURDIR}/win-dll
 #${CURDIR}/vers.sh $VERSION
-cd ${CURDIR}
+cd "${CURDIR}"
 
 ${MAKE} AEDBENDIR=$DAEDBENDIR AEDDMODIR=$DAEDDMODIR || exit 1
 if [ "${DAEDDEVDIR}" != "" ] ; then
-  if [ -d ${DAEDDEVDIR} ] ; then
+  if [ -d "${DAEDDEVDIR}" ] ; then
     echo now build plus version
     /bin/rm obj/aed_external.o
     ${MAKE} glm+ AEDBENDIR=$DAEDBENDIR AEDDMODIR=$DAEDDMODIR AEDRIPDIR=$DAEDRIPDIR AEDLGTDIR=$DAEDLGTDIR AEDDEVDIR=$DAEDDEVDIR || exit 1
   fi
 fi
 
-cd ${CURDIR}/..
+cd "${CURDIR}/.."
 
 # =====================================================================
 # Package building bit
@@ -358,11 +367,17 @@ if [ "$OSTYPE" = "Msys" ] ; then
     mkdir -p "${BINPATH}"
   fi
   mkdir glm_$VERSION
+
   cp ancillary/windows/msys/bin/libnetcdf.dll glm_$VERSION
-  for dll in libgfortran-5.dll libgcc_s_seh-1.dll libquadmath-0.dll libwinpthread-1.dll ; do
-    dllp=`find /c/ProgramData/chocolatey/lib/mingw/tools/install/mingw64/ -name $dll 2> /dev/null | head -1`
-    echo \"$dllp\"
-    cp "$dllp" glm_$VERSION
+  cp ancillary/windows/msys/bin/libgd.dll glm_$VERSION
+  for dll in libgfortran libgcc_s_seh libquadmath libwinpthread ; do
+    dllp=`find /c/ProgramData/ -name $dll\*.dll 2> /dev/null | head -1`
+    if [ "$dllp" != "" ] ; then
+      echo \"$dllp\"
+      cp "$dllp" glm_$VERSION
+    else
+      echo "$dll not found"
+    fi
   done
   /bin/cp "${CURDIR}/glm" glm_$VERSION
   # zip up the bundle
@@ -388,6 +403,9 @@ cd ${CURDIR}/..
 echo Finished build for $OSTYPE
 
 if [ -d ${BINPATH}/glm_$VERSION ] ; then
+  if [ -d ${BINPATH}/glm_latest ] ; then
+    /bin/rm -rf ${BINPATH}/glm_latest
+  fi
   /bin/mv ${BINPATH}/glm_$VERSION ${BINPATH}/glm_latest
 else
   if [ ! -d ${BINPATH}/glm_latest ] ; then
@@ -396,11 +414,14 @@ else
 fi
 echo "glm_$VERSION" > ${BINPATH}/glm_latest/VERSION
 /bin/cp ${CURDIR}/glm ${BINPATH}/glm_latest
-echo Generating ReleaseInfo.txt
+echo Generating ReleaseInfo.txt for glm
 ./admin/make_release_info.sh > ${BINPATH}/glm_latest/ReleaseInfo.txt
 
 if [ -x ${CURDIR}/glm+ ] ; then
   if [ -d ${BINPATH}/glm+_$VERSION ] ; then
+    if [ -d ${BINPATH}/glm+_latest ] ; then
+      /bin/rm -rf ${BINPATH}/glm+_latest
+    fi
     /bin/mv ${BINPATH}/glm+_$VERSION ${BINPATH}/glm+_latest
   else
     if [ ! -d ${BINPATH}/glm+_latest ] ; then
@@ -409,7 +430,7 @@ if [ -x ${CURDIR}/glm+ ] ; then
   fi
   echo "glm+_$VERSION" > ${BINPATH}/glm+_latest/VERSION
   /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm+_latest
-  echo Generating ReleaseInfo.txt
+  echo Generating ReleaseInfo.txt for glm+
   ./admin/make_release_info.sh > ${BINPATH}/glm+_latest/ReleaseInfo.txt
 fi
 

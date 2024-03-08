@@ -5,10 +5,12 @@ libpng-*
 libgd-*
 curl-*
 szip-*
+libaec-*
 hdf5-*
 netcdf-4*
 netcdf-c*
 netcdf-fortran-*
+cmake-info-*
 .vs
 *.user
 *.db

@@ -1,13 +1,13 @@
-diff -NaBur libgd-2.3.3-orig/src/gd.h libgd-2.3.3/src/gd.h
---- libgd-2.3.3-orig/src/gd.h	2021-09-11 12:52:47.000000000 +0800
-+++ libgd-2.3.3/src/gd.h	2022-06-18 07:44:58.447612000 +0800
-@@ -78,7 +78,8 @@
- # define BGD_MALLOC __attribute__ ((__malloc__))
- #endif
- 
--#define BGD_DECLARE(rt) BGD_EXPORT_DATA_PROT rt BGD_STDCALL
-+//#define BGD_DECLARE(rt) BGD_EXPORT_DATA_PROT rt BGD_STDCALL
-+#define BGD_DECLARE(rt) rt
- 
- /* VS2012+ disable keyword macroizing unless _ALLOW_KEYWORD_MACROS is set
-    We define inline, and strcasecmp if they're missing
+diff -NaBur configure.ac configure.ac
+--- configure.ac	2021-09-11 12:52:47.000000000 +0800
++++ configure.ac	2023-06-18 07:44:58.447612000 +0800
+@@ -163,7 +163,7 @@ m4_define([GD_LIB_CHECK], [dnl
+       dnl Merge the flags into the main LIBS/CPPFLAGS.
+       $1][_LIBS="$gd_lib_ldflags $][$1][_LIBS"
+       $1][_CFLAGS="$gd_lib_cflags $][$1][_CFLAGS"
+-      AS_VAR_APPEND([LIBS], [" $][$1][_LIBS"])
++      LIBS=["$][$1][_LIBS $LIBS"]
+       AS_VAR_APPEND([CPPFLAGS], [" $][$1][_CFLAGS"])
+       if test -z "$gd_require_pkg_name"; then
+         AS_VAR_APPEND([LIBS_PRIVATES], [" $][$1][_LIBS"])
+
