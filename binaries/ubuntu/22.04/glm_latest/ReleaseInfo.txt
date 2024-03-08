@@ -2,7 +2,7 @@ This build is produced from the following git points :
 
 cc497b8 GLM.git
 cc497b8 GLM.git
-b361a50 libplot.git
+30804d0 libplot.git
 9bb9eea libutil.git
 2ca6e8f libaed-water.git
 134c3a7 libaed-benthic.git
