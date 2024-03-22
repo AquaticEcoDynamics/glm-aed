@@ -164,10 +164,9 @@ jobs:
           cp -r $GITHUB_WORKSPACE/glm-source/binaries/macos/${MOSDIR}/* $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}/.
  
       - name: run GLM FCR
-        shell: bash
         run: | 
           cd glm-examples/FCR
-          echo now try running glm for ${MOSDIR}
+          echo now try running glm FCR
           $GITHUB_WORKSPACE/binaries/macos/Monterey/glm_latest/glm
           echo run completed
 
