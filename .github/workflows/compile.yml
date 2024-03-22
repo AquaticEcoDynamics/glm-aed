@@ -163,6 +163,14 @@ jobs:
           mkdir -p $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}
           cp -r $GITHUB_WORKSPACE/glm-source/binaries/macos/${MOSDIR}/* $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}/.
  
+      - name: run GLM FCR
+        shell: bash
+        run: | 
+          cd glm-examples/FCR
+          echo now try running glm for ${MOSDIR}
+          $GITHUB_WORKSPACE/binaries/macos/Monterey/glm_latest/glm
+          echo run completed
+
       - name: update binaries and push to remote
         run: |
           git config --global user.name "github-actions[bot]"
@@ -204,6 +212,7 @@ jobs:
         shell: bash
         run: | 
           cd glm-examples/FCR
+          MOSDIR=`grep 'SOFTWARE LICENSE AGREEMENT FOR ' '/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf' | awk -F 'macOS ' '{print $NF}' | tr -d '\\' | tr ' ' '_'`
           echo now try running glm for ${MOSDIR}
           $GITHUB_WORKSPACE/binaries/macos/Sonoma/glm_latest/glm
           echo run completed
