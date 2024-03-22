@@ -204,8 +204,8 @@ jobs:
         shell: bash
         run: | 
           cd glm-examples/FCR
-          echo now try running glm
-          $GITHUB_WORKSPACE/binaries/macos/Sonoma/glm_latest/glm.exe
+          echo now try running glm for ${MOSDIR}
+          $GITHUB_WORKSPACE/binaries/macos/Sonoma/glm_latest/glm
           echo run completed
 
       - name: update binaries and push to remote
