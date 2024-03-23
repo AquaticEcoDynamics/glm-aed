@@ -4,7 +4,7 @@ This build is produced from the following git points :
 4256df0 GLM.git
 1fc78db libplot.git
 0802dd2 libutil.git
-5bef2bc libaed-water.git
+f8e8f72 libaed-water.git
 2790e4a libaed-benthic.git
 c95ca3b libaed-demo.git
 45e9d95 libaed2.git
