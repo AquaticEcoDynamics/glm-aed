@@ -1,0 +1,1418 @@
+
+     Reading configuration from glm3.nml
+No 'particles' config, assuming no particles
+     NOTE: value for base_elev is no longer used; A[1] is assumed.
+     VolAtCrest= 47857500.00000; MaxVol= 47857500.00000 (m3)
+     No 'snowice' section, setting defaults & assuming no snowfall
+     
+    -------------------------------------------------------
+    |  General Lake Model (GLM)   Version 3.9.011         |
+    -------------------------------------------------------
+     
+     glm built using gcc version 11.4.0
+     build date 20240904-0245UTC
+
+     nDays= 730; timestep= 3600.000000 (s)
+     Maximum lake depth is 5.500000
+     Depth where flow will occur over the crest is 5.500000
+
+  ---------------------- AED Variables Summary ----------------------
+ Var name           | Module           | Type | ID | Usage (ie who linked to me)
+
+ ENVIRONMENT:
+ temperature          ???                 3D   ---   TRC, NCS, OXY, CAR, SIL,
+                                                    NIT, PHS, OGM, PHY, BIV
+ salinity             ???                 3D   ---   TRC, NCS, OXY, CAR, NIT,
+                                                    PHS, OGM, PHY, BIV
+ density              ???                 3D   ---   OGM, PHY
+ layer_ht             ???                 3D   ---   OXY, CAR, PHS, OGM, PHY
+ layer_area           ???                 2D   ---   OXY
+ depth                ???                 3D   ---
+ extc_coef            ???                 3D   ---   CAR, PHY
+ tss                  ???                 3D   ---
+ cell_vel             ???                 3D   ---
+ pressure             ???                 3D   ---
+ nir                  ???                 3D   ---
+ par                  ???                 3D   ---   CAR, PHY
+ uva                  ???                 3D   ---
+ uvb                  ???                 3D   ---
+ par_sf               ???                 2D   ---   PHY
+ wind_speed           ???                 2D   ---   OXY, CAR
+ air_temp             ???                 2D   ---
+ air_pres             ???                 2D   ---
+ rain                 ???                 2D   ---   NIT
+ evap                 ???                 2D   ---
+ humidity             ???                 2D   ---
+ taub                 ???                 2D   ---
+ sed_zone             ???                 2D   ---   PHY, BIV
+ col_depth            ???                 2D   ---   CAR
+ longitude            ???                 2D   ---
+ latitude             ???                 2D   ---
+ yearday              ???                 2D   ---
+ timestep             ???                 2D   ---
+
+ STATE:
+ TRC_tr1              aed_tracer          3D   TRC
+ TRC_age              aed_tracer          3D   TRC
+ NCS_ss1              aed_noncohesive     3D   NCS   PHS, BIV
+ NCS_ss1_sed          aed_noncohesive     2D   NCS
+ OXY_oxy              aed_oxygen          3D   OXY   CAR, SIL, NIT, PHS, OGM,
+                                                    PHY, BIV
+ CAR_dic              aed_carbon          3D   CAR   PHY
+ CAR_pH               aed_carbon          3D   CAR
+ CAR_ch4              aed_carbon          3D   CAR
+ SIL_rsi              aed_silica          3D   SIL   PHY
+ NIT_amm              aed_nitrogen        3D   NIT   OGM, PHY
+ NIT_nit              aed_nitrogen        3D   NIT   OGM, PHY
+ PHS_frp              aed_phosphorus      3D   PHS   OGM, PHY, BIV
+ PHS_frp_ads          aed_phosphorus      3D   PHS
+ OGM_doc              aed_organic_matter  3D   OGM   PHY, BIV
+ OGM_poc              aed_organic_matter  3D   OGM   PHY, BIV
+ OGM_don              aed_organic_matter  3D   OGM   PHY
+ OGM_pon              aed_organic_matter  3D   OGM   PHY, BIV
+ OGM_dop              aed_organic_matter  3D   OGM   PHY
+ OGM_pop              aed_organic_matter  3D   OGM   PHY, BIV
+ PHY_green            aed_phytoplankton   3D   PHY   BIV
+ PHY_green_IN         aed_phytoplankton   3D   PHY   BIV
+ PHY_green_IP         aed_phytoplankton   3D   PHY   BIV
+ BIV_mussel           aed_bivalve         2D   BIV
+ BIV_filtfrac         aed_bivalve         3D   BIV
+
+ DIAGNOSTIC:
+ TRC_tr1_vvel         aed_tracer          3D   TRC
+ NCS_ss1_vvel         aed_noncohesive     3D   NCS   PHS
+ NCS_ss1_set          aed_noncohesive     3D   NCS
+ NCS_ss_sed           aed_noncohesive     2D   NCS
+ NCS_set              aed_noncohesive     3D   NCS
+ NCS_swi              aed_noncohesive     2D   NCS
+ NCS_swi_dz           aed_noncohesive     2D   NCS
+ OXY_sat              aed_oxygen          3D   OXY
+ OXY_oxy_dsf          aed_oxygen          2D   OXY
+ OXY_oxy_atm          aed_oxygen          2D   OXY
+ OXY_oxy_dsfv         aed_oxygen          3D   OXY
+ OXY_oxy_atmv         aed_oxygen          3D   OXY
+ CAR_pCO2             aed_carbon          3D   CAR
+ CAR_sed_dic          aed_carbon          2D   CAR
+ CAR_atm_co2_flux     aed_carbon          2D   CAR
+ CAR_ch4ox            aed_carbon          3D   CAR
+ CAR_ch4_dsf          aed_carbon          2D   CAR
+ CAR_ch4_atm          aed_carbon          2D   CAR
+ SIL_dsf_rsi          aed_silica          2D   SIL
+ NIT_amm_dsf          aed_nitrogen        2D   NIT
+ NIT_nit_dsf          aed_nitrogen        2D   NIT
+ NIT_nitrif           aed_nitrogen        3D   NIT
+ NIT_denit            aed_nitrogen        3D   NIT
+ NIT_anammox          aed_nitrogen        3D   NIT
+ NIT_dnra             aed_nitrogen        3D   NIT
+ NIT_din_atm          aed_nitrogen        2D   NIT
+ PHS_frp_ads_set      aed_phosphorus      3D   PHS
+ PHS_frp_ads_res      aed_phosphorus      2D   PHS
+ PHS_frp_ads_swi      aed_phosphorus      2D   PHS
+ PHS_frp_srp          aed_phosphorus      3D   PHS
+ PHS_frp_dsf          aed_phosphorus      2D   PHS
+ PHS_dip_atm          aed_phosphorus      2D   PHS
+ OGM_poc_set          aed_organic_matter  3D   OGM
+ OGM_pon_set          aed_organic_matter  3D   OGM
+ OGM_pop_set          aed_organic_matter  3D   OGM
+ OGM_cdom             aed_organic_matter  3D   OGM
+ OGM_toc_sed          aed_organic_matter  2D   OGM
+ OGM_ton_sed          aed_organic_matter  2D   OGM
+ OGM_top_sed          aed_organic_matter  2D   OGM
+ OGM_poc_swi          aed_organic_matter  2D   OGM
+ OGM_doc_swi          aed_organic_matter  2D   OGM
+ OGM_pon_swi          aed_organic_matter  2D   OGM
+ OGM_don_swi          aed_organic_matter  2D   OGM
+ OGM_pop_swi          aed_organic_matter  2D   OGM
+ OGM_dop_swi          aed_organic_matter  2D   OGM
+ OGM_poc_res          aed_organic_matter  2D   OGM
+ OGM_pon_res          aed_organic_matter  2D   OGM
+ OGM_pop_res          aed_organic_matter  2D   OGM
+ OGM_poc_hyd          aed_organic_matter  3D   OGM
+ OGM_pon_hyd          aed_organic_matter  3D   OGM
+ OGM_pop_hyd          aed_organic_matter  3D   OGM
+ OGM_doc_min          aed_organic_matter  3D   OGM
+ OGM_don_min          aed_organic_matter  3D   OGM
+ OGM_dop_min          aed_organic_matter  3D   OGM
+ OGM_doc_anaerobic    aed_organic_matter  3D   OGM
+ OGM_doc_denit        aed_organic_matter  3D   OGM
+ OGM_bod5             aed_organic_matter  3D   OGM
+ OGM_pom_vvel         aed_organic_matter  3D   OGM
+ PHY_green_NtoP       aed_phytoplankton   3D   PHY
+ PHY_green_fI         aed_phytoplankton   3D   PHY
+ PHY_green_fNit       aed_phytoplankton   3D   PHY
+ PHY_green_fPho       aed_phytoplankton   3D   PHY
+ PHY_green_fSil       aed_phytoplankton   3D   PHY
+ PHY_green_fT         aed_phytoplankton   3D   PHY
+ PHY_green_fSal       aed_phytoplankton   3D   PHY
+ PHY_green_gpp_c      aed_phytoplankton   3D   PHY
+ PHY_green_rsp_c      aed_phytoplankton   3D   PHY
+ PHY_green_exc_c      aed_phytoplankton   3D   PHY
+ PHY_green_mor_c      aed_phytoplankton   3D   PHY
+ PHY_green_set_c      aed_phytoplankton   3D   PHY
+ PHY_green_gpp_n      aed_phytoplankton   3D   PHY
+ PHY_green_rsp_n      aed_phytoplankton   3D   PHY
+ PHY_green_exc_n      aed_phytoplankton   3D   PHY
+ PHY_green_mor_n      aed_phytoplankton   3D   PHY
+ PHY_green_set_n      aed_phytoplankton   3D   PHY
+ PHY_green_gpp_p      aed_phytoplankton   3D   PHY
+ PHY_green_rsp_p      aed_phytoplankton   3D   PHY
+ PHY_green_exc_p      aed_phytoplankton   3D   PHY
+ PHY_green_mor_p      aed_phytoplankton   3D   PHY
+ PHY_green_set_p      aed_phytoplankton   3D   PHY
+ PHY_tphy             aed_phytoplankton   3D   PHY
+ PHY_tchla            aed_phytoplankton   3D   PHY
+ PHY_in               aed_phytoplankton   3D   PHY
+ PHY_ip               aed_phytoplankton   3D   PHY
+ PHY_gpp              aed_phytoplankton   3D   PHY
+ PHY_ncp              aed_phytoplankton   3D   PHY
+ PHY_upt_no3          aed_phytoplankton   3D   PHY
+ PHY_upt_nh4          aed_phytoplankton   3D   PHY
+ PHY_upt_n2           aed_phytoplankton   3D   PHY
+ PHY_upt_po4          aed_phytoplankton   3D   PHY
+ PHY_upt_dic          aed_phytoplankton   3D   PHY
+ PHY_set              aed_phytoplankton   3D   PHY
+ PHY_par              aed_phytoplankton   3D   PHY
+ PHY_phy_swi_c        aed_phytoplankton   2D   PHY
+ PHY_phy_swi_n        aed_phytoplankton   2D   PHY
+ PHY_phy_swi_p        aed_phytoplankton   2D   PHY
+     WQ plugin active: included Num_WQ_Vars = 22
+     aed_api built using gfortran version           11 .           4 .           0
+     libaed enabled.... aed_init_model processing: aed/aed.nml
+
+     ---------- AED API config : start ----------
+     libaed-water version 2.1.3
+     libaed built using gfortran version           11 .           4 .           0
+     libaed-ben version 2.1.3
+     libaed built using gfortran version           11 .           4 .           0
+     libaed-demo version 2.1.3
+     libaed built using gfortran version           11 .           4 .           0
+     libaed-riparian not included 
+     libaed-lighting not included
+     libaed-dev not included
+      Processing aed_models config from aed/aed.nml
+         aed_tracer configuration
+         aed_noncohesive configuration
+         aed_oxygen configuration
+         aed_carbon configuration
+         aed_silica configuration
+         aed_nitrogen configuration
+         aed_phosphorus configuration
+           PO4 is adsorbing to NCS_ss1
+           ... found
+           Checking for associated _vvel link array NCS_ss1_vvel
+           ... found
+         aed_organic_matter configuration
+         aed_phytoplankton configuration
+ nml format parameter file is deprecated. Please update to CSV format
+           Solving temperature functions for phytoplankton - 
+            using the form : f(T) = v^(T-20)-v^(k(T-a))+b
+         aed_bivalve initialization
+     NOTE - bivalve feedbacks on water column properties:  T
+     NOTE - bivalve filtration tracer variable:  T
+     NOTE - bivalve mass to be initialised from initial density map:  F
+     NOTE - bivalve mass to be held static:  F
+     NOTE - bivalves growing in these zones:    0.0000000000000000     
+ nml format parameter file is deprecated. Please update to CSV format
+       ... nml file parsing completed.
+
+     AED : n_aed_vars  = 169 ; MaxLayers         =  500
+     AED : n_vars      =  22 ; n_vars_ben        =   2
+     AED : n_vars_diag =  67 ; n_vars_diag_sheet =  50
+
+     Configured AED variables to simulate:
+       S(   1) water column variable     : TRC_tr1
+       S(   2) water column variable     : TRC_age
+       S(   3) water column variable     : NCS_ss1
+       S(   4) water column variable     : OXY_oxy
+       S(   5) water column variable     : CAR_dic
+       S(   6) water column variable     : CAR_pH
+       S(   7) water column variable     : CAR_ch4
+       S(   8) water column variable     : SIL_rsi
+       S(   9) water column variable     : NIT_amm
+       S(  10) water column variable     : NIT_nit
+       S(  11) water column variable     : PHS_frp
+       S(  12) water column variable     : PHS_frp_ads
+       S(  13) water column variable     : OGM_doc
+       S(  14) water column variable     : OGM_poc
+       S(  15) water column variable     : OGM_don
+       S(  16) water column variable     : OGM_pon
+       S(  17) water column variable     : OGM_dop
+       S(  18) water column variable     : OGM_pop
+       S(  19) water column variable     : PHY_green
+       S(  20) water column variable     : PHY_green_IN
+       S(  21) water column variable     : PHY_green_IP
+       S(  22) water column variable     : BIV_filtfrac
+       B(   1) bottom variable           + NCS_ss1_sed
+       B(   2) bottom variable           + BIV_mussel
+       D(   1) water column diagnostic   > TRC_tr1_vvel
+       D(   2) water column diagnostic   > NCS_ss1_vvel
+       D(   3) water column diagnostic   > NCS_ss1_set
+       D(   4) water column diagnostic   > NCS_set
+       D(   5) water column diagnostic   > OXY_sat
+       D(   6) water column diagnostic   > OXY_oxy_dsfv
+       D(   7) water column diagnostic   > OXY_oxy_atmv
+       D(   8) water column diagnostic   > CAR_pCO2
+       D(   9) water column diagnostic   > CAR_ch4ox
+       D(  10) water column diagnostic   > NIT_nitrif
+       D(  11) water column diagnostic   > NIT_denit
+       D(  12) water column diagnostic   > NIT_anammox
+       D(  13) water column diagnostic   > NIT_dnra
+       D(  14) water column diagnostic   > PHS_frp_ads_set
+       D(  15) water column diagnostic   > PHS_frp_srp
+       D(  16) water column diagnostic   > OGM_poc_set
+       D(  17) water column diagnostic   > OGM_pon_set
+       D(  18) water column diagnostic   > OGM_pop_set
+       D(  19) water column diagnostic   > OGM_cdom
+       D(  20) water column diagnostic   > OGM_poc_hyd
+       D(  21) water column diagnostic   > OGM_pon_hyd
+       D(  22) water column diagnostic   > OGM_pop_hyd
+       D(  23) water column diagnostic   > OGM_doc_min
+       D(  24) water column diagnostic   > OGM_don_min
+       D(  25) water column diagnostic   > OGM_dop_min
+       D(  26) water column diagnostic   > OGM_doc_anaerobic
+       D(  27) water column diagnostic   > OGM_doc_denit
+       D(  28) water column diagnostic   > OGM_bod5
+       D(  29) water column diagnostic   > OGM_pom_vvel
+       D(  30) water column diagnostic   > PHY_green_NtoP
+       D(  31) water column diagnostic   > PHY_green_fI
+       D(  32) water column diagnostic   > PHY_green_fNit
+       D(  33) water column diagnostic   > PHY_green_fPho
+       D(  34) water column diagnostic   > PHY_green_fSil
+       D(  35) water column diagnostic   > PHY_green_fT
+       D(  36) water column diagnostic   > PHY_green_fSal
+       D(  37) water column diagnostic   > PHY_green_gpp_c
+       D(  38) water column diagnostic   > PHY_green_rsp_c
+       D(  39) water column diagnostic   > PHY_green_exc_c
+       D(  40) water column diagnostic   > PHY_green_mor_c
+       D(  41) water column diagnostic   > PHY_green_set_c
+       D(  42) water column diagnostic   > PHY_green_gpp_n
+       D(  43) water column diagnostic   > PHY_green_rsp_n
+       D(  44) water column diagnostic   > PHY_green_exc_n
+       D(  45) water column diagnostic   > PHY_green_mor_n
+       D(  46) water column diagnostic   > PHY_green_set_n
+       D(  47) water column diagnostic   > PHY_green_gpp_p
+       D(  48) water column diagnostic   > PHY_green_rsp_p
+       D(  49) water column diagnostic   > PHY_green_exc_p
+       D(  50) water column diagnostic   > PHY_green_mor_p
+       D(  51) water column diagnostic   > PHY_green_set_p
+       D(  52) water column diagnostic   > PHY_tphy
+       D(  53) water column diagnostic   > PHY_tchla
+       D(  54) water column diagnostic   > PHY_in
+       D(  55) water column diagnostic   > PHY_ip
+       D(  56) water column diagnostic   > PHY_gpp
+       D(  57) water column diagnostic   > PHY_ncp
+       D(  58) water column diagnostic   > PHY_upt_no3
+       D(  59) water column diagnostic   > PHY_upt_nh4
+       D(  60) water column diagnostic   > PHY_upt_n2
+       D(  61) water column diagnostic   > PHY_upt_po4
+       D(  62) water column diagnostic   > PHY_upt_dic
+       D(  63) water column diagnostic   > PHY_set
+       D(  64) water column diagnostic   > PHY_par
+       D(  65) water column diagnostic   > BIV_net_c
+       D(  66) water column diagnostic   > BIV_net_n
+       D(  67) water column diagnostic   > BIV_net_p
+       D(   1) bottom/surface diagnostic ~ NCS_ss_sed
+       D(   2) bottom/surface diagnostic ~ NCS_swi
+       D(   3) bottom/surface diagnostic ~ NCS_swi_dz
+       D(   4) bottom/surface diagnostic ~ OXY_oxy_dsf
+       D(   5) bottom/surface diagnostic ~ OXY_oxy_atm
+       D(   6) bottom/surface diagnostic ~ CAR_sed_dic
+       D(   7) bottom/surface diagnostic ~ CAR_atm_co2_flux
+       D(   8) bottom/surface diagnostic ~ CAR_ch4_dsf
+       D(   9) bottom/surface diagnostic ~ CAR_ch4_atm
+       D(  10) bottom/surface diagnostic ~ SIL_dsf_rsi
+       D(  11) bottom/surface diagnostic ~ NIT_amm_dsf
+       D(  12) bottom/surface diagnostic ~ NIT_nit_dsf
+       D(  13) bottom/surface diagnostic ~ NIT_din_atm
+       D(  14) bottom/surface diagnostic ~ PHS_frp_ads_res
+       D(  15) bottom/surface diagnostic ~ PHS_frp_ads_swi
+       D(  16) bottom/surface diagnostic ~ PHS_frp_dsf
+       D(  17) bottom/surface diagnostic ~ PHS_dip_atm
+       D(  18) bottom/surface diagnostic ~ OGM_toc_sed
+       D(  19) bottom/surface diagnostic ~ OGM_ton_sed
+       D(  20) bottom/surface diagnostic ~ OGM_top_sed
+       D(  21) bottom/surface diagnostic ~ OGM_poc_swi
+       D(  22) bottom/surface diagnostic ~ OGM_doc_swi
+       D(  23) bottom/surface diagnostic ~ OGM_pon_swi
+Cannot find "TRC_ss1" for initial value
+Cannot find "PHY_crypto" for outflow value
+Cannot find "PHY_diatom" for outflow value
+
+     Wall clock start time :  Wed Sep  4 15:59:16 2024
+
+     Simulation begins...
+       D(  24) bottom/surface diagnostic ~ OGM_don_swi
+       D(  25) bottom/surface diagnostic ~ OGM_pop_swi
+       D(  26) bottom/surface diagnostic ~ OGM_dop_swi
+       D(  27) bottom/surface diagnostic ~ OGM_poc_res
+       D(  28) bottom/surface diagnostic ~ OGM_pon_res
+       D(  29) bottom/surface diagnostic ~ OGM_pop_res
+       D(  30) bottom/surface diagnostic ~ PHY_phy_swi_c
+       D(  31) bottom/surface diagnostic ~ PHY_phy_swi_n
+       D(  32) bottom/surface diagnostic ~ PHY_phy_swi_p
+       D(  33) bottom/surface diagnostic ~ BIV_tbiv
+       D(  34) bottom/surface diagnostic ~ BIV_nmp
+       D(  35) bottom/surface diagnostic ~ BIV_resp
+       D(  36) bottom/surface diagnostic ~ BIV_FR
+       D(  37) bottom/surface diagnostic ~ BIV_fT
+       D(  38) bottom/surface diagnostic ~ BIV_fD
+       D(  39) bottom/surface diagnostic ~ BIV_fG
+       D(  40) bottom/surface diagnostic ~ BIV_pf
+       D(  41) bottom/surface diagnostic ~ BIV_grz
+       D(  42) bottom/surface diagnostic ~ BIV_mort
+       D(  43) bottom/surface diagnostic ~ BIV_egst
+       D(  44) bottom/surface diagnostic ~ BIV_excr
+       D(  45) bottom/surface diagnostic ~ BIV_excr_n
+       D(  46) bottom/surface diagnostic ~ BIV_excr_p
+       D(  47) bottom/surface diagnostic ~ BIV_egst_n
+       D(  48) bottom/surface diagnostic ~ BIV_egst_p
+       D(  49) bottom/surface diagnostic ~ BIV_grz_n
+       D(  50) bottom/surface diagnostic ~ BIV_grz_p
+
+     ----------  AED config : end  ----------
+
+ step:           1
+   9.0999999999999996     
+ step:           2
+   9.0999999999999996     
+ step:           3
+   9.0999999999999996     
+ step:           4
+   9.0999999999999996     
+ dz is    1.2255448288018509       0.44363928367296923       0.75887243946179028        1.3029863893864277        1.1912529474332580        1.0988285406257079        1.0303870981200980        1.0242442362489488        1.0242442362489488     
+ ben flux at 1 =    0.0000000000000000     
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000     
+ biv_i:           1  biv =    800.00000000000000     
+ prey(prey_i) =            1         106   3.9999999999999966E-002
+ prey(prey_i) =            2          75   78.500000000000014     
+ Ctotal_prey =    78.540000000000020                2
+ food =   78.540000000000020                2  0.10500000000000000     
+ grazing 1   5.9397918641969618E-007   4.7518334913575693E-004   800.00000000000000     
+ ingestion   3.6826709558021164E-007  0.62000000000000000        5.9397918641969618E-007
+ respiration   8.4394773286654709E-008
+ bivalve ben flx            1         147   3.6826709558021164E-007   8.4394773286654709E-008   5.0711874273742517E-008   8.1012072640698310E-009   0.0000000000000000        800.00000000000000     
+ _flux prey =    0.0000000000000000     
+ _flux prey =   -4.7518334913575693E-004
+ ben flux at 2 =    1.8004739260459564E-004
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        3.4722222222222219E-007   1.8004739260459564E-004
+ ben flux at 3 =    1.8004739260459564E-004
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        3.4722222222222219E-007   1.8004739260459564E-004
+ lev B=            2 flux =    1.8004739260459564E-004
+ biv_i:           1  biv =    800.00000000000000     
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN   800.00000000000000     
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4394773286654709E-008
+ bivalve ben flx            1         147                       NaN   8.4394773286654709E-008                       NaN                       NaN   0.0000000000000000        800.00000000000000     
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            2 flux =                        NaN
+ lev P=            2 flux =                        NaN
+ lev B=            3 flux =                        NaN
+ biv_i:           1  biv =    800.00000000000000     
+ prey(prey_i) =            1         106   3.9999999999999966E-002
+ prey(prey_i) =            2          75   78.500000000000014     
+ Ctotal_prey =    78.540000000000020                2
+ food =   78.540000000000020                2  0.10500000000000000     
+ grazing 1   5.9397918641969618E-007   4.7518334913575693E-004   800.00000000000000     
+ ingestion   3.6826709558021164E-007  0.62000000000000000        5.9397918641969618E-007
+ respiration   8.4394773286654709E-008
+ bivalve ben flx            1         147   3.6826709558021164E-007   8.4394773286654709E-008   5.0711874273742517E-008   8.1012072640698310E-009   0.0000000000000000        800.00000000000000     
+ _flux prey =    0.0000000000000000     
+ _flux prey =   -4.7518334913575693E-004
+ lev X=            3 flux =                        NaN
+ lev P=            3 flux =                        NaN
+ lev B=            4 flux =                        NaN
+ biv_i:           1  biv =    800.00000000000000     
+ prey(prey_i) =            1         106   10000.000000000000     
+ prey(prey_i) =            2          75   100000000.00000000     
+ Ctotal_prey =    100010000.00000000                2
+ food =   100010000.00000000                2  0.10500000000000000     
+ grazing 1   0.0000000000000000        0.0000000000000000        800.00000000000000     
+ ingestion   0.0000000000000000       0.62000000000000000        0.0000000000000000     
+ respiration   8.4394773286654709E-008
+ bivalve ben flx            1         147   0.0000000000000000        8.4394773286654709E-008   0.0000000000000000        0.0000000000000000        0.0000000000000000        800.00000000000000     
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            4 flux =                        NaN
+ lev P=            4 flux =                        NaN
+ lev B=            5 flux =                        NaN
+ biv_i:           1  biv =    800.00000000000000     
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN   800.00000000000000     
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4394773286654709E-008
+ bivalve ben flx            1         147                       NaN   8.4394773286654709E-008                       NaN                       NaN   0.0000000000000000        800.00000000000000     
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            5 flux =                        NaN
+ lev P=            5 flux =                        NaN
+ lev B=            6 flux =                        NaN
+ biv_i:           1  biv =    800.00000000000000     
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN   800.00000000000000     
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4394773286654709E-008
+ bivalve ben flx            1         147                       NaN   8.4394773286654709E-008                       NaN                       NaN   0.0000000000000000        800.00000000000000     
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            6 flux =                        NaN
+ lev P=            6 flux =                        NaN
+ lev B=            7 flux =                        NaN
+ biv_i:           1  biv =    800.00000000000000     
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN   800.00000000000000     
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4394773286654709E-008
+ bivalve ben flx            1         147                       NaN   8.4394773286654709E-008                       NaN                       NaN   0.0000000000000000        800.00000000000000     
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            7 flux =                        NaN
+ lev P=            7 flux =                        NaN
+ lev B=            8 flux =                        NaN
+ biv_i:           1  biv =    800.00000000000000     
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN   800.00000000000000     
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4394773286654709E-008
+ bivalve ben flx            1         147                       NaN   8.4394773286654709E-008                       NaN                       NaN   0.0000000000000000        800.00000000000000     
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            8 flux =                        NaN
+ lev P=            8 flux =                        NaN
+ lev B=            9 flux =                        NaN
+ biv_i:           1  biv =    800.00000000000000     
+ prey(prey_i) =            1         106   3.9983727839438238E-002
+ prey(prey_i) =            2          75   76.521970962918445     
+ Ctotal_prey =    76.561954690757887                2
+ food =   76.561954690757887                2  0.10500000000000000     
+ grazing 1   5.7901970407331302E-007   4.6321576325865040E-004   800.00000000000000     
+ ingestion   3.5899221652545409E-007  0.62000000000000000        5.7901970407331302E-007
+ respiration   8.4394773286654709E-008
+ bivalve ben flx            1         147   3.5899221652545409E-007   8.4394773286654709E-008   4.7309186847535923E-008   7.8213851566292278E-009   0.0000000000000000        800.00000000000000     
+ _flux prey =    0.0000000000000000     
+ _flux prey =   -4.6321576325865040E-004
+ lev X=            9 flux =                        NaN
+ lev P=            9 flux =                        NaN
+ ben flux at 4 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        3.1249999999999997E-006                       NaN
+ ben flux at 5 =                        NaN
+ ZZZZZ
+ ben flux at 6 =                        NaN
+ step:           5
+   9.0999999999999996     
+ flux =                        NaN
+ step:           6
+   9.0999999999999996     
+ step:           1
+   9.0999999999999996     
+ step:           2
+   9.0999999999999996     
+ step:           3
+   9.0999999999999996     
+ step:           4
+   9.0999999999999996     
+ dz is    1.2255448288018509       0.44363928367296923       0.75887243946179028        1.3029863893864277        1.1912529474332580        1.0988285406257079        1.0303870981200980        1.0242442362489488        1.0242442362489488     
+ ben flux at 1 =    0.0000000000000000     
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000     
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4331430927070693E-008
+ bivalve ben flx            1         147                       NaN   8.4331430927070693E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ ben flux at 2 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ ben flux at 3 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ lev B=            2 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4331430927070693E-008
+ bivalve ben flx            1         147                       NaN   8.4331430927070693E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            2 flux =                        NaN
+ lev P=            2 flux =                        NaN
+ lev B=            3 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4331430927070693E-008
+ bivalve ben flx            1         147                       NaN   8.4331430927070693E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            3 flux =                        NaN
+ lev P=            3 flux =                        NaN
+ lev B=            4 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4331430927070693E-008
+ bivalve ben flx            1         147                       NaN   8.4331430927070693E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            4 flux =                        NaN
+ lev P=            4 flux =                        NaN
+ lev B=            5 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4331430927070693E-008
+ bivalve ben flx            1         147                       NaN   8.4331430927070693E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            5 flux =                        NaN
+ lev P=            5 flux =                        NaN
+ lev B=            6 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4331430927070693E-008
+ bivalve ben flx            1         147                       NaN   8.4331430927070693E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            6 flux =                        NaN
+ lev P=            6 flux =                        NaN
+ lev B=            7 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4331430927070693E-008
+ bivalve ben flx            1         147                       NaN   8.4331430927070693E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            7 flux =                        NaN
+ lev P=            7 flux =                        NaN
+ lev B=            8 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4331430927070693E-008
+ bivalve ben flx            1         147                       NaN   8.4331430927070693E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            8 flux =                        NaN
+ lev P=            8 flux =                        NaN
+ lev B=            9 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4331430927070693E-008
+ bivalve ben flx            1         147                       NaN   8.4331430927070693E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            9 flux =                        NaN
+ lev P=            9 flux =                        NaN
+ ben flux at 4 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ ben flux at 5 =                        NaN
+ ZZZZZ
+ ben flux at 6 =                        NaN
+ step:           5
+   9.0999999999999996     
+ flux =                        NaN
+ step:           6
+   9.0999999999999996     
+ step:           1
+   9.0999999999999996     
+ step:           2
+   9.0999999999999996     
+ step:           3
+   9.0999999999999996     
+ step:           4
+   9.0999999999999996     
+ dz is    1.2255448288018509       0.44363928367296923       0.75887243946179028        1.3029863893864277        1.1912529474332580        1.0988285406257079        1.0303870981200980        1.0242442362489488        1.0242442362489488     
+ ben flux at 1 =    0.0000000000000000     
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000     
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4267343411372214E-008
+ bivalve ben flx            1         147                       NaN   8.4267343411372214E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ ben flux at 2 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ ben flux at 3 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ lev B=            2 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4267343411372214E-008
+ bivalve ben flx            1         147                       NaN   8.4267343411372214E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            2 flux =                        NaN
+ lev P=            2 flux =                        NaN
+ lev B=            3 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4267343411372214E-008
+ bivalve ben flx            1         147                       NaN   8.4267343411372214E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            3 flux =                        NaN
+ lev P=            3 flux =                        NaN
+ lev B=            4 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4267343411372214E-008
+ bivalve ben flx            1         147                       NaN   8.4267343411372214E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            4 flux =                        NaN
+ lev P=            4 flux =                        NaN
+ lev B=            5 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4267343411372214E-008
+ bivalve ben flx            1         147                       NaN   8.4267343411372214E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            5 flux =                        NaN
+ lev P=            5 flux =                        NaN
+ lev B=            6 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4267343411372214E-008
+ bivalve ben flx            1         147                       NaN   8.4267343411372214E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            6 flux =                        NaN
+ lev P=            6 flux =                        NaN
+ lev B=            7 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4267343411372214E-008
+ bivalve ben flx            1         147                       NaN   8.4267343411372214E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            7 flux =                        NaN
+ lev P=            7 flux =                        NaN
+ lev B=            8 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4267343411372214E-008
+ bivalve ben flx            1         147                       NaN   8.4267343411372214E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            8 flux =                        NaN
+ lev P=            8 flux =                        NaN
+ lev B=            9 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4267343411372214E-008
+ bivalve ben flx            1         147                       NaN   8.4267343411372214E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            9 flux =                        NaN
+ lev P=            9 flux =                        NaN
+ ben flux at 4 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ ben flux at 5 =                        NaN
+ ZZZZZ
+ ben flux at 6 =                        NaN
+ step:           5
+   9.0999999999999996     
+ flux =                        NaN
+ step:           6
+   9.0999999999999996     
+ step:           1
+   9.0999999999999996     
+ step:           2
+   9.0999999999999996     
+ step:           3
+   9.0999999999999996     
+ step:           4
+   9.0999999999999996     
+ dz is    1.2255448288018509       0.44363928367296923       0.75887243946179028        1.3029863893864277        1.1912529474332580        1.0988285406257079        1.0303870981200980        1.0242442362489488        1.0242442362489488     
+ ben flux at 1 =    0.0000000000000000     
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000     
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4204974528890036E-008
+ bivalve ben flx            1         147                       NaN   8.4204974528890036E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ ben flux at 2 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ ben flux at 3 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ lev B=            2 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4204974528890036E-008
+ bivalve ben flx            1         147                       NaN   8.4204974528890036E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            2 flux =                        NaN
+ lev P=            2 flux =                        NaN
+ lev B=            3 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4204974528890036E-008
+ bivalve ben flx            1         147                       NaN   8.4204974528890036E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            3 flux =                        NaN
+ lev P=            3 flux =                        NaN
+ lev B=            4 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4204974528890036E-008
+ bivalve ben flx            1         147                       NaN   8.4204974528890036E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            4 flux =                        NaN
+ lev P=            4 flux =                        NaN
+ lev B=            5 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4204974528890036E-008
+ bivalve ben flx            1         147                       NaN   8.4204974528890036E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            5 flux =                        NaN
+ lev P=            5 flux =                        NaN
+ lev B=            6 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4204974528890036E-008
+ bivalve ben flx            1         147                       NaN   8.4204974528890036E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            6 flux =                        NaN
+ lev P=            6 flux =                        NaN
+ lev B=            7 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4204974528890036E-008
+ bivalve ben flx            1         147                       NaN   8.4204974528890036E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            7 flux =                        NaN
+ lev P=            7 flux =                        NaN
+ lev B=            8 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4204974528890036E-008
+ bivalve ben flx            1         147                       NaN   8.4204974528890036E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            8 flux =                        NaN
+ lev P=            8 flux =                        NaN
+ lev B=            9 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4204974528890036E-008
+ bivalve ben flx            1         147                       NaN   8.4204974528890036E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            9 flux =                        NaN
+ lev P=            9 flux =                        NaN
+ ben flux at 4 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ ben flux at 5 =                        NaN
+ ZZZZZ
+ ben flux at 6 =                        NaN
+ step:           5
+   9.0999999999999996     
+ flux =                        NaN
+ step:           6
+   9.0999999999999996     
+ step:           1
+   9.0999999999999996     
+ step:           2
+   9.0999999999999996     
+ step:           3
+   9.0999999999999996     
+ step:           4
+   9.0999999999999996     
+ dz is    1.2255448288018509       0.44363928367296923       0.75887243946179028        1.3029863893864277        1.1912529474332580        1.0988285406257079        1.0303870981200980        1.0242442362489488        1.0242442362489488     
+ ben flux at 1 =    0.0000000000000000     
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000     
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4142073660649475E-008
+ bivalve ben flx            1         147                       NaN   8.4142073660649475E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ ben flux at 2 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ ben flux at 3 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ lev B=            2 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4142073660649475E-008
+ bivalve ben flx            1         147                       NaN   8.4142073660649475E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            2 flux =                        NaN
+ lev P=            2 flux =                        NaN
+ lev B=            3 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4142073660649475E-008
+ bivalve ben flx            1         147                       NaN   8.4142073660649475E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            3 flux =                        NaN
+ lev P=            3 flux =                        NaN
+ lev B=            4 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4142073660649475E-008
+ bivalve ben flx            1         147                       NaN   8.4142073660649475E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            4 flux =                        NaN
+ lev P=            4 flux =                        NaN
+ lev B=            5 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4142073660649475E-008
+ bivalve ben flx            1         147                       NaN   8.4142073660649475E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            5 flux =                        NaN
+ lev P=            5 flux =                        NaN
+ lev B=            6 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4142073660649475E-008
+ bivalve ben flx            1         147                       NaN   8.4142073660649475E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            6 flux =                        NaN
+ lev P=            6 flux =                        NaN
+ lev B=            7 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4142073660649475E-008
+ bivalve ben flx            1         147                       NaN   8.4142073660649475E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            7 flux =                        NaN
+ lev P=            7 flux =                        NaN
+ lev B=            8 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4142073660649475E-008
+ bivalve ben flx            1         147                       NaN   8.4142073660649475E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            8 flux =                        NaN
+ lev P=            8 flux =                        NaN
+ lev B=            9 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4142073660649475E-008
+ bivalve ben flx            1         147                       NaN   8.4142073660649475E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            9 flux =                        NaN
+ lev P=            9 flux =                        NaN
+ ben flux at 4 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ ben flux at 5 =                        NaN
+ ZZZZZ
+ ben flux at 6 =                        NaN
+ step:           5
+   9.0999999999999996     
+ flux =                        NaN
+ step:           6
+   9.0999999999999996     
+ step:           1
+   9.0999999999999996     
+ step:           2
+   9.0999999999999996     
+ step:           3
+   9.0999999999999996     
+ step:           4
+   9.0999999999999996     
+ dz is    1.2255448288018509       0.44363928367296923       0.75887243946179028        1.3029863893864277        1.1912529474332580        1.0988285406257079        1.0303870981200980        1.0242442362489488        1.0242442362489488     
+ ben flux at 1 =    0.0000000000000000     
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000     
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4078876839010733E-008
+ bivalve ben flx            1         147                       NaN   8.4078876839010733E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ ben flux at 2 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ ben flux at 3 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ lev B=            2 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4078876839010733E-008
+ bivalve ben flx            1         147                       NaN   8.4078876839010733E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            2 flux =                        NaN
+ lev P=            2 flux =                        NaN
+ lev B=            3 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4078876839010733E-008
+ bivalve ben flx            1         147                       NaN   8.4078876839010733E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            3 flux =                        NaN
+ lev P=            3 flux =                        NaN
+ lev B=            4 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4078876839010733E-008
+ bivalve ben flx            1         147                       NaN   8.4078876839010733E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            4 flux =                        NaN
+ lev P=            4 flux =                        NaN
+ lev B=            5 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4078876839010733E-008
+ bivalve ben flx            1         147                       NaN   8.4078876839010733E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            5 flux =                        NaN
+ lev P=            5 flux =                        NaN
+ lev B=            6 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4078876839010733E-008
+ bivalve ben flx            1         147                       NaN   8.4078876839010733E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            6 flux =                        NaN
+ lev P=            6 flux =                        NaN
+ lev B=            7 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4078876839010733E-008
+ bivalve ben flx            1         147                       NaN   8.4078876839010733E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            7 flux =                        NaN
+ lev P=            7 flux =                        NaN
+ lev B=            8 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4078876839010733E-008
+ bivalve ben flx            1         147                       NaN   8.4078876839010733E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            8 flux =                        NaN
+ lev P=            8 flux =                        NaN
+ lev B=            9 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4078876839010733E-008
+ bivalve ben flx            1         147                       NaN   8.4078876839010733E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            9 flux =                        NaN
+ lev P=            9 flux =                        NaN
+ ben flux at 4 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ ben flux at 5 =                        NaN
+ ZZZZZ
+ ben flux at 6 =                        NaN
+ step:           5
+   9.0999999999999996     
+ flux =                        NaN
+ step:           6
+   9.0999999999999996     
+ step:           1
+   9.0999999999999996     
+ step:           2
+   9.0999999999999996     
+ step:           3
+   9.0999999999999996     
+ step:           4
+   9.0999999999999996     
+ dz is    1.2255448288018509       0.44363928367296923       0.75887243946179028        1.3029863893864277        1.1912529474332580        1.0988285406257079        1.0303870981200980        1.0242442362489488        1.0242442362489488     
+ ben flux at 1 =    0.0000000000000000     
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000     
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4017850067289624E-008
+ bivalve ben flx            1         147                       NaN   8.4017850067289624E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ ben flux at 2 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ ben flux at 3 =                        NaN
+   0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000        0.0000000000000000                            NaN                       NaN
+ lev B=            2 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4017850067289624E-008
+ bivalve ben flx            1         147                       NaN   8.4017850067289624E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            2 flux =                        NaN
+ lev P=            2 flux =                        NaN
+ lev B=            3 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4017850067289624E-008
+ bivalve ben flx            1         147                       NaN   8.4017850067289624E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            3 flux =                        NaN
+ lev P=            3 flux =                        NaN
+ lev B=            4 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4017850067289624E-008
+ bivalve ben flx            1         147                       NaN   8.4017850067289624E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            4 flux =                        NaN
+ lev P=            4 flux =                        NaN
+ lev B=            5 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4017850067289624E-008
+ bivalve ben flx            1         147                       NaN   8.4017850067289624E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            5 flux =                        NaN
+ lev P=            5 flux =                        NaN
+ lev B=            6 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4017850067289624E-008
+ bivalve ben flx            1         147                       NaN   8.4017850067289624E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            6 flux =                        NaN
+ lev P=            6 flux =                        NaN
+ lev B=            7 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4017850067289624E-008
+ bivalve ben flx            1         147                       NaN   8.4017850067289624E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            7 flux =                        NaN
+ lev P=            7 flux =                        NaN
+ lev B=            8 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4017850067289624E-008
+ bivalve ben flx            1         147                       NaN   8.4017850067289624E-008                       NaN                       NaN   0.0000000000000000                            NaN
+ _flux prey =    0.0000000000000000     
+ _flux prey =    0.0000000000000000     
+ lev X=            8 flux =                        NaN
+ lev P=            8 flux =                        NaN
+ lev B=            9 flux =                        NaN
+ biv_i:           1  biv =                        NaN
+ prey(prey_i) =            1         106                       NaN
+ prey(prey_i) =            2          75                       NaN
+ Ctotal_prey =                        NaN           2
+ food =                       NaN           2  0.10500000000000000     
+ grazing 1                       NaN                       NaN                       NaN
+ ingestion                       NaN  0.62000000000000000                            NaN
+ respiration   8.4017850067289624E-008
+ bivalve ben flx            1         147                       NaN   8.4017850067289624E-008                       NaN                       NaN   0.0000000000000000                            NaN
+
+=================================================================
+==169069==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 512 byte(s) in 18 object(s) allocated from:
+    #0 0x5586fa839f07 in malloc (/home/casper/Work/AED_Tools_Private/GLM-curr/glm+0xf2f07)
+    #1 0x5586faa19bb8 in copy_double_list src/namelist.c:559
+    #2 0x5586faa19bb8 in get_namelist src/namelist.c:639
+
+Direct leak of 424 byte(s) in 8 object(s) allocated from:
+    #0 0x5586fa839f07 in malloc (/home/casper/Work/AED_Tools_Private/GLM-curr/glm+0xf2f07)
+    #1 0x5586faa19f88 in copy_str_list src/namelist.c:577
+    #2 0x5586faa19f88 in get_namelist src/namelist.c:642
+
+Direct leak of 4 byte(s) in 1 object(s) allocated from:
+    #0 0x5586fa839f07 in malloc (/home/casper/Work/AED_Tools_Private/GLM-curr/glm+0xf2f07)
+    #1 0x5586fa8cb7ef in init_glm src/glm_init.c:1082
+    #2 0x5586fa8fe32e in init_model src/glm_model.c:164
+    #3 0x5586fa8fdd44 in run_model src/glm_model.c:124
+    #4 0x5586fa908d78 in _main_ src/glm_main.c:181
+    #5 0x5586fa7aa014 in main src/xbasic.c:2059
+
+SUMMARY: AddressSanitizer: 940 byte(s) leaked in 27 allocation(s).

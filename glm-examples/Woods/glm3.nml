@@ -20,7 +20,7 @@
 /
 
 &wq_setup
-   wq_lib = 'aed'
+   wq_lib = 'api'
    wq_nml_file = 'aed/aed.nml'
    ode_method = 1
    split_factor = 1
@@ -204,7 +204,8 @@
   sed_temp_amplitude = 6,8,10
   sed_temp_peak_doy = 80, 70, 60
   benthic_mode = 1
-  n_zones = 3
+! n_zones = 3
+  n_zones = 0
   zone_heights     = 2.,  4.,  5.
   sed_reflectivity = 0.1, 0.01, 0.01
   sed_roughness    = 0.1, 0.01, 0.01

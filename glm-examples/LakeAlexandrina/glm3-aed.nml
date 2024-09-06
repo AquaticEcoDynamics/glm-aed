@@ -1,0 +1,169 @@
+!-------------------------------------------------------------------------------
+&glm_setup
+   sim_name        = 'ALEX'
+   max_layers      = 100
+   min_layer_vol   =   0.025
+   min_layer_thick =   0.1
+   max_layer_thick =   0.2
+   non_avg         = .true.
+/
+
+!-------------------------------------------------------------------------------
+&wq_setup
+   wq_lib = 'aed'
+   wq_nml_file = './aed/aed.nml'
+   ode_method = 1
+   split_factor = 1
+   bioshade_feedback = .true.
+   repair_state = .true.
+/
+
+!-------------------------------------------------------------------------------
+&light
+   light_mode = 0
+   n_bands = 4
+   light_extc = 1, 0.5, 2, 4
+   energy_frac = 0.51, 0.45, 0.035, 0.005
+   Benthic_Imin = 10
+   Kw = 0.3
+/
+
+!-------------------------------------------------------------------------------
+&mixing
+   coef_mix_conv = 0.125
+   coef_wind_stir = 0.23
+   coef_mix_shear = 0.2
+   coef_mix_turb = 0.51
+   coef_mix_KH = 0.3
+   coef_mix_shreq = 0
+   deep_mixing = .true.
+   coef_mix_hyp = 0.5
+/
+
+!-------------------------------------------------------------------------------
+&morphometry
+   lake_name  = 'Lake Alexandrina'
+   latitude   = -35
+   longitude  = 138
+   base_elev  =  -5.3
+   crest_elev =   0.6
+   bsn_len    = 40000  ! verify, estim
+   bsn_wid    = 35000  ! verify, estim
+   bsn_vals   = 49
+   !   H(m)  A(m2 * 1000) V(m3 * 1000)
+   H = -5.3, -3.90, -3.80, -3.70, -3.60, -3.50, -3.40, -3.30, -3.20, -3.10,
+  -3.00, -2.90, -2.80, -2.70, -2.60, -2.50, -2.40, -2.30, -2.20, -2.10,
+	-2.00, -1.90, -1.80, -1.70, -1.60, -1.50, -1.40, -1.30, -1.20, -1.10,
+	-1.00, -0.90, -0.80, -0.70, -0.60, -0.50, -0.40, -0.30, -0.20, -0.10,
+ 	 0.00,  0.10,  0.20,  0.30,  0.40,  0.50,  0.60,  0.70,  0.80
+   A = 0,  62500,  102500,  102500,  142500,  182500,  222500,  222500,  325000,  473800,  553700,  713700,  793700,  873800,  1056200,  1493700,  3216300,  5447500,  19817500,  37701700,  62675800,  91636100,  121027100,  154791100,  185197100,  212242100,  247960000,  285433000,  317968500,  339689600,  363270200,  378826600,  394037400,  414045000,  432689200,  453665200,  466589300,  479168500,  493944500,  504541300,  513827000,  523835500,  534229500,  544044800,  551357500,  561941900,  572036200,  580195900,  587998900
+/
+
+!-------------------------------------------------------------------------------
+&time
+    timefmt = 3
+    start   = '2010-07-01 00:00:00'
+    stop    = '2012-07-30 23:00:00'
+    dt      = 3600.0 ! hourly
+    num_days= 730
+!   timezone= +9.5
+/
+
+!-------------------------------------------------------------------------------
+&output
+   out_dir = 'output'
+   out_fn  = 'output'
+   nsave   = 1
+   csv_lake_fname = 'lake'
+/
+
+!-------------------------------------------------------------------------------
+&init_profiles          ! used info from Lake Alex st a4261133, constant
+    num_depths   = 4
+	  lake_depth   = 6.0
+    the_depths   = 1.0,3.0,4.0,6.0
+	  !num_heights = 4
+    !the_heights = 1.0  ,  3.0,  4.0,  6.0
+    the_temps    = 10.20,10.20,10.20,10.20
+    the_sals     = 0.25 , 0.25, 0.25, 0.25
+  	num_wq_vars  = 2
+    wq_names     =   'OXY_oxy',
+                     'OGM_doc'
+    wq_init_vals = 200.0, 200.0, 200.0, 200.0,
+                   1000.0, 1000.0, 1000.0, 1000.0  !about 12 mg/L
+/
+
+!-------------------------------------------------------------------------------
+&meteorology
+   met_sw      = .true.
+   lw_type     = 'LW_CC'
+   rain_sw     = .true.
+   atm_stab    = .false.
+   subdaily    = .true.
+   rad_mode    = 1
+   cloud_mode  = 1
+   meteo_fl    = 'met_hourly_AlexSY.csv'
+  !meteo_fl    = 'met_Alex_NetLW.csv'
+   wind_factor = 1.21
+   ce = 0.0013
+   ch = 0.0013
+   cd = 0.0013
+/
+
+!-------------------------------------------------------------------------------
+&inflow
+   coef_inf_entrain = 0.
+   ! flow from Loc1 Wellington, no temp and no oxy aval,
+   ! test with temp observed at surf (but ends 2011 Apr) or const T check
+   num_inflows    =  1
+   names_of_strms = 'inflow_1'
+   strm_hf_angle  = 65.0
+   strmbd_slope   =  4.0
+   strmbd_drag    =  0.0160
+   inflow_factor  =  1.0
+   inflow_fl      = 'inflow_Well_WQ_DOcorr_v2.csv'
+   inflow_varnum  =  4
+   inflow_vars    = 'FLOW',
+                    'TEMP',
+                    'SALT',
+                    'OXY_oxy',
+                    'SIL_rsi',
+                    'NIT_amm',
+                    'NIT_nit',
+                    'PHS_frp',
+                    'OGM_don',
+                    'OGM_pon',
+                    'OGM_dop',
+                    'OGM_pop',
+                    'OGM_doc',
+                    'OGM_poc',
+                    'PHY_green',
+                    'PHY_diatom',
+                    'PHY_bga'
+				           	'PHY_crypto'
+/
+
+!-------------------------------------------------------------------------------
+&outflow
+   num_outlet     = 1
+   outlet_type    = 1
+   flt_off_sw     = .false.
+   outl_elvs      = 0.5
+   bsn_len_outl   = 35000    !as in morphom, estim
+   bsn_wid_outl   = 40000    !as in morphom, estim
+   outflow_fl     = 'outflow_Well_v2.csv'
+   outflow_factor = 1.0
+/
+
+!-------------------------------------------------------------------------------
+&sediment
+   benthic_mode = 2
+   sed_heat_model = 1
+   n_zones = 3
+   zone_heights = 3, 5, 6.3
+   sed_heat_Ksoil = 1.2, 1.2, 1.8
+   sed_temp_depth = 0.5, 0.5, 0.2
+   sed_temp_mean = 11.0, 14.0, 12
+   sed_temp_amplitude = 3.1, 7.1, 8.8
+   sed_temp_peak_doy = 278.4380074, 276.9746504, 275
+/
