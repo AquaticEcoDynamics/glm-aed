@@ -399,7 +399,7 @@
   do_uptake_target_variable   ='OXY_oxy'
   c_uptake_target_variable    ='CAR_dic'
 !-- General options
-  dbase = 'aed/aed_phyto_pars.nml'
+  dbase = 'aed/aed_phyto_pars.csv'
   extra_diag = .true.
  !zerolimitfudgefactor = ??
   min_rho =  900.0
@@ -423,7 +423,7 @@
    pp_target_variable = 'OGM_pop'  ! particulate phosphorus target variable
    dc_target_variable = 'OGM_doc'  ! dissolved carbon target variable
    pc_target_variable = 'OGM_poc'  ! particulate carbon target variable
-   dbase='aed/aed_zoop_pars.nml'
+   dbase='aed/aed_zoop_pars.csv'
 /
 
 !###############################################################################
@@ -433,7 +433,7 @@
    num_biv = 1
    the_biv = 1
    X_c = 1.
-   dbase = 'aed/aed_bivalve_pars.nml'
+   dbase = 'aed/aed_bivalve_pars.csv'
   !--[ benthic setup ]--!
    n_zones = 1
    active_zones = 0

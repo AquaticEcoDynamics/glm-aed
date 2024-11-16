@@ -1,0 +1,53 @@
+ name                ,       'mussel',     'arthritica'
+ initial_conc        ,           800,          833
+ min                 ,           8.3,          8.3
+ length              ,            15,           15
+ INC                 ,         0.167,       291.67
+ IPC                 ,         0.008,        64.58
+ Rgrz                ,           0.9,         0.12
+ Ing                 ,             0,            0
+ WaI                 ,             0,            0
+ WbI                 ,         -0.39,        -0.39
+ fassim              ,          0.62,         0.34
+ Cmin_grz            ,          0.105,         0.0005
+ Kgrz                ,         180.5,        187.5
+ minT                ,             4,            4
+ Tmin                ,            17,           17
+ Tmax                ,            20,           20
+ maxT                ,            32,           32
+ Dmax                ,        3333.3,       6333.3
+ maxD                ,          5000,        20000
+ SSmax               ,            20,           20
+ maxSS               ,           100,          100
+ Rexcr               ,             0.0,            0
+ Regst               ,             0.015,            0
+ gegst               ,             0.88,            0
+ Rresp               ,           0.02,         0.01
+ saltfunc            ,             0,            0
+ minS                ,             0,            0
+ Smin                ,             0,            0
+ Smax                ,             0,            0
+ maxS                ,             0,            0
+ fR20                ,             0.02,            0
+ War                 ,        16.759,       16.759
+ Wbr                 ,         -0.25,        -0.25
+ fR                  ,             1,            1
+ theta_resp          ,          1.07,         1.08
+ TmaxR               ,            30,           30
+ maxTR               ,            43,           43
+ Qresp               ,           2.3,          2.3
+ SDA                 ,         0.285,        0.285
+ Rmort               ,             0,            0
+ Rpred               ,             0,            0
+ fDO                 ,             0,            0
+ K_BDO               ,           160,          160
+ KDO                 ,             8,            8
+ num_prey            ,             2,            1
+ prey(1)%bivalve_prey,     'OGM_poc',    'OGM_poc'
+ prey(1)%Pbiv_prey   ,           0.5,            1
+ prey(2)%bivalve_prey,   'PHY_green',  'PHY_green'
+ prey(2)%Pbiv_prey   ,           0.5,            1
+ prey(3)%bivalve_prey,   'PHY_diatom',  'PHY_diatom'
+ prey(3)%Pbiv_prey   ,           0.2,            1
+ prey(4)%bivalve_prey,   'PHY_crypto',  'PHY_crypto'
+ prey(4)%Pbiv_prey   ,           0.1,            1

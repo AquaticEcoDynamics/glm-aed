@@ -135,50 +135,6 @@ jobs:
           git commit -m "Update Ubuntu 22.04 binaries"
           git push
 
-  macOS-M:
-    # The type of runner that the job will run on
-    runs-on: macos-12
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
- 
-      - name: Checkout submodules
-        run: git submodule update --init --recursive
-
-      - name: Install packages
-        run: |
-          brew reinstall gcc
-          brew install netcdf
-          brew install gd
-
-      - name: compile GLM
-        run: |
-          cd $GITHUB_WORKSPACE/glm-source
-          ./build_glm.sh
-          MOSDIR=`grep 'SOFTWARE LICENSE AGREEMENT FOR ' '/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf' | awk -F 'macOS ' '{print $NF}' | tr -d '\\' | tr ' ' '_'`
-          mkdir -p $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}
-          cp -r $GITHUB_WORKSPACE/glm-source/binaries/macos/${MOSDIR}/* $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}/.
- 
-      - name: run GLM FCR
-        run: | 
-          cd glm-examples/FCR
-          echo now try running glm FCR
-          $GITHUB_WORKSPACE/binaries/macos/Monterey/glm_latest/glm
-          echo run completed
-
-      - name: update binaries and push to remote
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull
-          git add -A
-          git commit -m "Update MacOS binaries"
-          git push
-
   macOS-S:
     # The type of runner that the job will run on
     runs-on: macos-14
@@ -213,7 +169,54 @@ jobs:
           cd glm-examples/FCR
           MOSDIR=`grep 'SOFTWARE LICENSE AGREEMENT FOR ' '/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf' | awk -F 'macOS ' '{print $NF}' | tr -d '\\' | tr ' ' '_'`
           echo now try running glm for ${MOSDIR}
-          $GITHUB_WORKSPACE/binaries/macos/Sonoma/glm_latest/glm
+          $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}/glm_latest/glm
+          echo run completed
+
+      - name: update binaries and push to remote
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull
+          git add -A
+          git commit -m "Update MacOS binaries"
+          git push
+
+
+  macOS-S:
+    # The type of runner that the job will run on
+    runs-on: macos-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+ 
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
+
+      - name: Install packages
+        run: |
+          brew reinstall gcc
+          brew install netcdf
+          brew install gd
+
+      - name: compile GLM
+        run: |
+          cd $GITHUB_WORKSPACE/glm-source
+          ./build_glm.sh
+          MOSDIR=`grep 'SOFTWARE LICENSE AGREEMENT FOR ' '/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf' | awk -F 'macOS ' '{print $NF}' | tr -d '\\' | tr ' ' '_'`
+          mkdir -p $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}
+          cp -r $GITHUB_WORKSPACE/glm-source/binaries/macos/${MOSDIR}/* $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}/.
+ 
+      - name: run GLM FCR
+        shell: bash
+        run: | 
+          cd glm-examples/FCR
+          MOSDIR=`grep 'SOFTWARE LICENSE AGREEMENT FOR ' '/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf' | awk -F 'macOS ' '{print $NF}' | tr -d '\\' | tr ' ' '_'`
+          echo now try running glm for ${MOSDIR}
+          $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}/glm_latest/glm
           echo run completed
 
       - name: update binaries and push to remote

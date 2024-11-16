@@ -1,0 +1,212 @@
+&glm_setup
+   sim_name = 'Simulation'
+   max_layers = 500
+   min_layer_vol = 0.025
+   min_layer_thick = 0.15
+   max_layer_thick = 1.50
+   density_model = 1
+/
+
+&mixing
+  surface_mixing = 1
+  coef_mix_conv = 0.125
+  coef_wind_stir = 0.23
+  coef_mix_shear = 0.2
+  coef_mix_turb = 0.51
+  coef_mix_KH = 0.3
+  deep_mixing = 2
+  coef_mix_hyp = 0.5
+  diff = 0.
+/
+
+&wq_setup
+   wq_lib = 'api'
+   wq_nml_file = 'aed/aed.nml'
+   ode_method = 1
+   split_factor = 1
+   bioshade_feedback = .true.
+   repair_state = .true.
+!  mobility_off = .false.
+!  multi_ben = .true.
+!   benthic_mode = 1
+/
+
+&morphometry
+   lake_name  = 'WoodsLake'
+   latitude   = 42
+   longitude  = 147
+   base_elev  = 732.2029,
+   crest_elev = 737.7029,
+   bsn_len    = 4873.6500,
+   bsn_wid    = 4114.2830,
+   bsn_vals   = 12,
+   !   H (m)  A (m2)
+   A = 400,989600,6338400,7461200,9056800,9638800,10522000,10888000,11172400,11500400,11949600,12395200,
+   H = 732.2029,732.7029,733.2029,733.7029,734.2029,734.7029,735.2029,735.7029,736.2029,736.7029,737.2029,737.7029,
+/
+
+&time
+   timefmt  = 3
+   start    = '2011-07-01 00:00:00'
+   stop     = '2013-07-01 00:00:00' !'2014-04-01 00:00:00'
+   dt       = 3600.0
+   num_days = 730
+   !timezone = 7.0
+/
+
+&output
+   out_dir = 'output'
+   out_fn = 'output'
+   nsave = 6
+   ! General summary file
+   csv_lake_fname = 'lake'
+   ! Depth specific outputs
+   csv_point_nlevs = 1
+   csv_point_fname = 'WQ_'
+   csv_point_at = 0.
+   csv_point_nvars = 6
+   csv_point_vars = 'temp',
+                    'salt',
+	            'BIV_filtfrac'
+                    'BIV_net_c',
+				'Uorb'
+					'Taub'
+                    'SIL_rsi',
+                    'NIT_amm',
+                    'NIT_nit',
+                    'PHS_frp',
+                    'OGM_don',
+                    'OGM_pon',
+                    'OGM_dop',
+                    'OGM_pop',
+                    'OGM_doc',
+                    'OGM_poc',
+                    'PHY_green',
+                    'PHY_crypto',
+                    'PHY_diatom'
+
+   ! Combined outlet file & overflow
+   csv_outlet_allinone = .false.
+   csv_outlet_fname = 'outlet_'
+   csv_outlet_nvars = 17
+   csv_outlet_vars = 'flow',
+                     'temp',
+                     'salt',
+                     'OXY_oxy',
+                     'SIL_rsi',
+                     'NIT_amm',
+                     'NIT_nit',
+                     'PHS_frp',
+                     'OGM_don',
+                     'OGM_pon',
+                     'OGM_dop',
+                     'OGM_pop',
+                     'OGM_doc',
+                     'OGM_poc',
+                     'PHY_green',
+                     'PHY_crypto',
+                     'PHY_diatom'
+   csv_ovrflw_fname = "overflow"
+
+/
+
+&init_profiles
+    lake_depth  = 9.1
+    num_depths  = 2
+    the_depths  = 1.0,9.0
+    ! GLM
+    the_temps   = 5.10,5.10
+    the_sals    = 0.5, 0.5
+    ! WQ
+    num_wq_vars = 2
+    wq_names =      'OXY_oxy',
+					'TRC_ss1'
+    wq_init_vals =  200.1, 200.2
+                    6.2, 6.2
+/
+
+&meteorology
+   met_sw      = .TRUE.
+   lw_type     = 'LW_CC'
+   rain_sw     = .false.
+   atm_stab    = .false.
+   !catchrain   = .true.
+   !rad_mode    = 1
+   !albedo_mode = 1
+   cloud_mode  = 1
+   !-- BC file details
+   subdaily    = .true.
+   meteo_fl    = 'bcs/Woods2002-2013_met.csv' !'met_hourly_woods.csv'
+   wind_factor = 1.0
+   sw_factor = 1.4
+   lw_factor = 1.0
+   at_factor = 1.0
+   rh_factor = 1.0
+   rain_factor = 1
+   !-- Parameters
+   ce = 0.0013
+   ch = 0.0013
+   cd = 0.0013
+   !rain_threshold = 0.001
+   !runoff_coef    = 0.0
+/
+
+&light
+   light_mode = 0
+   n_bands = 4
+   light_extc = 1.0, 0.5, 2.0, 4.0
+   energy_frac = 0.51, 0.45, 0.035, 0.005
+   Benthic_Imin = 0.10
+   Kw = 0.8
+/
+
+&bird_model
+  AP = 973
+  Oz = 0.279
+  WatVap = 1.1
+  AOD500 = 0.033
+  AOD380 = 0.038
+  Albedo = 0.2
+/
+
+&inflow
+   num_inflows    = 1
+   names_of_strms = 'Riv1'
+   !subm_flag      = .false.
+   strm_hf_angle  = 65.0
+   strmbd_slope   = 2.0
+   strmbd_drag    = 0.0160
+   inflow_factor  = 0.5
+   inflow_fl      = 'bcs/inflow_inf1_2002_2013.csv'
+   inflow_varnum  = 3
+   inflow_vars    =   'FLOW',
+                      'TEMP',
+                      'SALT',
+   coef_inf_entrain = 0.
+!  time_fmt = 'YYYY-MM-DD hh:mm:ss'
+/
+
+&outflow
+   num_outlet   = 1
+   !flt_off_sw   = .false.
+   outlet_type  = 1
+   outl_elvs    = 735
+   bsn_len_outl = 799
+   bsn_wid_outl = 399
+   outflow_fl   = 'bcs/outflow_inf1_1999_2014.csv'
+   outflow_factor = 1.0
+/
+
+&sediment
+  sed_heat_Ksoil = 0.0
+  sed_temp_depth = 0.2
+  sed_temp_mean = 5,10,20
+  sed_temp_amplitude = 6,8,10
+  sed_temp_peak_doy = 80, 70, 60
+  benthic_mode = 1
+! n_zones = 3
+  n_zones = 0
+  zone_heights     = 2.,  4.,  5.
+  sed_reflectivity = 0.1, 0.01, 0.01
+  sed_roughness    = 0.1, 0.01, 0.01
+/
