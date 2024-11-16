@@ -135,7 +135,7 @@ jobs:
           git commit -m "Update Ubuntu 22.04 binaries"
           git push
 
-  macOS-S:
+  macOS-X:
     # The type of runner that the job will run on
     runs-on: macos-14
     env:
