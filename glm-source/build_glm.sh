@@ -231,7 +231,7 @@ ${CURDIR}/vers.sh $VERSION
 #cd ${CURDIR}/win-dll
 #${CURDIR}/vers.sh $VERSION
 cd "${CURDIR}"
-#get_commit_id >> ${CWD}/cur_state.log
+get_commit_id >> ${CWD}/cur_state.log
 
 export LIBRARY_PATH=$LIB
 if [ "$WITH_LIB" = "true" ] ; then
@@ -281,7 +281,7 @@ if [ "$OSTYPE" = "Linux" ] ; then
     else
        /bin/cp debian/control-no+ debian/control
     fi
-    sed -i -e 's/Maintainer: Aquatic EcoDynamics Group/Maintainer: AED <aed-cwss@uwa.edu.au>/' debian/control
+    sed -i -e 's/Maintainer: Aquatic EcoDynamics Group/Maintainer: AED <cwss.aed@uwa.edu.au>/' debian/control
     VERSDEB=`head -1 debian/changelog | cut -f2 -d\( | cut -f1 -d-`
     echo debian version $VERSDEB
     if [ "$VERSION" != "$VERSDEB" ] ; then
@@ -413,7 +413,7 @@ else
     /bin/mkdir ${BINPATH}/glm_latest
   fi
 fi
-#cp cur_state.log ${BINPATH}/glm_latest/glm_source.versions
+cp cur_state.log ${BINPATH}/glm_latest/glm_source.versions
 echo "glm_$VERSION" > ${BINPATH}/glm_latest/VERSION
 /bin/cp ${CURDIR}/glm ${BINPATH}/glm_latest
 echo Generating ReleaseInfo.txt for glm
@@ -430,7 +430,7 @@ if [ -x ${CURDIR}/glm+ ] ; then
       /bin/mkdir ${BINPATH}/glm+_latest
     fi
   fi
-  #cp cur_state.log ${BINPATH}/glm+_latest/glm+_source.versions
+  cp cur_state.log ${BINPATH}/glm+_latest/glm+_source.versions
   echo "glm+_$VERSION" > ${BINPATH}/glm+_latest/VERSION
   /bin/cp ${CURDIR}/glm+ ${BINPATH}/glm+_latest
   echo Generating ReleaseInfo.txt for glm+

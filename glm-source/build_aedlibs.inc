@@ -1,16 +1,16 @@
 
 cd ${CWD}
-#get_commit_id > cur_state.log
+get_commit_id > cur_state.log
 
 echo "build libaed-water"
 cd "${CWD}/libaed-water"
-#get_commit_id >> ${CWD}/cur_state.log
+get_commit_id >> ${CWD}/cur_state.log
 ${MAKE} || exit 1
 DAEDWATDIR=`pwd`
 if [ -d "${CWD}/libaed-benthic" ] ; then
   echo build libaed-benthic
   cd "${CWD}/libaed-benthic"
-  #get_commit_id >> ${CWD}/cur_state.log
+  get_commit_id >> ${CWD}/cur_state.log
   ${MAKE} || exit 1
   DAEDBENDIR=`pwd`
 fi
@@ -18,7 +18,7 @@ fi
 if [ -d "${CWD}/libaed-demo" ] ; then
   echo build libaed-demo
   cd "${CWD}/libaed-demo"
-  #get_commit_id >> ${CWD}/cur_state.log
+  get_commit_id >> ${CWD}/cur_state.log
   ${MAKE} || exit 1
   DAEDDMODIR=`pwd`
 fi
@@ -27,7 +27,7 @@ if [ "$WITH_AED_PLUS" = "true" ] ; then
   if [ -d "${CWD}/libaed-riparian" ] ; then
     echo build libaed-riparian
     cd "${CWD}/libaed-riparian"
-    #get_commit_id >> ${CWD}/cur_state.log
+    get_commit_id >> ${CWD}/cur_state.log
     ${MAKE} || exit 1
     DAEDRIPDIR=`pwd`
   fi
@@ -35,7 +35,7 @@ if [ "$WITH_AED_PLUS" = "true" ] ; then
   if [ -d "${CWD}/libaed-light" ] ; then
     echo build libaed-light
     cd "${CWD}/libaed-light"
-    #get_commit_id >> ${CWD}/cur_state.log
+    get_commit_id >> ${CWD}/cur_state.log
     ${MAKE} || exit 1
     DAEDLGTDIR=`pwd`
   fi
@@ -90,17 +90,17 @@ if [ "$WITH_AED_PLUS" = "true" ] ; then
 
     echo build libplot
     cd "${CWD}/libplot"
-    #get_commit_id >> ${CWD}/cur_state.log
+    get_commit_id >> ${CWD}/cur_state.log
     ${MAKE} || exit 1
 
     echo build libutil
     cd "${CWD}/libutil"
-    #get_commit_id >> ${CWD}/cur_state.log
+    get_commit_id >> ${CWD}/cur_state.log
     ${MAKE} || exit 1
 
     echo build libaed-dev
     cd "${CWD}/libaed-dev"
-    #get_commit_id >> ${CWD}/cur_state.log
+    get_commit_id >> ${CWD}/cur_state.log
     MORE_FLAGS=""
     if [ "$PHREEQDIR" != "" ] ; then
       MORE_FLAGS="$MORE_FLAGS PHREEQDIR=$PHREEQDIR"
@@ -121,7 +121,7 @@ fi
 if [ -d "${CWD}/libaed-api" ] ; then
   echo build libaed-api
   cd "${CWD}/libaed-api"
-  #get_commit_id >> ${CWD}/cur_state.log
+  get_commit_id >> ${CWD}/cur_state.log
   ${MAKE} || exit 1
   DAEDAPIDIR=`pwd`
   if [ "$WITH_AED_PLUS" != "true" ] ; then

@@ -16,6 +16,7 @@ glm-examples/Woods/output/lake.csv
 glm-examples/Woods/output/outlet_00.csv
 glm-examples/Woods/output/overflow.csv
 glm-source/binaries
+glm-source/cur_state.log
 renv/*
 .Rprofile
 .DS_Store
