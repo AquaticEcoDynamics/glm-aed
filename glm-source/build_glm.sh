@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # CURDIR should be the directory of the project we are building
-export CURDIR=`pwd`/GLM4
+export CURDIR=`pwd`/GLM
 # CWD should be the tools directory in which CURDIR lives
 export CWD=`dirname ${CURDIR}`
 
