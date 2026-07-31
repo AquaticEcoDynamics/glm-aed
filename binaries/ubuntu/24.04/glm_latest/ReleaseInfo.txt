@@ -7,7 +7,6 @@ This build is produced from the following git points :
 1e20f9e libaed-water.git
 0a0ab4b libaed-benthic.git
 b3d7c17 libaed-demo.git
-c5b3dc3 libaed2.git
 
 The plus version also has :
 
