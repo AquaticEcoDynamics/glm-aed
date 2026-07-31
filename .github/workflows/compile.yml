@@ -128,7 +128,6 @@ jobs:
           MOSDIR=`grep 'SOFTWARE LICENSE AGREEMENT FOR ' '/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf' | awk -F 'macOS ' '{print $NF}' | tr -d '\\' | tr ' ' '_'`
           mkdir -p $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}
           cp -r $GITHUB_WORKSPACE/glm-source/binaries/macos/${MOSDIR}/* $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}/.
-          rm glm-source/cur_state.log
  
       - name: run GLM FCR
         shell: bash
@@ -176,7 +175,6 @@ jobs:
           MOSDIR=`grep 'SOFTWARE LICENSE AGREEMENT FOR ' '/System/Library/CoreServices/Setup Assistant.app/Contents/Resources/en.lproj/OSXSoftwareLicense.rtf' | awk -F 'macOS ' '{print $NF}' | tr -d '\\' | tr ' ' '_'`
           mkdir -p $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}
           cp -r $GITHUB_WORKSPACE/glm-source/binaries/macos/${MOSDIR}/* $GITHUB_WORKSPACE/binaries/macos/${MOSDIR}/.
-          rm glm-source/cur_state.log
  
       - name: run GLM FCR
         shell: bash
