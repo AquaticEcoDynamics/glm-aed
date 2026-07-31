@@ -436,6 +436,7 @@ if [ -x ${CURDIR}/glm+ ] ; then
   echo Generating ReleaseInfo.txt for glm+
   ./admin/make_release_info.sh plus > ${BINPATH}/glm+_latest/ReleaseInfo.txt
 fi
+/bin/rm cur_state.log
 
 if [ "$WITH_LIB" = "true" ] ; then
   if [ -d ${BINPATH}/pglm_$VERSION ] ; then /bin/rm -rf ${BINPATH}/pglm_$VERSION ; fi
