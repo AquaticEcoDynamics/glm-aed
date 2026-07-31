@@ -89,8 +89,8 @@ jobs:
            cd $GITHUB_WORKSPACE/glm-source
            chmod u+x ./admin/make_release_info.sh
            ./build_glm.sh
-           mkdir -p $GITHUB_WORKSPACE/binaries/ubuntu/24.04
-           cp -r $GITHUB_WORKSPACE/glm-source/binaries/ubuntu/24.04/* $GITHUB_WORKSPACE/binaries/ubuntu/24.04/.
+           mkdir -p $GITHUB_WORKSPACE/binaries/ubuntu/26.04
+           cp -r $GITHUB_WORKSPACE/glm-source/binaries/ubuntu/26.04/* $GITHUB_WORKSPACE/binaries/ubuntu/26.04/.
  
       - name: update binaries and push to remote
         run: |
@@ -98,7 +98,7 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git pull
           git add -A
-          git commit -m "Update Ubuntu 24.04 binaries"
+          git commit -m "Update Ubuntu 26.04 binaries"
           git push
 
   macOS-15:
@@ -220,8 +220,6 @@ jobs:
       - name: compile GLM
         shell: bash
         run: |
-          cd $GITHUB_WORKSPACE/glm-source/ancillary/windows/Sources
-          ./build_all.sh
           cd $GITHUB_WORKSPACE/glm-source
           ./build_glm.sh
           mkdir -p $GITHUB_WORKSPACE/binaries/windows
