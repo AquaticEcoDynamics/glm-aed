@@ -4,9 +4,6 @@
 [submodule "glm-source/libplot"]
 	path = glm-source/libplot
 	url = https://github.com/AquaticEcoDynamics/libplot.git
-[submodule "glm-source/libaed2"]
-	path = glm-source/libaed2
-	url = https://github.com/AquaticEcoDynamics/libaed2.git
 [submodule "glm-source/libaed-water"]
 	path = glm-source/libaed-water
 	url = https://github.com/AquaticEcoDynamics/libaed-water.git

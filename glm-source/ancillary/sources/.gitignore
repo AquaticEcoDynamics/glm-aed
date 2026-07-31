@@ -11,6 +11,9 @@ netcdf-4*
 netcdf-c*
 netcdf-fortran-*
 cmake-info-*
+openmpi-*
+mpich-*
+sqlite-src-*
 .vs
 *.user
 *.db

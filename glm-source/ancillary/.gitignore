@@ -1,0 +1,7 @@
+cmake*
+include
+lib
+share
+bin
+sbin
+etc

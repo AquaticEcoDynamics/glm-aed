@@ -1,4 +1,4 @@
-# This is a basic workflow to help you get started with Actions
+# This is a basic workflow to build GLM
 
 name: Compile Mac, Ubuntu, Windows
 
@@ -13,128 +13,8 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains four jobs called "macOS","ubuntu20", "ubuntu22" and "windows"
-  ubuntu20:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-20.04
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
-      - name: Checkout submodules
-        run: git submodule update --init --recursive
-
-      # Runs a single command using the runners shell
-      - name: Getting packages
-        run: | 
-          sudo apt-get update -y
-          sudo apt-get install libnetcdf-dev
-          sudo apt-get install libgd3
-          sudo apt-get -y --allow-downgrades install libgd3=2.2.5-5.2ubuntu2.4
-          sudo apt-get install libgd-dev
-          sudo apt-get install gfortran
-          sudo apt-get install devscripts
-          sudo apt-get install debhelper
-
-      # Runs a set of commands using the runners shell
-      - name: compile GLM
-        run: |
-           cd $GITHUB_WORKSPACE/glm-source
-           chmod u+x ./admin/make_release_info.sh
-           ./build_glm.sh
-           mkdir -p $GITHUB_WORKSPACE/binaries/ubuntu/20.04
-           cp -r $GITHUB_WORKSPACE/glm-source/binaries/ubuntu/20.04/* $GITHUB_WORKSPACE/binaries/ubuntu/20.04/.
-
-      - name: run GLM FCR
-        run: | 
-          cd glm-examples/FCR
-          $GITHUB_WORKSPACE/glm-source/GLM/glm
-      - name: run GLM Woods
-        run: |
-          cd glm-examples/Woods
-          $GITHUB_WORKSPACE/glm-source/GLM/glm
-      - name: run GLM Sparkling 
-        run: |
-          cd glm-examples/Sparkling
-          $GITHUB_WORKSPACE/glm-source/GLM/glm
-      - name: run GLM Gross Dhuenn
-        run: |
-          cd glm-examples/GrosseDhuenn
-          $GITHUB_WORKSPACE/glm-source/GLM/glm
-      - name: run GLM Lake Alex
-        run: |
-          cd glm-examples/LakeAlexandrina
-          $GITHUB_WORKSPACE/glm-source/GLM/glm
-
-      #- uses: r-lib/actions/setup-pandoc@v2
-      #- uses: r-lib/actions/setup-r@v2
-      #- uses: r-lib/actions/setup-renv@v2
-      #- name: Run test and generate plots
-      #  run: |
-      #    cd glm-examples
-      #    R -e 'source("install.R")'
-      #    R -e 'install.packages("rmarkdown")'
-      #    R -e 'rmarkdown::render("example_lakes.Rmd")'
-      #    mv $GITHUB_WORKSPACE/glm-examples/example_lakes.md $GITHUB_WORKSPACE/glm-examples/README.md
-
-      - name: update binaries and push to remote
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull
-          git add -A
-          git commit -m "Update Ubuntu 20.04 binaries"
-          git push
-
-  ubuntu22:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-22.04
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
-      - name: Checkout submodules
-        run: git submodule update --init --recursive
-
-      # Runs a single command using the runners shell
-      - name: Getting packages
-        run:  |
-          sudo apt-get update -y
-          sudo apt-get install libnetcdf-dev
-          sudo apt-get install libgd3
-          sudo apt-get install libgd-dev
-          sudo apt-get install gfortran
-          sudo apt-get install devscripts
-          sudo apt-get install debhelper
-
-      # Runs a set of commands using the runners shell
-      - name: compile GLM
-        run: | 
-           cd $GITHUB_WORKSPACE/glm-source
-           chmod u+x ./admin/make_release_info.sh
-           ./build_glm.sh
-           mkdir -p $GITHUB_WORKSPACE/binaries/ubuntu/22.04
-           cp -r $GITHUB_WORKSPACE/glm-source/binaries/ubuntu/22.04/* $GITHUB_WORKSPACE/binaries/ubuntu/22.04/.
- 
-      - name: update binaries and push to remote
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull
-          git add -A
-          git commit -m "Update Ubuntu 22.04 binaries"
-          git push
-
+  # This workflow contains jobs for macOS, Ubuntu and Windows
   ubuntu24:
     # The type of runner that the job will run on
     runs-on: ubuntu-24.04
@@ -144,7 +24,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Checkout submodules
         run: git submodule update --init --recursive
@@ -178,16 +58,59 @@ jobs:
           git commit -m "Update Ubuntu 24.04 binaries"
           git push
 
-  macOS-14:
+  ubuntu26:
     # The type of runner that the job will run on
-    runs-on: macos-14
+    runs-on: ubuntu-26.04
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+
+      - name: Checkout submodules
+        run: git submodule update --init --recursive
+
+      # Runs a single command using the runners shell
+      - name: Getting packages
+        run:  |
+          sudo apt-get update -y
+          sudo apt-get install libnetcdf-dev
+          sudo apt-get install libgd3
+          sudo apt-get install libgd-dev
+          sudo apt-get install gfortran
+          sudo apt-get install devscripts
+          sudo apt-get install debhelper
+
+      # Runs a set of commands using the runners shell
+      - name: compile GLM
+        run: | 
+           cd $GITHUB_WORKSPACE/glm-source
+           chmod u+x ./admin/make_release_info.sh
+           ./build_glm.sh
+           mkdir -p $GITHUB_WORKSPACE/binaries/ubuntu/24.04
+           cp -r $GITHUB_WORKSPACE/glm-source/binaries/ubuntu/24.04/* $GITHUB_WORKSPACE/binaries/ubuntu/24.04/.
+ 
+      - name: update binaries and push to remote
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull
+          git add -A
+          git commit -m "Update Ubuntu 24.04 binaries"
+          git push
+
+  macOS-15:
+    # The type of runner that the job will run on
+    runs-on: macos-15
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v7
  
       - name: Checkout submodules
         run: git submodule update --init --recursive
@@ -227,14 +150,14 @@ jobs:
 
   macOS-S:
     # The type of runner that the job will run on
-    runs-on: macos-15
+    runs-on: macos-26
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
  
       - name: Checkout submodules
         run: git submodule update --init --recursive
@@ -281,7 +204,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Checkout submodules
         run: |

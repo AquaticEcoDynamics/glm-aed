@@ -1,0 +1,15 @@
+diff --git libgd-orig/src/gd.h LIBGD/src/gd.h
+index b0332388..591ddf8f 100644
+--- libgd-orig/src/gd.h
++++ LIBGD/src/gd.h
+@@ -57,7 +57,9 @@ extern "C" {
+ #   endif
+ #  endif
+ # else
+-#  ifdef __GNUC__
++#  ifdef _WIN32
++#   define BGD_EXPORT_DATA_PROT
++#  elif defined(__GNUC__)
+ #   define BGD_EXPORT_DATA_PROT __attribute__ ((__dllimport__))
+ #  else
+ #   define BGD_EXPORT_DATA_PROT __declspec(dllimport)

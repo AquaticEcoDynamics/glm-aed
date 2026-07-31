@@ -1,0 +1,8 @@
+* text=auto eol=lf
+
+# mark .bat files as non-text so git leaves them alone
+*.bat -text
+
+# Denote all files that are truly binary and should not be modified.
+*.mod binary
+*.ico binary
