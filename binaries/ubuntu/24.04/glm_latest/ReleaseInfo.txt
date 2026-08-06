@@ -1,11 +1,11 @@
 This build is produced from the following git points :
 
-ef90ae0 GLM.git
-ef90ae0 GLM.git
+e9f6925 GLM.git
+e9f6925 GLM.git
 2a540c7 libplot.git
-a9536ff libutil.git
-019b013 libaed-water.git
-6f6557b libaed-benthic.git
+c8fe70e libutil.git
+86b892e libaed-water.git
+c6d4b0e libaed-benthic.git
 d35b05e libaed-demo.git
 
 The plus version also has :
