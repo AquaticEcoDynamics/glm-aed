@@ -16,3 +16,6 @@
 [submodule "glm-source/libaed-demo"]
 	path = glm-source/libaed-demo
 	url = https://github.com/AquaticEcoDynamics/libaed-demo.git
+[submodule "glm-source/libaed-api"]
+	path = glm-source/libaed-api
+	url = https://github.com/AquaticEcoDynamics/libaed-api
