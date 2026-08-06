@@ -281,7 +281,6 @@ if [ "$OSTYPE" = "Linux" ] ; then
     else
        /bin/cp debian/control-no+ debian/control
     fi
-    sed -i -e 's/Maintainer: Aquatic EcoDynamics Group/Maintainer: AED <cwss.aed@uwa.edu.au>/' debian/control
     VERSDEB=`head -1 debian/changelog | cut -f2 -d\( | cut -f1 -d-`
     echo debian version $VERSDEB
     if [ "$VERSION" != "$VERSDEB" ] ; then
