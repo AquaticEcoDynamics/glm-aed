@@ -1,0 +1,216 @@
+/* GLM documentation -- minimal stylesheet, no framework, no JS dependency. */
+
+:root {
+  --ink: #1c2530;
+  --muted: #5b6875;
+  --line: #dde3e9;
+  --bg: #ffffff;
+  --panel: #f6f8fa;
+  --accent: #1c6ea4;
+  --accent-soft: #e8f1f7;
+  --req: #8a5a00;
+  --req-bg: #fff6e0;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #dbe3ea;
+    --muted: #9aa7b4;
+    --line: #2c3742;
+    --bg: #131920;
+    --panel: #1a2129;
+    --accent: #6cb6e6;
+    --accent-soft: #17242e;
+    --req: #e8b968;
+    --req-bg: #2a2214;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+
+.skip {
+  position: absolute; left: -9999px;
+}
+.skip:focus {
+  left: 8px; top: 8px; z-index: 10; padding: 8px 12px;
+  background: var(--accent); color: #fff; border-radius: 4px;
+}
+
+/* ---- header ---- */
+
+header {
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+header .wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; min-height: 56px; flex-wrap: wrap;
+}
+.brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-weight: 600; font-size: 17px; color: var(--ink); text-decoration: none;
+}
+.brand img { display: block; }
+nav.top a {
+  color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 14px;
+}
+nav.top a:hover { color: var(--accent); }
+
+/* ---- layout ---- */
+
+.layout { padding-top: 28px; padding-bottom: 64px; }
+
+/* ---- sticky "jump to" bar ---- */
+
+nav.jump {
+  position: sticky; top: 0; z-index: 5;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+nav.jump .wrap {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
+  padding-top: 8px; padding-bottom: 8px;
+}
+.jump-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--muted); font-weight: 600; margin-right: 2px;
+}
+.jump-label:not(:first-child) {
+  margin-left: 10px; padding-left: 12px; border-left: 1px solid var(--line);
+}
+nav.jump ul {
+  display: contents; list-style: none; margin: 0; padding: 0;
+}
+nav.jump a {
+  display: inline-block; padding: 3px 9px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--bg);
+  color: var(--muted); text-decoration: none;
+  font-family: var(--mono); font-size: 12px; line-height: 1.5;
+  white-space: nowrap; transition: background .12s, color .12s, border-color .12s;
+}
+nav.jump a:hover, nav.jump a:focus-visible {
+  background: var(--accent); border-color: var(--accent); color: #fff;
+}
+
+main { min-width: 0; }
+
+h1 { font-size: 30px; margin: 0 0 8px; letter-spacing: -0.01em; }
+.lede { color: var(--muted); margin: 0 0 8px; max-width: 62ch; }
+
+h2.group {
+  font-size: 13px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--muted); margin: 48px 0 0; padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+h2.group { scroll-margin-top: 68px; }
+
+section { margin: 32px 0 0; scroll-margin-top: 64px; }
+section h3 { font-size: 20px; margin: 0 0 10px; }
+/* Briefly mark whichever block was jumped to. */
+section:target h3 code { color: var(--ink); }
+section:target h3::before {
+  content: ""; position: absolute; margin-left: -14px; margin-top: 4px;
+  width: 4px; height: 22px; border-radius: 2px; background: var(--accent);
+}
+section:target h3 { position: relative; }
+section h3 code { background: none; padding: 0; color: var(--accent); font-size: inherit; }
+
+/* ---- notes ---- */
+
+p.note {
+  margin: 0 0 14px; padding: 8px 12px; font-size: 14px;
+  color: var(--muted); background: var(--panel);
+  border-left: 3px solid var(--line); border-radius: 0 4px 4px 0;
+}
+p.note.req {
+  color: var(--req); background: var(--req-bg); border-left-color: var(--req);
+}
+
+/* ---- tables ---- */
+
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; }
+
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+thead th {
+  background: var(--panel); text-align: left; font-weight: 600;
+  font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted);
+  padding: 9px 12px; border-bottom: 1px solid var(--line); white-space: nowrap;
+}
+tbody th, tbody td {
+  padding: 9px 12px; border-bottom: 1px solid var(--line);
+  vertical-align: top; text-align: left;
+}
+tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover { background: var(--accent-soft); }
+tbody th { font-weight: 600; white-space: nowrap; }
+
+code {
+  font-family: var(--mono); font-size: .9em;
+  background: var(--panel); padding: 1px 5px; border-radius: 3px;
+}
+
+/* Keep the LaTeX in the Options column from stretching the row. */
+tbody td mjx-container { margin: 2px 0 !important; }
+
+/* ---- examples ---- */
+
+details {
+  margin: 14px 0 0; border: 1px solid var(--line); border-radius: 6px;
+  background: var(--panel);
+}
+summary {
+  cursor: pointer; padding: 8px 12px; font-size: 13px; font-weight: 600;
+  color: var(--muted); user-select: none;
+}
+summary:hover { color: var(--accent); }
+details pre {
+  margin: 0; padding: 0 14px 14px; overflow-x: auto;
+}
+details pre code {
+  background: none; padding: 0; font-size: 13px; line-height: 1.5;
+  color: var(--ink); white-space: pre;
+}
+
+/* ---- footer ---- */
+
+footer {
+  border-top: 1px solid var(--line); background: var(--panel);
+  color: var(--muted); font-size: 14px;
+}
+footer p { margin: 18px 0; }
+footer a { color: var(--accent); }
+
+a { color: var(--accent); }
+
+@media (max-width: 860px) {
+  /* Too many chips to wrap comfortably -- scroll the bar sideways instead. */
+  nav.jump .wrap {
+    flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  nav.jump .wrap::-webkit-scrollbar { display: none; }
+  .jump-label { position: sticky; left: 0; background: var(--bg); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+tbody tr.subhead th {
+  background: var(--accent-soft); color: var(--accent);
+  font-size: 12px; text-transform: uppercase; letter-spacing: .05em;
+  padding: 7px 12px;
+}
+tbody tr.subhead:hover th { background: var(--accent-soft); }

@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GLM configuration reference &middot; glm3.nml</title>
+<meta name="description" content="Reference for the configuration options available in the GLM glm3.nml namelist file.">
+<link rel="stylesheet" href="assets/glm.css">
+<script>
+  window.MathJax = { options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] } };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/glm-icon.png" alt="" width="32" height="32">
+      <span>GLM</span>
+    </a>
+    <nav class="top">
+      <a href="https://github.com/AquaticEcoDynamics/glm-aed">Repository</a>
+      <a href="https://github.com/AquaticEcoDynamics/glm-aed/wiki">Wiki</a>
+      <a href="https://aquaticecodynamics.github.io/aed-science/">AED science</a>
+    </nav>
+  </div>
+</header>
+
+<nav class="jump" aria-label="Jump to a configuration block">
+  <div class="wrap">
+<span class="jump-label">Configuration</span>
+<ul>
+<li><a href="#glm_setup">&amp;glm_setup</a></li>
+<li><a href="#mixing">&amp;mixing</a></li>
+<li><a href="#wq_setup">&amp;wq_setup</a></li>
+<li><a href="#morphometry">&amp;morphometry</a></li>
+<li><a href="#time">&amp;time</a></li>
+<li><a href="#output">&amp;output</a></li>
+<li><a href="#init_profiles">&amp;init_profiles</a></li>
+<li><a href="#light">&amp;light</a></li>
+<li><a href="#bird_model">&amp;bird_model</a></li>
+<li><a href="#sediment">&amp;sediment</a></li>
+<li><a href="#snowice">&amp;snowice</a></li>
+</ul>
+<span class="jump-label">Boundary conditions</span>
+<ul>
+<li><a href="#meteorology">&amp;meteorology</a></li>
+<li><a href="#inflow">&amp;inflow</a></li>
+<li><a href="#outflow">&amp;outflow</a></li>
+</ul>
+  </div>
+</nav>
+
+<div class="wrap layout">
+<main id="content">
+<h1>Configuration reference</h1>
+<p class="lede">A GLM simulation is configured via the main &ldquo;namelist&rdquo; (nml) text file
+called <code>glm3.nml</code> or <code>glm4.nml</code>. Each block of configuration options and
+parameters is summarised below. For a summary of the notation and nomenclature refer to the 2019
+<a href="https://www.geosci-model-dev.net/12/473/2019/">GMD paper</a>.</p>
+
+<p class="lede">For working examples, visit
+<a href="https://github.com/AquaticEcoDynamics/glm-aed/tree/main/glm-examples">glm-examples</a>.</p>
+
+<h2 class="group">Model Configuration</h2>
+
+<section id="glm_setup">
+<h3><code>&amp;glm_setup</code></h3>
+<p class="note req">The first block IS compulsory, with the following variables that may be set :</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Symbol</th>
+<th>Description</th>
+<th>Type</th>
+<th>Units</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>sim_name</code></th>
+<td></td>
+<td>Title of simulation</td>
+<td>[string]</td>
+<td></td>
+<td></td>
+<td>'lake'</td>
+</tr>
+<tr>
+<th scope="row"><code>max_layers</code></th>
+<td>$$N_{MAX}$$</td>
+<td>Maximum number of layers</td>
+<td>[integer]</td>
+<td>-</td>
+<td></td>
+<td>500</td>
+</tr>
+<tr>
+<th scope="row"><code>min_layer_vol</code></th>
+<td>$$\Delta V_{min}$$</td>
+<td>Minimum layer volume</td>
+<td>[real]</td>
+<td>$$m^3$$</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>min_layer_thick</code></th>
+<td>$$\Delta z_{min}$$</td>
+<td>Minimum thickness of a layer (m)</td>
+<td>[real]</td>
+<td>$$m$$</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>max_layer_thick</code></th>
+<td>$$\Delta z_{max}$$</td>
+<td>Maximum thickness of a layer (m)</td>
+<td>[real]</td>
+<td>$$m$$</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>density_model</code></th>
+<td>$$\Theta_{\rho}$$</td>
+<td>Switch to set the density equation</td>
+<td>[integer]</td>
+<td>-</td>
+<td>$$\rho[T,S] \longleftarrow \left\{
+\begin{array}{ll}
+\textrm{TEOS-10: }&\Theta_{\rho}=1 \\
+\textrm{UNESCO(1981): }&\Theta_{\rho}=2\\
+\textrm{custom: }&\Theta_{\rho}=3+
+\end{array}
+\right.$$</td>
+<td>1</td>
+</tr>
+<tr>
+<th scope="row"><code>non_avg</code></th>
+<td>$$\Theta_{bc}$$</td>
+<td>Switch to configure flow boundary condition temporal interpolation</td>
+<td>[boolean]</td>
+<td>-</td>
+<td>$$Q_{inf}^{t} = \left\{
+\begin{array}{ll}
+Q_{inf}^{t} & \Theta_{bc}=T \\
+(Q_{inf}^{t}+Q_{inf}^{t-1})/2 & \Theta_{bc}=F
+\end{array}
+\right.$$</td>
+<td>.true.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;glm_setup
+			   sim_name = &#x27;Example Simulation #1&#x27;
+			   max_layers = 500
+			   min_layer_thick = 0.15
+			   max_layer_thick = 1.50
+			   min_layer_vol = 0.025
+			   density_model = 1
+			   non_avg = .true.
+			/</code></pre>
+</details>
+</section>
+
+<section id="mixing">
+<h3><code>&amp;mixing</code></h3>
+<p class="note">This configuration block is NOT compulsory</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Symbol</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>surface_mixing</code></th>
+<td>$$\Theta_{mix}$$</td>
+<td>Switch to select the options of the surface mixing model</td>
+<td>[integer]</td>
+<td>$$ \left\{
+\begin{array}{ll}
+\textrm{No surface mixing }&\Theta_{mix}=0 \\
+\textrm{xxxxx }&\Theta_{mix}=1\\
+\textrm{xxxxx }&\Theta_{mix}=2
+\end{array}
+\right.$$</td>
+<td>1</td>
+</tr>
+<tr>
+<th scope="row"><code>coef_mix_conv</code></th>
+<td>$$C_{K}$$</td>
+<td>Mixing efficiency - convective overturn</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>coef_wind_stir</code></th>
+<td>$$C_{W}$$</td>
+<td>Mixing efficiency - wind stirring</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>coef_mix_shear</code></th>
+<td>$$C_{S}$$</td>
+<td>Mixing efficiency - shear production</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>coef_mix_turb</code></th>
+<td>$$C_{T}$$</td>
+<td>Mixing efficiency - unsteady turbulence effects</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>coef_mix_KH</code></th>
+<td>$$C_{KH}$$</td>
+<td>Mixing efficiency - Kelvin-Helmholtz billowing</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>deep_mixing</code></th>
+<td>$$\Theta_{deep}$$</td>
+<td>Switch to select the options of the deep (hypolimnetic) mixing model</td>
+<td>[integer]</td>
+<td>$$ \left\{
+\begin{array}{ll}
+\textrm{No deep mixing: }D_z=0&\Theta_{deep}=0 \\
+\textrm{Constant diffusivity: }D_z=C_{HYP}&\Theta_{deep}=1\\
+\textrm{Weinstock model: }D_z=f(N^2,C_{HYP},...)&\Theta_{deep}=2
+\end{array}
+\right.$$</td>
+<td>?</td>
+</tr>
+<tr>
+<th scope="row"><code>coef_mix_hyp</code></th>
+<td>$$C_{HYP}$$</td>
+<td>Mixing efficiency - hypolimnetic turbulence</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>diff</code></th>
+<td>$$D_{\epsilon}$$</td>
+<td>Background (molecular) diffusivity in the hypolimnion</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;mixing
+			  surface_mixing = 1
+			  coef_mix_conv  = 0.125
+			  coef_wind_stir = 0.23
+			  coef_mix_shear = 0.2
+			  coef_mix_turb  = 0.51
+			  coef_mix_KH    = 0.3
+			  deep_mixing    = 2
+			  coef_mix_hyp   = 0.5
+			  diff = 0.
+			/</code></pre>
+</details>
+</section>
+
+<section id="wq_setup">
+<h3><code>&amp;wq_setup</code></h3>
+<p class="note">This configuration block is NOT compulsory</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Symbol</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>wq_lib</code></th>
+<td>$$\Theta_{wq}$$</td>
+<td>Water quality model selection</td>
+<td>[string]</td>
+<td>$$ \left\{
+\begin{array}{ll}
+\textrm{FABM} & \Theta_{wq}=\textrm{'FABM'} \\
+\textrm{AED2} & \Theta_{wq}=\textrm{'AED2'} \\
+\end{array}
+\right.$$</td>
+<td>AED2</td>
+</tr>
+<tr>
+<th scope="row"><code>wq_nml_file</code></th>
+<td></td>
+<td>Filename of WQ configuration file</td>
+<td>[string]</td>
+<td>add filename in quotes, can include directorys</td>
+<td>'./aed2.nml'</td>
+</tr>
+<tr>
+<th scope="row"><code>bioshade_feedback</code></th>
+<td>$$\Theta_{kw}$$</td>
+<td>Switch to enable \(K_{w}\) to be updated by the WQ model</td>
+<td>[boolean]</td>
+<td>$$K_{w}[t,z] = \left\{
+\begin{array}{ll}
+K_{w} & \Theta_{kw}=F \\
+K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
+\end{array}
+\right.$$</td>
+<td>?</td>
+</tr>
+<tr>
+<th scope="row"><code>mobility_off</code></th>
+<td></td>
+<td>Switch to enable settling within the WQ model</td>
+<td>[boolean]</td>
+<td>.true. & .false.</td>
+<td>.false.</td>
+</tr>
+<tr>
+<th scope="row"><code>ode_method</code></th>
+<td>$$\Theta_{ode}$$</td>
+<td>Method to use for ODE solution of water quality module</td>
+<td>[integer]</td>
+<td>tbc</td>
+<td>1</td>
+</tr>
+<tr>
+<th scope="row"><code>split_factor</code></th>
+<td></td>
+<td>Factor weighting implicit vs explicit numerical solution of the WQ model</td>
+<td>[real]</td>
+<td>0-1</td>
+<td>1</td>
+</tr>
+<tr>
+<th scope="row"><code>repair_state</code></th>
+<td>$$\Theta_{repair}$$</td>
+<td>Switch to correct negative or out of range WQ variables</td>
+<td>[boolean]</td>
+<td>.true. or .false.</td>
+<td>.true.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;wq_setup
+			   wq_lib = &#x27;aed2&#x27;
+			   wq_nml_file = &#x27;aed2/aed2.nml&#x27;
+			   ode_method = 1
+			   split_factor = 1
+			   bioshade_feedback = .true.
+			   repair_state = .true.
+			   mobility_off = .false.
+			/</code></pre>
+</details>
+</section>
+
+<section id="morphometry">
+<h3><code>&amp;morphometry</code></h3>
+<p class="note req">This configuration block IS compulsory</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Symbol</th>
+<th>Description</th>
+<th>Type</th>
+<th>Units</th>
+<th>Options/Comment</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>lake_name</code></th>
+<td></td>
+<td>Site name</td>
+<td>[string]</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>latitude</code></th>
+<td>$$Lat$$</td>
+<td>Latitude, positive North</td>
+<td>[real]</td>
+<td>$$^{\circ} N$$</td>
+<td></td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row"><code>longitude</code></th>
+<td>$$Long$$</td>
+<td>Longitude, positive East</td>
+<td>[real]</td>
+<td>$$^{\circ} E$$</td>
+<td></td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row"><code>base_elev</code></th>
+<td>$$H_{0}$$</td>
+<td>Elevation of the bottom-most point of the lake</td>
+<td>[real]</td>
+<td>\(m\) above datum</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>crest_elev</code></th>
+<td>$$H_{crest}$$</td>
+<td>Elevation of a weir crest, where overflow begins</td>
+<td>[real]</td>
+<td>\(m\) above datum</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>bsn_len</code></th>
+<td>$$L_{crest}$$</td>
+<td>Length of the lake basin, at crest height</td>
+<td>[real]</td>
+<td>$$m$$</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>bsn_wid</code></th>
+<td>$$W_{crest}$$</td>
+<td>Width of the lake basin, at crest height</td>
+<td>[real]</td>
+<td>$$m$$</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>bsn_vals</code></th>
+<td>$$N_{BSN}$$</td>
+<td>Number of points being provided to described the hyposgraphic details</td>
+<td>[real]</td>
+<td>-</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>H</code></th>
+<td>$$H[b]$$</td>
+<td>Comma-separated list of lake elevations</td>
+<td>[array]</td>
+<td>\(m\) above datum</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>A</code></th>
+<td>$$A[b]$$</td>
+<td>Comma-separated list of lake areas</td>
+<td>[array]</td>
+<td>$$m^2$$</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;morphometry
+				   lake_name  = &#x27;Example Lake&#x27;
+				   latitude   =  32
+				   longitude  =  35
+				   base_elev  = -252.9
+				   crest_elev = -203.9
+				   bsn_len    =  21000
+				   bsn_wid    =  13000
+				   bsn_vals   =  45
+				   !   H(m) &amp; A(m2), both have length bsn_vals
+				   H = -252.9,  -251.9,  -250.9,  -249.9,  -248.9,  -247.9,  -246.9,  -245.9,
+					   -244.9,  -243.9,  -242.9,  -241.9,  -240.9,  -239.9,  -238.9,
+					   -237.9,  -236.9,  -235.9,  -234.9,  -233.9,  -232.9,  -231.9,
+					   -230.9,  -229.9,  -228.9,  -227.9,  -226.9,  -225.9,  -224.9,
+					   -223.9,  -222.9,  -221.9,  -220.9,  -219.9,  -218.9,  -217.9,
+					   -216.9,  -215.9,  -214.9,  -213.9,  -212.9,  -211.9,  -208.9,
+					   -207.9,  -203.9
+				   A = 0,  9250000,  15200000,  17875000,  21975000,  26625000,  31700000,  33950000,
+					   38250000,   41100000,   46800000,  51675000,  55725000,  60200000,  64675000,
+					   69600000,   74475000,   79850000,  85400000,  90975000,  96400000,  102000000,
+					   107000000,  113000000,  118000000,  123000000,  128000000,  132000000,  136000000,
+					   139000000,  143000000,  146000000,  148000000,  150000000,  151000000,  153000000,
+					   155000000,  157000000,  158000000,  160000000,  161000000,  162000000,  167000000,
+					   170000000,  173000000
+
+				/</code></pre>
+</details>
+</section>
+
+<section id="time">
+<h3><code>&amp;time</code></h3>
+<p class="note req">This configuration block IS compulsory</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Symbol</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>timefmt</code></th>
+<td>$$\Theta_{time}$$</td>
+<td>Time configuration switch</td>
+<td>[Integer]</td>
+<td>$$ \left\{
+\begin{array}{ll}
+t = t_{0} ... t_{N_{\Delta t}};\ N_d = t_{N_{\Delta t}} - t_{0} & \Theta_{time}=2 \\
+t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
+\end{array}
+\right.$$</td>
+<td>?</td>
+</tr>
+<tr>
+<th scope="row"><code>start</code></th>
+<td>$$t_{0}$$</td>
+<td>Start time/date of simulation</td>
+<td>[string, format = "yyyy-mm-dd hh:mm:ss"]</td>
+<td>Required</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>stop</code></th>
+<td>$$t_{N_{\Delta t}}$$</td>
+<td>End time/date of simulation</td>
+<td>[string, format = "yyyy-mm-dd hh:mm:ss"]</td>
+<td>Used when (\(\Theta_{time}=2\))</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>dt</code></th>
+<td>$$\Delta t$$</td>
+<td>Time step (\(sec\))</td>
+<td>[real]</td>
+<td>Required</td>
+<td>3600</td>
+</tr>
+<tr>
+<th scope="row"><code>num_days</code></th>
+<td>$$N_d$$</td>
+<td>Number of days to simulate</td>
+<td>[integer]</td>
+<td>Used when (\(\Theta_{time}=3\))</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>timezone</code></th>
+<td>$$TZ$$</td>
+<td>UTC time zone</td>
+<td>[real]</td>
+<td></td>
+<td>+0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;time
+				   timefmt  = 3                       ! Choose 2 (start/stop) or 3 (num_days)
+				   start    = &#x27;1997-01-01 00:00:00&#x27;
+				   stop     = &#x27;1999-01-01 00:00:00&#x27;
+				   dt       = 3600.0
+				   num_days = 730
+				  !timezone = 7.0
+				/</code></pre>
+</details>
+</section>
+
+<section id="output">
+<h3><code>&amp;output</code></h3>
+<p class="note">This configuration block is NOT compulsory</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>out_dir</code></th>
+<td>Directory to write the output files</td>
+<td>[string]</td>
+<td></td>
+<td>./</td>
+</tr>
+<tr>
+<th scope="row"><code>out_fn</code></th>
+<td>Filename of the main NetCDF output file</td>
+<td>[string]</td>
+<td></td>
+<td>output</td>
+</tr>
+<tr>
+<th scope="row"><code>nsave</code></th>
+<td>Frequency to write to the NetCDF and CSV point files</td>
+<td>[integer]</td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<th scope="row"><code>csv_lake_fname</code></th>
+<td>Filename for the daily summary file</td>
+<td>[string]</td>
+<td></td>
+<td>lake</td>
+</tr>
+<tr>
+<th scope="row"><code>csv_point_nlevs</code></th>
+<td>Number of specific level/depth csv files to be created</td>
+<td>[real]</td>
+<td></td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row"><code>csv_point_fname</code></th>
+<td>Name to be appended to specified depth CSV files</td>
+<td>[string]</td>
+<td></td>
+<td>'WQ_'</td>
+</tr>
+<tr>
+<th scope="row"><code>csv_point_frombot</code></th>
+<td>Comma separated list identify whether each output point listed in csv_point_at is relative to the bottom (ie heights) or the surface (ie depths)</td>
+<td>[real]</td>
+<td></td>
+<td>.true.</td>
+</tr>
+<tr>
+<th scope="row"><code>csv_point_at</code></th>
+<td>Height or Depth of points to output at (comma separated list)</td>
+<td>[real]</td>
+<td></td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row"><code>csv_point_nvars</code></th>
+<td>Number of variables to output into the csv files</td>
+<td>[integer]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>csv_point_vars</code></th>
+<td>Comma separated list of variable names</td>
+<td>[string]</td>
+<td>temp; salt; ...</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>csv_outlet_allinone</code></th>
+<td>Switch to create an optional outlet file combining all outlets</td>
+<td>[boolean]</td>
+<td>.true. & .false.</td>
+<td>.false.</td>
+</tr>
+<tr>
+<th scope="row"><code>csv_outlet_fname</code></th>
+<td>Name to be appended to each of the outlet CSV files</td>
+<td>[string]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>csv_outlet_nvars</code></th>
+<td>Number of variables to be written into the outlet file(s)</td>
+<td>[integer]</td>
+<td></td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row"><code>csv_outlet_vars</code></th>
+<td>Comma separated list of variable names to be included in the output file(s)</td>
+<td>[string]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>csv_ovrflw_fname</code></th>
+<td>Filename to be used for recording the overflow details</td>
+<td>[string]</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;output
+				   out_dir = &#x27;output&#x27;
+				   out_fn  = &#x27;output&#x27;
+				   nsave = 6
+				  !-- General summary file
+				   csv_lake_fname = &#x27;lake&#x27;
+				  !-- Depth specific outputs
+				   csv_point_nlevs = 2
+				   csv_point_fname = &#x27;WQ_&#x27;
+				   csv_point_at    = 5,30    ! a file will be produced for 5m and 30m heights from bottom
+				   csv_point_nvars = 7
+				   csv_point_vars  = &#x27;temp&#x27;,
+						     &#x27;salt&#x27;,
+							&#x27;OXY_oxy&#x27;,
+							 &#x27;SIL_rsi&#x27;,
+							 &#x27;NIT_amm&#x27;,
+							 &#x27;NIT_nit&#x27;,
+							 &#x27;PHS_frp&#x27;
+				  !-- Combined outlet file &amp; overflow
+				   csv_outlet_allinone = .false.
+				   csv_outlet_fname = &#x27;outlet_&#x27;
+				   csv_outlet_nvars = 4
+				   csv_outlet_vars = &#x27;flow&#x27;,
+				                     &#x27;temp&#x27;,
+				                     &#x27;salt&#x27;,
+				                     &#x27;OXY_oxy&#x27;,
+				   csv_ovrflw_fname = &quot;overflow&quot;
+				/</code></pre>
+</details>
+</section>
+
+<section id="init_profiles">
+<h3><code>&amp;init_profiles</code></h3>
+<p class="note req">This configuration block IS compulsory</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Symbol</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>lake_depth</code></th>
+<td>$$h_S[t=0]$$</td>
+<td>Initial lake height/depth (m)</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>num_depths</code></th>
+<td></td>
+<td>Number of depths provided for initial profiles</td>
+<td>[integer]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>the_depths</code></th>
+<td></td>
+<td>The depths of the initial profile points (m) as a comma-separated list</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>the_temps</code></th>
+<td>$$T[t=0,z]$$</td>
+<td>The temperature (C) at each of the initial profile points (comma-separated list)</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>the_sals</code></th>
+<td>$$S[t=0,z]$$</td>
+<td>The salinity (ppt) at each of the initial profile points (comma-separated list)</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>num_wq_vars</code></th>
+<td></td>
+<td>Number of non GLM (ie FABM or AED2) variables to be initialised</td>
+<td>[integer]</td>
+<td>Note these values override initialisations done by FABM or AED2</td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row"><code>wq_names</code></th>
+<td></td>
+<td>Names of non GLM (ie FABM or AED2) variables to be initialised (comma-separated list)</td>
+<td>[string]</td>
+<td></td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>wq_init_vals</code></th>
+<td>$$C[t=0,z,\mathbb{C}]$$</td>
+<td>Array of WQ variable initial data (rows = vars; cols = depths)</td>
+<td>[real]</td>
+<td></td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;init_profiles
+					lake_depth  = 43
+					num_depths  = 3
+					the_depths  = 1,    20,   40
+				   !-- GLM
+					the_temps   = 18.0, 18.0, 18.0
+					the_sals    =  0.5,  0.5,  0.5
+				   !-- WQ
+					num_wq_vars = 6
+					wq_names    =  &#x27;OGM_don&#x27;,
+							&#x27;OGM_pon&#x27;,
+							&#x27;OGM_dop&#x27;,
+							&#x27;OGM_pop&#x27;,
+							&#x27;OGM_doc&#x27;,
+							&#x27;OGM_poc&#x27;
+					wq_init_vals =  1.1, 1.2, 1.3, 1.2, 1.3,
+							2.1, 2.2, 2.3, 1.2, 1.3,
+							3.1, 3.2, 3.3, 1.2, 1.3,
+							4.1, 4.2, 4.3, 1.2, 1.3,
+							5.1, 5.2, 5.3, 1.2, 1.3,
+							6.1, 6.2, 6.3, 1.2, 1.3
+				/</code></pre>
+</details>
+</section>
+
+<section id="light">
+<h3><code>&amp;light</code></h3>
+<p class="note">This configuration block is NOT compulsory</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Symbol</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>light_mode</code></th>
+<td>$$\Theta_{light}$$</td>
+<td>Switch to configure the approach to light penetration</td>
+<td>[integer]</td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<th scope="row"><code>Kw</code></th>
+<td>$$K_w$$</td>
+<td>Light extinction coefficient (\(m^{-1}\))</td>
+<td>[real]</td>
+<td>Used when \(\Theta_{light}=0\)</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>Kw_file</code></th>
+<td>-</td>
+<td>Name of file with Kw time-series included</td>
+<td>[string]</td>
+<td></td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>n_bands</code></th>
+<td>$$N_{SW}$$</td>
+<td>Number of light bandwidths to simulate</td>
+<td>[integer]</td>
+<td>Used when \(\Theta_{light}=1\)</td>
+<td>4</td>
+</tr>
+<tr>
+<th scope="row"><code>light_extc</code></th>
+<td>$$K_w_l$$</td>
+<td>Comma-separated list of light extinction coefficients for each waveband</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>energy_frac</code></th>
+<td>$$f_l$$</td>
+<td>Comma-separated list of energy fraction captured by each waveband</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>Benthic_Imin</code></th>
+<td>$$f_{BEN}_{crit}$$</td>
+<td>Critical fraction of incident light reaching the benthos</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;light
+				   light_mode = 0
+				   Kw = 0.57
+				   n_bands = 4
+				   light_extc = 1.0, 0.5, 2.0, 4.0
+				   energy_frac = 0.51, 0.45, 0.035, 0.005
+				   Benthic_Imin = 10
+				/</code></pre>
+</details>
+</section>
+
+<section id="bird_model">
+<h3><code>&amp;bird_model</code></h3>
+<p class="note">This configuration block is NOT compulsory</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Symbol</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>AP</code></th>
+<td>$$p$$</td>
+<td>Atmospheric pressure (hPa)</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>Oz</code></th>
+<td>$$Oz$$</td>
+<td>Ozone concentration (atm-cm)</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>WatVap</code></th>
+<td>$$W$$</td>
+<td>Total Precipitable water vapor (atm-cm)</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>AOD500</code></th>
+<td>$$AOD_{500}$$</td>
+<td>Dimensionless Aerosol Optical Depth at wavelength 500 nm</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>AOD380</code></th>
+<td>$$AOD_{380}$$</td>
+<td>Dimensionless Aerosol Optical Depth at wavelength 380 nm</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>Albedo</code></th>
+<td>$$\alpha_{SW}$$</td>
+<td>Albedo of the surface used for Bird Model insolation calculation</td>
+<td>[real]</td>
+<td></td>
+<td>0.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;bird_model
+					  AP     = 973
+					  Oz     = 0.279
+					  WatVap = 1.1
+					  AOD500 = 0.033
+					  AOD380 = 0.038
+					  Albedo = 0.2
+				/</code></pre>
+</details>
+</section>
+
+<section id="sediment">
+<h3><code>&amp;sediment</code></h3>
+<p class="note">This configuration block is NOT compulsory</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Symbol</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>sed_heat_Ksoil</code></th>
+<td>$$K_{soil}$$</td>
+<td>heat conductivity of soil/sediment</td>
+<td>[real]</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>sed_temp_depth</code></th>
+<td>$$\delta z_{soil}$$</td>
+<td>Depth of soil/sediment layer below the lake bottom, used for heat flux calculation</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>sed_temp_mean</code></th>
+<td>$$T_{z_{mean}}$$</td>
+<td>Annual mean sediment temperature</td>
+<td>[real]</td>
+<td>comma-separated list if \(N_{SZ}>1\)</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>sed_temp_amplitude</code></th>
+<td>$$\delta T_z$$</td>
+<td>Amplitude of temperature variation experienced in the sediment over one year</td>
+<td>[real]</td>
+<td>comma-separated list if \(N_{SZ}>1\)</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>sed_temp_peak_doy</code></th>
+<td>$$d_{T_{z}}$$</td>
+<td>Day of the year where the sediment temperature peaks</td>
+<td>[integer]</td>
+<td>comma-separated list if \(N_{SZ}>1\)</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>benthic_mode</code></th>
+<td>$$\Theta_{benthic}$$</td>
+<td>Switch to configure which mode of benthic interaction to apply</td>
+<td>[integer]</td>
+<td>$$ \left\{
+\begin{array}{ll}
+\textrm{Bottom layer only } & \Theta_{benthic}=0 \\
+\textrm{Bottom layer & layer flanks } & \Theta_{benthic}=1 \\
+\textrm{Sediment zones } & \Theta_{benthic}=2 \\
+\textrm{tbc} & \Theta_{benthic}=3 
+\end{array}
+\right.$$</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>n_zones</code></th>
+<td>$$N_{SZ}$$</td>
+<td>Number of sediment zones to simulate</td>
+<td>[integer]</td>
+<td>Required for benthic_mode (\(\Theta_{benthic}\)) \(= 2\) or \(3\)</td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row"><code>zone_heights</code></th>
+<td>$$h_z[1 ... N_{SZ}]$$</td>
+<td>Upper height of zone boundary</td>
+<td>[real]</td>
+<td>Required for benthic_mode (\(\Theta_{benthic}\)) \(= 2\) or \(3\)</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>sed_reflectivity</code></th>
+<td>$$\alpha_{sed}$$</td>
+<td>Sediment reflectivity</td>
+<td>[real]</td>
+<td></td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row"><code>sed_roughness</code></th>
+<td>$$d_{SS_{z}}$$</td>
+<td>TBC</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;sediment
+				  sed_heat_Ksoil = 0.0
+				  sed_temp_depth = 0.2
+				  sed_temp_mean = 5,10,20
+				  sed_temp_amplitude = 6,8,10
+				  sed_temp_peak_doy = 80, 70, 60
+				  benthic_mode = 1
+				  n_zones = 3
+				  zone_heights = 10., 20., 50.
+				  sed_reflectivity = 0.1, 0.01, 0.01
+				  sed_roughness = 0.1, 0.01, 0.01
+
+				/</code></pre>
+</details>
+</section>
+
+<section id="snowice">
+<h3><code>&amp;snowice</code></h3>
+<p class="note">This configuration block is NOT compulsory</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Symbol</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>snow_albedo_factor</code></th>
+<td>$$f_{\alpha}$$</td>
+<td>Scaling factor used to as a multiplier to scale the snow/ice albedo estimate</td>
+<td>[real]</td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<th scope="row"><code>snow_rho_min</code></th>
+<td>$$\rho_{s,min}$$</td>
+<td>Minimum snow density allowable (\(kg\ m^{-3}\))</td>
+<td>[real]</td>
+<td></td>
+<td>50</td>
+</tr>
+<tr>
+<th scope="row"><code>snow_rho_max</code></th>
+<td>$$\rho_{s,max}$$</td>
+<td>Maximum snow density allowable (\(kg\ m^{-3}\))</td>
+<td>[real]</td>
+<td></td>
+<td>300</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;snowice
+				   snow_albedo_factor = 1.0
+				   snow_rho_min       = 50
+				   snow_rho_max       = 300
+				/</code></pre>
+</details>
+</section>
+
+<h2 class="group">Model Boundary Conditions</h2>
+
+<section id="meteorology">
+<h3><code>&amp;meteorology</code></h3>
+<p class="note">This configuration block is NOT compulsory</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Symbol</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>met_sw</code></th>
+<td>$$\Theta_{met}$$</td>
+<td>Switch to enable the surface heating module</td>
+<td>[boolean]</td>
+<td>.true. OR .false.</td>
+<td>.true.</td>
+</tr>
+<tr class="subhead"><th colspan="6" scope="colgroup">Input meterological data</th></tr>
+<tr>
+<th scope="row"><code>meteo_fl</code></th>
+<td>-</td>
+<td>Filename of the meterological file</td>
+<td>[string]</td>
+<td>Include path and filename</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>subdaily</code></th>
+<td>$$\Theta_{subdaily}$$</td>
+<td>Switch to indicate the meteorological data is provided with sub-daily resolution, at an interval equivalent to \(\Delta t\)</td>
+<td>[boolean]</td>
+<td>.true. OR .false.</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>time_fmt</code></th>
+<td>-</td>
+<td>Time format of the 1st column in the inflow_fl</td>
+<td>[string]</td>
+<td></td>
+<td>'YYYY-MM-DD hh:mm:ss'</td>
+</tr>
+<tr class="subhead"><th colspan="6" scope="colgroup">SW & LW radiation</th></tr>
+<tr>
+<th scope="row"><code>rad_mode</code></th>
+<td>$$\Theta_{rad}$$</td>
+<td>Switch to configure which incoming radiation option to use</td>
+<td>[integer]</td>
+<td>$$ \left\{
+\begin{array}{ll}
+\textrm{1 } & \Theta_{rad}=1 \\
+\textrm{1 } & \Theta_{rad}=2 \\
+\textrm{1 } & \Theta_{rad}=3 \\
+\textrm{1 } & \Theta_{rad}=4 \\
+\textrm{1 } & \Theta_{rad}=5 
+\end{array}
+\right.$$</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>albedo_mode</code></th>
+<td>$$\Theta_{\alpha}$$</td>
+<td>Switch to configure which albedo calculation option is used</td>
+<td>[integer]</td>
+<td>$$ \left\{
+\begin{array}{ll}
+\textrm{Hamilton & Schladow } & \Theta_{\alpha}=1 \\
+\textrm{Briegleb et al } & \Theta_{\alpha}=2 \\
+\textrm{Yajima & Yamamoto } & \Theta_{\alpha}=3 
+\end{array}
+\right.$$</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>sw_factor</code></th>
+<td>$$f_{SW}$$</td>
+<td>Scaling factor to adjust the shortwave radiation data provided in the meteo_fl (\(\phi_{SW_x}\))</td>
+<td>[real]</td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<th scope="row"><code>lw_type</code></th>
+<td>$$\Theta_{lw}$$</td>
+<td>Switch to configure which input approach is being used for longwave/cloud data in the meteo_fl</td>
+<td>[string]</td>
+<td>$$ \left\{
+\begin{array}{ll}
+\textrm{Incident longwave } & \Theta_{lw}=\textrm{'LW_IN'} \\
+\textrm{Net longwave } & \Theta_{lw}=\textrm{'LW_NET'} \\
+\textrm{Cloud cover} & \Theta_{lw}=\textrm{'LW_CC'} 
+\end{array}
+\right.$$</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>cloud_mode</code></th>
+<td>$$\Theta_{cloud}$$</td>
+<td>Switch to configure which atmospheric emmissivity calculation option is used</td>
+<td>[integer]</td>
+<td>$$ \left\{
+\begin{array}{ll}
+\textrm{Idso and Jackson } & \Theta_{cloud}=1 \\
+\textrm{Swinbank } & \Theta_{cloud}=2 \\
+\textrm{Brutsaert } & \Theta_{cloud}=3 \\
+\textrm{Yajima & Yamamoto} & \Theta_{cloud}=4 
+\end{array}
+\right.$$</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>lw_factor</code></th>
+<td>$$f_{LW}$$</td>
+<td>Scaling factor to adjust the longwave (or cloud) data provided in the meteo_fl (\(C_x\))</td>
+<td>[real]</td>
+<td></td>
+<td>1</td>
+</tr>
+<tr class="subhead"><th colspan="6" scope="colgroup">Sensible & latent heat</th></tr>
+<tr>
+<th scope="row"><code>atm_stab</code></th>
+<td>$$\Theta_{atmstab}$$</td>
+<td>Switch to configure which approach to atmospheric stability is used</td>
+<td>[integer]</td>
+<td>$$ \left\{
+\begin{array}{ll}
+\textrm{Neutral conditions } & \Theta_{atmstab}=0 \\
+\textrm{1 } & \Theta_{atmstab}=1 \\
+\textrm{1 } & \Theta_{atmstab}=2 
+\end{array}
+\right.$$</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>rh_factor</code></th>
+<td>$$f_{RH}$$</td>
+<td>Scaling factor to adjust the relative humidity data provided in the meteo_fl (\(RH_x\))</td>
+<td>[real]</td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<th scope="row"><code>at_factor</code></th>
+<td>$$f_{AT}$$</td>
+<td>Scaling factor to adjust the air temperature data provided in the meteo_fl (\(AT_x\))</td>
+<td>[real]</td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<th scope="row"><code>ce</code></th>
+<td>$$C_E$$</td>
+<td>Bulk aerodynamic transfer coefficient for latent heat flux</td>
+<td>[real]</td>
+<td></td>
+<td>0.0013</td>
+</tr>
+<tr>
+<th scope="row"><code>ch</code></th>
+<td>$$C_H$$</td>
+<td>Bulk aerodynamic transfer coefficient for sensible heat flux</td>
+<td>[real]</td>
+<td></td>
+<td>0.0013</td>
+</tr>
+<tr class="subhead"><th colspan="6" scope="colgroup">Rainfall & local runoff ("run-in")</th></tr>
+<tr>
+<th scope="row"><code>rain_sw</code></th>
+<td>$$\Theta_{rain}$$</td>
+<td>Switch to configure rainfall input concentrations</td>
+<td>[boolean]</td>
+<td>.true. OR .false.</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>rain_factor</code></th>
+<td>$$f_R$$</td>
+<td>Scaling factor to adjust the rainfall data provided in the meteo_fl (\(R_x\))</td>
+<td>[real]</td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<th scope="row"><code>catchrain</code></th>
+<td>$$\Theta_{runin}$$</td>
+<td>Switch that configures runoff from exposed banks of lake area</td>
+<td>[boolean]</td>
+<td>.true. OR .false.</td>
+<td>.false.</td>
+</tr>
+<tr>
+<th scope="row"><code>rain_threshold</code></th>
+<td>$$R_L$$</td>
+<td>Daily rainfall amount (m) required before runoff from exposed banks occurs</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>runoff_coef</code></th>
+<td>$$f_{ro}$$</td>
+<td>Conversion fraction of infiltration excess rainfall to runoff in exposed lake banks</td>
+<td>[real]</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="subhead"><th colspan="6" scope="colgroup">Wind & wind-sheltering</th></tr>
+<tr>
+<th scope="row"><code>cd</code></th>
+<td>$$C_D$$</td>
+<td>Bulk aerodynamic transfer coefficient for momentum</td>
+<td>[real]</td>
+<td></td>
+<td>0.0013</td>
+</tr>
+<tr>
+<th scope="row"><code>wind_factor</code></th>
+<td>$$f_U$$</td>
+<td>Scaling factor to adjust the windspeed data provided in the meteo_fl (\(U_x\))</td>
+<td>[real]</td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<th scope="row"><code>fetch_mode</code></th>
+<td>$$\Theta_{fetch}$$</td>
+<td>Switch to configure which wind-sheltering/fetch option to use</td>
+<td>[integer]</td>
+<td>$$ \left\{
+\begin{array}{ll}
+\textrm{No sheltering } & \Theta_{fetch}=0 \\
+\textrm{Area-based scaling } & \Theta_{fetch}=1 \\
+\textrm{Markfort length-scale } & \Theta_{fetch}=2 \\ 
+\textrm{User input scaling table } & \Theta_{fetch}=3 
+\end{array}
+\right.$$</td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row"><code>Xws</code></th>
+<td>$$x_{WS}$$</td>
+<td>...</td>
+<td>[real]</td>
+<td>Required for fetch_mode (\(\Theta_{fetch}\)) \(= 2\)</td>
+<td>?</td>
+</tr>
+<tr>
+<th scope="row"><code>num_dir</code></th>
+<td>-</td>
+<td>Number of wind direction reference points being read in</td>
+<td>[integer]</td>
+<td>Required for fetch_mode (\(\Theta_{fetch}\)) \(= 2\) or \(3\)</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>wind_dir</code></th>
+<td>$$\Phi_{wind}[1...]$$</td>
+<td>Wind directions used for wind-sheltering effects</td>
+<td>[real]</td>
+<td>Required for fetch_mode (\(\Theta_{fetch}\)) \(= 2\) or \(3\)</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>fetch_scale</code></th>
+<td>$$f_{WS}[\Phi_{wind}]$$</td>
+<td>Direction specific wind-sheltering scaling factors</td>
+<td>[real]</td>
+<td>Required for fetch_mode (\(\Theta_{fetch}\)) \(= 2\) or \(3\)</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;meteorology
+				  !-- Met forcing options
+				   met_sw      = .true.
+				   lw_type     = &#x27;LW_IN&#x27;
+				   rain_sw     = .false.
+				   atm_stab    = 0
+				   fetch_mode  = 0
+				   !rad_mode    = 1
+				   albedo_mode = 1
+				   cloud_mode  = 4
+				  !-- BC file details
+				   subdaily    = .true.
+				   meteo_fl    = &#x27;bcs/met_hourly.csv&#x27;
+				   wind_factor = 0.9
+				  !-- Parameters
+				   ce = 0.0013
+				   ch = 0.0013
+				   cd  = 0.0013
+				  !catchrain      = .true.
+				  !rain_threshold = 0.001
+				  !runoff_coef    = 0.0
+				/</code></pre>
+</details>
+</section>
+
+<section id="inflow">
+<h3><code>&amp;inflow</code></h3>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Symbol</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>num_inflows</code></th>
+<td>$$N_{INF}$$</td>
+<td>Number of inflows to be simulated in this simulation</td>
+<td>[integer]</td>
+<td></td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row"><code>names_of_strms</code></th>
+<td>-</td>
+<td>Names of each inflow</td>
+<td>[string]</td>
+<td>comma-separated list if \(N_{INF}>1\)</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>subm_flag</code></th>
+<td>$$\Theta_{subm_I}$$</td>
+<td>Switch indicating if the inflow I is entering as a submerged input</td>
+<td>[boolean]</td>
+<td>.true. OR .false. <br> comma-separated list if \(N_{INTF}>1\)</td>
+<td>.false.</td>
+</tr>
+<tr>
+<th scope="row"><code>strm_hf_angle</code></th>
+<td>$$\alpha{inf}$$</td>
+<td>Angle describing the width of an inflow river channel ("half angle")</td>
+<td>[real]</td>
+<td>comma-separated list if \(N_{INF}>1\)</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>strmbd_slope</code></th>
+<td>$$\Phi_{inf}$$</td>
+<td>Slope of the streambed / river thalweg for each river (degrees)</td>
+<td>[real]</td>
+<td>comma-separated list if \(N_{INF}>1\)</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>strmbd_drag</code></th>
+<td>$$C_{D_{inf}}$$</td>
+<td>Drag coefficient of the river inflow thalweg, to calculate entrainment during insertion</td>
+<td>[real]</td>
+<td>comma-separated list if \(N_{INF}>1\)</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>coef_inf_entrain</code></th>
+<td>$$C_{entrain}$$</td>
+<td>-</td>
+<td>[real]</td>
+<td>comma-separated list if \(N_{INF}>1\)</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>inflow_factor</code></th>
+<td>$$f_{inf_{I}}$$</td>
+<td>Scaling factor that can be applied to adjust the provided input data</td>
+<td>[real]</td>
+<td>comma-separated list if \(N_{INF}>1\)</td>
+<td>1</td>
+</tr>
+<tr>
+<th scope="row"><code>inflow_fl</code></th>
+<td>-</td>
+<td>Filename(s) of the inflow CSV boundary condition files</td>
+<td>[string]</td>
+<td>comma-separated list if \(N_{INF}>1\)</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>inflow_varnum</code></th>
+<td>-</td>
+<td>Number of variables being listed in the columns of inflow_fl (comma-separated list)</td>
+<td>[integer]</td>
+<td>Can include GLM variables including flow, temp and salt, plus WQ variables.</td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row"><code>inflow_vars</code></th>
+<td>-</td>
+<td>Names of the variables in the inflow_fl</td>
+<td>[string]</td>
+<td>Provide variables in the order as they are in the file.</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>time_fmt</code></th>
+<td>-</td>
+<td>Time format of the 1st column in the inflow_fl</td>
+<td>[string]</td>
+<td></td>
+<td>'YYYY-MM-DD hh:mm:ss'</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;inflow
+				   num_inflows    = 6
+				   names_of_strms = &#x27;Inflow1&#x27;,&#x27;Inflow2&#x27;,&#x27;Inflow3&#x27;,&#x27;Inflow4&#x27;,&#x27;Inflow5&#x27;,&#x27;Inflow6&#x27;
+				   subm_flag      = .false.,.false.,.false.,.true.,.false.,.false.
+				   strm_hf_angle  = 85.0, 85.0, 85.0, 85.0, 85.0, 85.0
+				   strmbd_slope   = 4., 4., 4., 4., 4., 4.
+				   strmbd_drag    = 0.0160, 0.0160, 0.0160, 0.0160, 0.0160, 0.0160,
+				   inflow_factor  = 1.0,1.0,1.0,1.0,1.0,1.0
+				   inflow_fl      = &#x27;bcs/inflow_1.csv&#x27;,
+							&#x27;bcs/inflow_2.csv&#x27;,
+							&#x27;bcs/inflow_3.csv&#x27;,
+							&#x27;bcs/inflow_4.csv&#x27;,
+							&#x27;bcs/inflow_5.csv&#x27;,
+							&#x27;bcs/inflow_6.csv&#x27;
+				   inflow_varnum    = 3
+				   inflow_vars      = &#x27;FLOW&#x27;,&#x27;TEMP&#x27;,&#x27;SALT&#x27;
+				   coef_inf_entrain = 0.
+				  !time_fmt         = &#x27;YYYY-MM-DD hh:mm:ss&#x27;
+				/</code></pre>
+</details>
+</section>
+
+<section id="outflow">
+<h3><code>&amp;outflow</code></h3>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Symbol</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row"><code>num_outlet</code></th>
+<td>$$N_{OUTF}$$</td>
+<td>Number of outflows (including withdrawals, outlets or offtakes) to be included in this simulation</td>
+<td>[integer]</td>
+<td>-</td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row"><code>outflow_fl</code></th>
+<td>-</td>
+<td>Filename of the file containing the outflow time-series, \(Q_{outf_x}\)</td>
+<td>[string]</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>time_fmt</code></th>
+<td>-</td>
+<td>Time format of the 1st column in the outflow_fl</td>
+<td>[string]</td>
+<td></td>
+<td>'YYYY-MM-DD hh:mm:ss'</td>
+</tr>
+<tr>
+<th scope="row"><code>outflow_factor</code></th>
+<td>$$f_{outf}$$</td>
+<td>Scaling factor used as a multiplier for outflows, such that: \(Q_{outf}=f_{outf}Q_{outf_x}\)</td>
+<td>[real]</td>
+<td>comma-separated list if \(N_{OUTF}>1\)</td>
+<td>1</td>
+</tr>
+<tr>
+<th scope="row"><code>outflow_thick_limit</code></th>
+<td>$$\delta_{outf_{max}}$$</td>
+<td>Maximum vertical limit of withdrawal entrainment</td>
+<td>[real]</td>
+<td>comma-separated list if \(N_{OUTF}>1\)</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>single_layer_draw</code></th>
+<td>$$\Theta_{outf_{single}}$$</td>
+<td>Switch to only limit withdrawal entrainment and force outflows from layer at the outlet elevation height</td>
+<td>[boolean]</td>
+<td>.true. OR .false. <br> comma-separated list if \(N_{OUTF}>1\)</td>
+<td>.false.</td>
+</tr>
+<tr>
+<th scope="row"><code>flt_off_sw</code></th>
+<td>$$\Theta_{flt_O}$$</td>
+<td>Switch to indicate if the outflows are floating offtakes (taking water from near the surface)</td>
+<td>[boolean]</td>
+<td>.true. OR .false. <br> comma-separated list if \(N_{OUTF}>1\)</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>outlet_type</code></th>
+<td>$$\Theta_{outf}$$</td>
+<td>Switch to configure approach of each withdrawal (comma-separated list if \(N_{OUTF}>1\))</td>
+<td>[integer]</td>
+<td>$$ \left\{
+\begin{array}{ll}
+\textrm{Fixed outlet height } & \Theta_{outf}=1 \\
+\textrm{Floating offtake} & \Theta_{outf}=2 \\
+\textrm{Adaptive offtake, low oxy avoidance } & \Theta_{outf}=3 \\
+\textrm{Adaptive offtake, isotherm following } & \Theta_{outf}=4 \\
+\textrm{Adaptive offtake, temp time-series } & \Theta_{outf}=5 \\
+\end{array}
+\right.$$</td>
+<td>1</td>
+</tr>
+<tr class="subhead"><th colspan="6" scope="colgroup">Normal Withdrawals</th></tr>
+<tr>
+<th scope="row"><code>outl_elvs</code></th>
+<td>$$h_{outf_O}$$</td>
+<td>Outlet elevations (\(m\))</td>
+<td>[real]</td>
+<td>comma-separated list if \(N_{OUTF}>1\)</td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row"><code>bsn_len_outl</code></th>
+<td>$$L_{outf_O}$$</td>
+<td>Basin length at the outlet height(s) (\(m\))</td>
+<td>[real]</td>
+<td>comma-separated list if \(N_{OUTF}>1\)</td>
+<td></td>
+</tr>
+<tr>
+<th scope="row"><code>bsn_wid_outl</code></th>
+<td>$$W_{outf_O}$$</td>
+<td>Basin width at the outlet heights (\(m\))</td>
+<td>[real]</td>
+<td>comma-separated list if \(N_{OUTF}>1\)</td>
+<td></td>
+</tr>
+<tr class="subhead"><th colspan="6" scope="colgroup">Adaptive withdrawals</th></tr>
+<tr>
+<th scope="row"><code>crit_O2</code></th>
+<td>-</td>
+<td>TBC</td>
+<td>[integer]</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>crit_O2_dep</code></th>
+<td>-</td>
+<td></td>
+<td>[integer]</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>crit_O2_days</code></th>
+<td>-</td>
+<td></td>
+<td>[integer]</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>outlet_crit</code></th>
+<td>-</td>
+<td></td>
+<td>[integer]</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>O2name</code></th>
+<td>-</td>
+<td></td>
+<td>[string]</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>O2idx</code></th>
+<td>-</td>
+<td></td>
+<td>[string]</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<th scope="row"><code>withdrTemp_fl</code></th>
+<td>-</td>
+<td>Filename of the file containing the temperature time-series the adaptive withdrawal is targeting</td>
+<td>[string]</td>
+<td>Required if outlet_type (\(\Theta_{outf}\)) \(=5\)</td>
+<td>-</td>
+</tr>
+<tr class="subhead"><th colspan="6" scope="colgroup">Seepage</th></tr>
+<tr>
+<th scope="row"><code>seepage</code></th>
+<td>$$\Theta_{seep}$$</td>
+<td>Switch to enable the seepage of water from the lake bottom</td>
+<td>[boolean]</td>
+<td>.true. OR .false.</td>
+<td>.false.</td>
+</tr>
+<tr>
+<th scope="row"><code>seepage_rate</code></th>
+<td>\(G\) or \(K_{seep}\)</td>
+<td>Seepage rate of water, or, soil hydraulic conductivity (\(m\ day^{-1}\))</td>
+<td>[real]</td>
+<td><strong>-ve</strong> seepage_rate is taken as \(G\);<br> <strong>+ve</strong> seepage_rate is taken as \(K_{seep}\)</td>
+<td>0</td>
+</tr>
+<tr class="subhead"><th colspan="6" scope="colgroup">Weir overflow</th></tr>
+<tr>
+<th scope="row"><code>crest_width</code></th>
+<td>$$W_{weir}$$</td>
+<td>Width of weir (at crest height) where lake overflows (\(m\))</td>
+<td>[real]</td>
+<td>-</td>
+<td>0</td>
+</tr>
+<tr>
+<th scope="row"><code>crest_factor</code></th>
+<td>$$C_{D_{weir}}$$</td>
+<td>Drag coefficient associated with the weir crest, used to compute the overflow discharge rate, \(Q_{weir}\)</td>
+<td>[real]</td>
+<td>Applies only when the crest elevation is configured <br> to be less than the maximum elevation of the domain <br>(\(H_{crest} < H_{max}\))</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;outflow
+				   num_outlet   = 1
+				  !flt_off_sw   = .false.
+				   outlet_type  = 1
+				   outl_elvs    = -215.5
+				   bsn_len_outl = 18000
+				   bsn_wid_outl = 11000
+				   outflow_fl   = &#x27;bcs/outflow.csv&#x27;
+				   outflow_factor = 1.0
+				  !seepage  = .true.
+				  !seepage_rate   = 0.01
+				/</code></pre>
+</details>
+</section>
+</main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Part of the <a href="https://github.com/AquaticEcoDynamics/glm-aed">glm-aed</a>
+    documentation. Maintained by <a href="https://github.com/AquaticEcoDynamics">AquaticEcoDynamics</a>.</p>
+  </div>
+</footer>
+</body>
+</html>
