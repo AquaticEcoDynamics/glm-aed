@@ -43,18 +43,18 @@ The repository includes:
 
 - `binaries` : model pre-compiled executables for macOS, Linux and Windows.
 - `glm-source` : model source code, including GLM and the AED libraries as linked sub-modules.
-- `glm-examples` : model example simulations, including all required input files.
+- `glm-examples` : selected example simulations, including all required input files.
 - `.github/workflows` : GitHub Actions workflow (`compile.yml`) for automated compilation and testing.
 
-The source bundle in `glm-source` is assembled from the following sub-modules:
+The source bundle in `glm-source` is assembled from the following sub-modules (dependent repositories):
 
 | Sub-module | Repository | Role |
 |---|---|---|
 | `GLM` | [`GLM`](https://github.com/AquaticEcoDynamics/GLM) | Hydrodynamic model (4.x line) |
+| `libaed-api` | [`libaed-api`](https://github.com/AquaticEcoDynamics/libaed-api) | AED standard coupling interface |
 | `libaed-water` | [`libaed-water`](https://github.com/AquaticEcoDynamics/libaed-water) | AED water column modules |
 | `libaed-benthic` | [`libaed-benthic`](https://github.com/AquaticEcoDynamics/libaed-benthic) | AED benthic modules |
 | `libaed-demo` | [`libaed-demo`](https://github.com/AquaticEcoDynamics/libaed-demo) | AED demonstration modules |
-| `libaed-api` | [`libaed-api`](https://github.com/AquaticEcoDynamics/libaed-api) | GLM–AED coupling interface |
 | `libutil` | [`libutil`](https://github.com/AquaticEcoDynamics/libutil) | Shared utility routines |
 | `libplot` | [`libplot`](https://github.com/AquaticEcoDynamics/libplot) | Optional plotting support |
 
@@ -62,8 +62,9 @@ The source bundle in `glm-source` is assembled from the following sub-modules:
 
 ## Getting the latest executables
 
-For users who only need a model executable, it can be downloaded without cloning the full
-repository. Navigate to the folder for your platform under `binaries`, then download the file:
+For users who only need a model executable (not the full source code), it can be downloaded
+without cloning the full repository. Navigate to the folder for your platform under `binaries`,
+then download the file:
 
 - **macOS** — [`binaries/macos`](binaries/macos), by OS version (`Big_Sur`, `Monterey`, `Sonoma`, `Sequoia`, `Tahoe_26`)
 - **Linux** — [`binaries/ubuntu`](binaries/ubuntu), as `.deb` packages by Ubuntu release (`20.04`, `22.04`, `24.04`, `26.04`)
@@ -131,6 +132,22 @@ Citing the GLM or AED models:
 *Hipsey, M.R., Bruce, L.C., Boon, C., Busch, B., Carey, C.C., Hamilton, D.P., Hanson, P.C., Read, J.S., de Sousa, E., Weber, M. and Winslow, L.A., 2019. A General Lake Model (GLM 3.0) for linking with high-frequency sensor data from the Global Lake Ecological Observatory Network (GLEON). Geoscientific Model Development, 12(1), pp.473-523.*
 
 *Hipsey, M.R., ed. (2022) Modelling Aquatic Eco-Dynamics: Overview of the AED modular simulation platform. Zenodo. https://doi.org/10.5281/zenodo.6516222.*
+
+<br>
+
+## Getting GLM-AED+ (also termed GLM+)
+
+The **AED+** version of AED adds further modules which are within:
+
+- `libaed-dev` — modules under active development,
+- `libaed-riparian` — riparian modules,
+- `libaed-light` — light and optics modules.
+
+GLM+ is available to members of the AED community.
+
+If you are a researcher or practitioner who would like to work with the AED+ modules, get in
+touch with the AED group via
+[aquatic.science.uwa.edu.au](https://aquatic.science.uwa.edu.au).
 
 <br>
 
