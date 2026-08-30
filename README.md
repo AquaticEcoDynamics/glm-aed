@@ -151,6 +151,39 @@ touch with the AED group via
 
 <br>
 
+## Contributing
+
+Contributions are welcome, and not only in the form of code. There are three main routes.
+
+**Example and benchmark cases.** These are managed here, in [`glm-examples`](glm-examples).
+Each case is a self-contained directory holding a `glm3.nml`, its meteorological and boundary
+condition inputs, an `aed` configuration where water quality is simulated, and a short
+`readme.md` describing the site. New cases are added by pull request: add the directory, then
+add a block for it to `glm-examples/example_lakes.Rmd`, which compiles the gallery in
+`glm-examples/README.md`. Benchmark cases that exercise a particular process or module are as
+useful as whole-lake applications. The
+[Wiki](https://github.com/AquaticEcoDynamics/glm-aed/wiki) covers adding a new example lake in
+detail.
+
+**Code development.** Minor developments are welcome here — a bug fix or a small improvement
+can be raised as an issue or a pull request against this repository. Note though that
+`glm-source` is a bundle of sub-modules pinned to fixed commits, so it is a snapshot of the
+source rather than a place to develop against. Anyone doing sustained work on GLM or the AED
+libraries is encouraged to work through
+[`AED_Tools`](https://github.com/AquaticEcoDynamics/AED_Tools), the AED Developer Toolkit,
+which fetches the model repositories directly and builds them from live development branches.
+That work is what feeds into this bundle when the sub-module pins are updated for a release.
+
+**Documentation and discussion.** Improvements to the
+[Wiki](https://github.com/AquaticEcoDynamics/glm-aed/wiki), to the
+[glm-workbook](https://aquaticecodynamics.github.io/glm-workbook/) exercises, and to the
+documentation carried in the source are genuinely valuable, and are often the easiest place to
+start. The [Discussions](https://github.com/AquaticEcoDynamics/glm-aed/discussions) board is
+the place for questions, configuration advice and proposals — answering someone else's question
+there is a contribution in its own right.
+
+<br>
+
 ## Getting hold of older versions
 
 Releases from 2022 onward are available in the
