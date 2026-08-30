@@ -27,6 +27,20 @@
   </div>
 </header>
 
+<div class="searchbar">
+  <div class="wrap">
+    <label class="field">
+      <svg viewBox="0 0 16 16" aria-hidden="true" width="15" height="15">
+        <path d="M11.7 10.3a5.5 5.5 0 1 0-1.4 1.4l3 3a1 1 0 0 0 1.4-1.4zM7 10.5A3.5 3.5 0 1 1 7 3.5a3.5 3.5 0 0 1 0 7z"/>
+      </svg>
+      <input type="search" id="q" placeholder="Filter variables&hellip;  (press /)"
+             autocomplete="off" spellcheck="false"
+             aria-label="Filter configuration variables">
+    </label>
+    <span id="count" class="count" role="status" aria-live="polite"></span>
+  </div>
+</div>
+
 <nav class="jump" aria-label="Jump to a configuration block">
   <div class="wrap">
 <span class="jump-label">Configuration</span>
@@ -63,6 +77,8 @@ parameters is summarised below. For a summary of the notation and nomenclature r
 <p class="lede">For working examples, visit
 <a href="https://github.com/AquaticEcoDynamics/glm-aed/tree/main/glm-examples">glm-examples</a>.</p>
 
+<p id="noresults" class="noresults" hidden>No variables match that filter.</p>
+
 <h2 class="group">Model Configuration</h2>
 
 <section id="glm_setup">
@@ -82,7 +98,7 @@ parameters is summarised below. For a summary of the notation and nomenclature r
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr data-search="glm_setup sim_name title of simulation">
 <th scope="row"><code>sim_name</code></th>
 <td></td>
 <td>Title of simulation</td>
@@ -91,7 +107,7 @@ parameters is summarised below. For a summary of the notation and nomenclature r
 <td></td>
 <td>'lake'</td>
 </tr>
-<tr>
+<tr data-search="glm_setup max_layers maximum number of layers">
 <th scope="row"><code>max_layers</code></th>
 <td>$$N_{MAX}$$</td>
 <td>Maximum number of layers</td>
@@ -100,7 +116,7 @@ parameters is summarised below. For a summary of the notation and nomenclature r
 <td></td>
 <td>500</td>
 </tr>
-<tr>
+<tr data-search="glm_setup min_layer_vol minimum layer volume">
 <th scope="row"><code>min_layer_vol</code></th>
 <td>$$\Delta V_{min}$$</td>
 <td>Minimum layer volume</td>
@@ -109,7 +125,7 @@ parameters is summarised below. For a summary of the notation and nomenclature r
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="glm_setup min_layer_thick minimum thickness of a layer (m)">
 <th scope="row"><code>min_layer_thick</code></th>
 <td>$$\Delta z_{min}$$</td>
 <td>Minimum thickness of a layer (m)</td>
@@ -118,7 +134,7 @@ parameters is summarised below. For a summary of the notation and nomenclature r
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="glm_setup max_layer_thick maximum thickness of a layer (m)">
 <th scope="row"><code>max_layer_thick</code></th>
 <td>$$\Delta z_{max}$$</td>
 <td>Maximum thickness of a layer (m)</td>
@@ -127,7 +143,7 @@ parameters is summarised below. For a summary of the notation and nomenclature r
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="glm_setup density_model switch to set the density equation">
 <th scope="row"><code>density_model</code></th>
 <td>$$\Theta_{\rho}$$</td>
 <td>Switch to set the density equation</td>
@@ -142,7 +158,7 @@ parameters is summarised below. For a summary of the notation and nomenclature r
 \right.$$</td>
 <td>1</td>
 </tr>
-<tr>
+<tr data-search="glm_setup non_avg switch to configure flow boundary condition temporal interpolation">
 <th scope="row"><code>non_avg</code></th>
 <td>$$\Theta_{bc}$$</td>
 <td>Switch to configure flow boundary condition temporal interpolation</td>
@@ -188,7 +204,7 @@ Q_{inf}^{t} & \Theta_{bc}=T \\
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr data-search="mixing surface_mixing switch to select the options of the surface mixing model">
 <th scope="row"><code>surface_mixing</code></th>
 <td>$$\Theta_{mix}$$</td>
 <td>Switch to select the options of the surface mixing model</td>
@@ -202,7 +218,7 @@ Q_{inf}^{t} & \Theta_{bc}=T \\
 \right.$$</td>
 <td>1</td>
 </tr>
-<tr>
+<tr data-search="mixing coef_mix_conv mixing efficiency - convective overturn">
 <th scope="row"><code>coef_mix_conv</code></th>
 <td>$$C_{K}$$</td>
 <td>Mixing efficiency - convective overturn</td>
@@ -210,7 +226,7 @@ Q_{inf}^{t} & \Theta_{bc}=T \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="mixing coef_wind_stir mixing efficiency - wind stirring">
 <th scope="row"><code>coef_wind_stir</code></th>
 <td>$$C_{W}$$</td>
 <td>Mixing efficiency - wind stirring</td>
@@ -218,7 +234,7 @@ Q_{inf}^{t} & \Theta_{bc}=T \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="mixing coef_mix_shear mixing efficiency - shear production">
 <th scope="row"><code>coef_mix_shear</code></th>
 <td>$$C_{S}$$</td>
 <td>Mixing efficiency - shear production</td>
@@ -226,7 +242,7 @@ Q_{inf}^{t} & \Theta_{bc}=T \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="mixing coef_mix_turb mixing efficiency - unsteady turbulence effects">
 <th scope="row"><code>coef_mix_turb</code></th>
 <td>$$C_{T}$$</td>
 <td>Mixing efficiency - unsteady turbulence effects</td>
@@ -234,7 +250,7 @@ Q_{inf}^{t} & \Theta_{bc}=T \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="mixing coef_mix_kh mixing efficiency - kelvin-helmholtz billowing">
 <th scope="row"><code>coef_mix_KH</code></th>
 <td>$$C_{KH}$$</td>
 <td>Mixing efficiency - Kelvin-Helmholtz billowing</td>
@@ -242,7 +258,7 @@ Q_{inf}^{t} & \Theta_{bc}=T \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="mixing deep_mixing switch to select the options of the deep (hypolimnetic) mixing model">
 <th scope="row"><code>deep_mixing</code></th>
 <td>$$\Theta_{deep}$$</td>
 <td>Switch to select the options of the deep (hypolimnetic) mixing model</td>
@@ -256,7 +272,7 @@ Q_{inf}^{t} & \Theta_{bc}=T \\
 \right.$$</td>
 <td>?</td>
 </tr>
-<tr>
+<tr data-search="mixing coef_mix_hyp mixing efficiency - hypolimnetic turbulence">
 <th scope="row"><code>coef_mix_hyp</code></th>
 <td>$$C_{HYP}$$</td>
 <td>Mixing efficiency - hypolimnetic turbulence</td>
@@ -264,7 +280,7 @@ Q_{inf}^{t} & \Theta_{bc}=T \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="mixing diff background (molecular) diffusivity in the hypolimnion">
 <th scope="row"><code>diff</code></th>
 <td>$$D_{\epsilon}$$</td>
 <td>Background (molecular) diffusivity in the hypolimnion</td>
@@ -306,7 +322,7 @@ Q_{inf}^{t} & \Theta_{bc}=T \\
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr data-search="wq_setup wq_lib water quality model selection">
 <th scope="row"><code>wq_lib</code></th>
 <td>$$\Theta_{wq}$$</td>
 <td>Water quality model selection</td>
@@ -319,7 +335,7 @@ Q_{inf}^{t} & \Theta_{bc}=T \\
 \right.$$</td>
 <td>AED2</td>
 </tr>
-<tr>
+<tr data-search="wq_setup wq_nml_file filename of wq configuration file">
 <th scope="row"><code>wq_nml_file</code></th>
 <td></td>
 <td>Filename of WQ configuration file</td>
@@ -327,7 +343,7 @@ Q_{inf}^{t} & \Theta_{bc}=T \\
 <td>add filename in quotes, can include directorys</td>
 <td>'./aed2.nml'</td>
 </tr>
-<tr>
+<tr data-search="wq_setup bioshade_feedback switch to enable to be updated by the wq model">
 <th scope="row"><code>bioshade_feedback</code></th>
 <td>$$\Theta_{kw}$$</td>
 <td>Switch to enable \(K_{w}\) to be updated by the WQ model</td>
@@ -340,7 +356,7 @@ K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
 \right.$$</td>
 <td>?</td>
 </tr>
-<tr>
+<tr data-search="wq_setup mobility_off switch to enable settling within the wq model">
 <th scope="row"><code>mobility_off</code></th>
 <td></td>
 <td>Switch to enable settling within the WQ model</td>
@@ -348,7 +364,7 @@ K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
 <td>.true. & .false.</td>
 <td>.false.</td>
 </tr>
-<tr>
+<tr data-search="wq_setup ode_method method to use for ode solution of water quality module">
 <th scope="row"><code>ode_method</code></th>
 <td>$$\Theta_{ode}$$</td>
 <td>Method to use for ODE solution of water quality module</td>
@@ -356,7 +372,7 @@ K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
 <td>tbc</td>
 <td>1</td>
 </tr>
-<tr>
+<tr data-search="wq_setup split_factor factor weighting implicit vs explicit numerical solution of the wq model">
 <th scope="row"><code>split_factor</code></th>
 <td></td>
 <td>Factor weighting implicit vs explicit numerical solution of the WQ model</td>
@@ -364,7 +380,7 @@ K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
 <td>0-1</td>
 <td>1</td>
 </tr>
-<tr>
+<tr data-search="wq_setup repair_state switch to correct negative or out of range wq variables">
 <th scope="row"><code>repair_state</code></th>
 <td>$$\Theta_{repair}$$</td>
 <td>Switch to correct negative or out of range WQ variables</td>
@@ -405,7 +421,7 @@ K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr data-search="morphometry lake_name site name">
 <th scope="row"><code>lake_name</code></th>
 <td></td>
 <td>Site name</td>
@@ -414,7 +430,7 @@ K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
 <td>-</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="morphometry latitude latitude, positive north">
 <th scope="row"><code>latitude</code></th>
 <td>$$Lat$$</td>
 <td>Latitude, positive North</td>
@@ -423,7 +439,7 @@ K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
 <td></td>
 <td>0</td>
 </tr>
-<tr>
+<tr data-search="morphometry longitude longitude, positive east">
 <th scope="row"><code>longitude</code></th>
 <td>$$Long$$</td>
 <td>Longitude, positive East</td>
@@ -432,7 +448,7 @@ K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
 <td></td>
 <td>0</td>
 </tr>
-<tr>
+<tr data-search="morphometry base_elev elevation of the bottom-most point of the lake">
 <th scope="row"><code>base_elev</code></th>
 <td>$$H_{0}$$</td>
 <td>Elevation of the bottom-most point of the lake</td>
@@ -441,7 +457,7 @@ K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="morphometry crest_elev elevation of a weir crest, where overflow begins">
 <th scope="row"><code>crest_elev</code></th>
 <td>$$H_{crest}$$</td>
 <td>Elevation of a weir crest, where overflow begins</td>
@@ -450,7 +466,7 @@ K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="morphometry bsn_len length of the lake basin, at crest height">
 <th scope="row"><code>bsn_len</code></th>
 <td>$$L_{crest}$$</td>
 <td>Length of the lake basin, at crest height</td>
@@ -459,7 +475,7 @@ K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="morphometry bsn_wid width of the lake basin, at crest height">
 <th scope="row"><code>bsn_wid</code></th>
 <td>$$W_{crest}$$</td>
 <td>Width of the lake basin, at crest height</td>
@@ -468,7 +484,7 @@ K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="morphometry bsn_vals number of points being provided to described the hyposgraphic details">
 <th scope="row"><code>bsn_vals</code></th>
 <td>$$N_{BSN}$$</td>
 <td>Number of points being provided to described the hyposgraphic details</td>
@@ -477,7 +493,7 @@ K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="morphometry h comma-separated list of lake elevations">
 <th scope="row"><code>H</code></th>
 <td>$$H[b]$$</td>
 <td>Comma-separated list of lake elevations</td>
@@ -486,7 +502,7 @@ K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="morphometry a comma-separated list of lake areas">
 <th scope="row"><code>A</code></th>
 <td>$$A[b]$$</td>
 <td>Comma-separated list of lake areas</td>
@@ -544,7 +560,7 @@ K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr data-search="time timefmt time configuration switch">
 <th scope="row"><code>timefmt</code></th>
 <td>$$\Theta_{time}$$</td>
 <td>Time configuration switch</td>
@@ -557,7 +573,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 \right.$$</td>
 <td>?</td>
 </tr>
-<tr>
+<tr data-search="time start start time/date of simulation">
 <th scope="row"><code>start</code></th>
 <td>$$t_{0}$$</td>
 <td>Start time/date of simulation</td>
@@ -565,7 +581,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Required</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="time stop end time/date of simulation">
 <th scope="row"><code>stop</code></th>
 <td>$$t_{N_{\Delta t}}$$</td>
 <td>End time/date of simulation</td>
@@ -573,7 +589,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Used when (\(\Theta_{time}=2\))</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="time dt time step ( )">
 <th scope="row"><code>dt</code></th>
 <td>$$\Delta t$$</td>
 <td>Time step (\(sec\))</td>
@@ -581,7 +597,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Required</td>
 <td>3600</td>
 </tr>
-<tr>
+<tr data-search="time num_days number of days to simulate">
 <th scope="row"><code>num_days</code></th>
 <td>$$N_d$$</td>
 <td>Number of days to simulate</td>
@@ -589,7 +605,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Used when (\(\Theta_{time}=3\))</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="time timezone utc time zone">
 <th scope="row"><code>timezone</code></th>
 <td>$$TZ$$</td>
 <td>UTC time zone</td>
@@ -627,105 +643,105 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr data-search="output out_dir directory to write the output files">
 <th scope="row"><code>out_dir</code></th>
 <td>Directory to write the output files</td>
 <td>[string]</td>
 <td></td>
 <td>./</td>
 </tr>
-<tr>
+<tr data-search="output out_fn filename of the main netcdf output file">
 <th scope="row"><code>out_fn</code></th>
 <td>Filename of the main NetCDF output file</td>
 <td>[string]</td>
 <td></td>
 <td>output</td>
 </tr>
-<tr>
+<tr data-search="output nsave frequency to write to the netcdf and csv point files">
 <th scope="row"><code>nsave</code></th>
 <td>Frequency to write to the NetCDF and CSV point files</td>
 <td>[integer]</td>
 <td></td>
 <td>1</td>
 </tr>
-<tr>
+<tr data-search="output csv_lake_fname filename for the daily summary file">
 <th scope="row"><code>csv_lake_fname</code></th>
 <td>Filename for the daily summary file</td>
 <td>[string]</td>
 <td></td>
 <td>lake</td>
 </tr>
-<tr>
+<tr data-search="output csv_point_nlevs number of specific level/depth csv files to be created">
 <th scope="row"><code>csv_point_nlevs</code></th>
 <td>Number of specific level/depth csv files to be created</td>
 <td>[real]</td>
 <td></td>
 <td>0</td>
 </tr>
-<tr>
+<tr data-search="output csv_point_fname name to be appended to specified depth csv files">
 <th scope="row"><code>csv_point_fname</code></th>
 <td>Name to be appended to specified depth CSV files</td>
 <td>[string]</td>
 <td></td>
 <td>'WQ_'</td>
 </tr>
-<tr>
+<tr data-search="output csv_point_frombot comma separated list identify whether each output point listed in csv_point_at is relative to the bottom (ie heights) or the surface (ie depths)">
 <th scope="row"><code>csv_point_frombot</code></th>
 <td>Comma separated list identify whether each output point listed in csv_point_at is relative to the bottom (ie heights) or the surface (ie depths)</td>
 <td>[real]</td>
 <td></td>
 <td>.true.</td>
 </tr>
-<tr>
+<tr data-search="output csv_point_at height or depth of points to output at (comma separated list)">
 <th scope="row"><code>csv_point_at</code></th>
 <td>Height or Depth of points to output at (comma separated list)</td>
 <td>[real]</td>
 <td></td>
 <td>0</td>
 </tr>
-<tr>
+<tr data-search="output csv_point_nvars number of variables to output into the csv files">
 <th scope="row"><code>csv_point_nvars</code></th>
 <td>Number of variables to output into the csv files</td>
 <td>[integer]</td>
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="output csv_point_vars comma separated list of variable names">
 <th scope="row"><code>csv_point_vars</code></th>
 <td>Comma separated list of variable names</td>
 <td>[string]</td>
 <td>temp; salt; ...</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="output csv_outlet_allinone switch to create an optional outlet file combining all outlets">
 <th scope="row"><code>csv_outlet_allinone</code></th>
 <td>Switch to create an optional outlet file combining all outlets</td>
 <td>[boolean]</td>
 <td>.true. & .false.</td>
 <td>.false.</td>
 </tr>
-<tr>
+<tr data-search="output csv_outlet_fname name to be appended to each of the outlet csv files">
 <th scope="row"><code>csv_outlet_fname</code></th>
 <td>Name to be appended to each of the outlet CSV files</td>
 <td>[string]</td>
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="output csv_outlet_nvars number of variables to be written into the outlet file(s)">
 <th scope="row"><code>csv_outlet_nvars</code></th>
 <td>Number of variables to be written into the outlet file(s)</td>
 <td>[integer]</td>
 <td></td>
 <td>0</td>
 </tr>
-<tr>
+<tr data-search="output csv_outlet_vars comma separated list of variable names to be included in the output file(s)">
 <th scope="row"><code>csv_outlet_vars</code></th>
 <td>Comma separated list of variable names to be included in the output file(s)</td>
 <td>[string]</td>
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="output csv_ovrflw_fname filename to be used for recording the overflow details">
 <th scope="row"><code>csv_ovrflw_fname</code></th>
 <td>Filename to be used for recording the overflow details</td>
 <td>[string]</td>
@@ -783,7 +799,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr data-search="init_profiles lake_depth initial lake height/depth (m)">
 <th scope="row"><code>lake_depth</code></th>
 <td>$$h_S[t=0]$$</td>
 <td>Initial lake height/depth (m)</td>
@@ -791,7 +807,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="init_profiles num_depths number of depths provided for initial profiles">
 <th scope="row"><code>num_depths</code></th>
 <td></td>
 <td>Number of depths provided for initial profiles</td>
@@ -799,7 +815,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="init_profiles the_depths the depths of the initial profile points (m) as a comma-separated list">
 <th scope="row"><code>the_depths</code></th>
 <td></td>
 <td>The depths of the initial profile points (m) as a comma-separated list</td>
@@ -807,7 +823,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="init_profiles the_temps the temperature (c) at each of the initial profile points (comma-separated list)">
 <th scope="row"><code>the_temps</code></th>
 <td>$$T[t=0,z]$$</td>
 <td>The temperature (C) at each of the initial profile points (comma-separated list)</td>
@@ -815,7 +831,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="init_profiles the_sals the salinity (ppt) at each of the initial profile points (comma-separated list)">
 <th scope="row"><code>the_sals</code></th>
 <td>$$S[t=0,z]$$</td>
 <td>The salinity (ppt) at each of the initial profile points (comma-separated list)</td>
@@ -823,7 +839,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="init_profiles num_wq_vars number of non glm (ie fabm or aed2) variables to be initialised">
 <th scope="row"><code>num_wq_vars</code></th>
 <td></td>
 <td>Number of non GLM (ie FABM or AED2) variables to be initialised</td>
@@ -831,7 +847,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Note these values override initialisations done by FABM or AED2</td>
 <td>0</td>
 </tr>
-<tr>
+<tr data-search="init_profiles wq_names names of non glm (ie fabm or aed2) variables to be initialised (comma-separated list)">
 <th scope="row"><code>wq_names</code></th>
 <td></td>
 <td>Names of non GLM (ie FABM or AED2) variables to be initialised (comma-separated list)</td>
@@ -839,7 +855,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="init_profiles wq_init_vals array of wq variable initial data (rows = vars; cols = depths)">
 <th scope="row"><code>wq_init_vals</code></th>
 <td>$$C[t=0,z,\mathbb{C}]$$</td>
 <td>Array of WQ variable initial data (rows = vars; cols = depths)</td>
@@ -892,7 +908,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr data-search="light light_mode switch to configure the approach to light penetration">
 <th scope="row"><code>light_mode</code></th>
 <td>$$\Theta_{light}$$</td>
 <td>Switch to configure the approach to light penetration</td>
@@ -900,7 +916,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>1</td>
 </tr>
-<tr>
+<tr data-search="light kw light extinction coefficient ( )">
 <th scope="row"><code>Kw</code></th>
 <td>$$K_w$$</td>
 <td>Light extinction coefficient (\(m^{-1}\))</td>
@@ -908,7 +924,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Used when \(\Theta_{light}=0\)</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="light kw_file name of file with kw time-series included">
 <th scope="row"><code>Kw_file</code></th>
 <td>-</td>
 <td>Name of file with Kw time-series included</td>
@@ -916,7 +932,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="light n_bands number of light bandwidths to simulate">
 <th scope="row"><code>n_bands</code></th>
 <td>$$N_{SW}$$</td>
 <td>Number of light bandwidths to simulate</td>
@@ -924,7 +940,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Used when \(\Theta_{light}=1\)</td>
 <td>4</td>
 </tr>
-<tr>
+<tr data-search="light light_extc comma-separated list of light extinction coefficients for each waveband">
 <th scope="row"><code>light_extc</code></th>
 <td>$$K_w_l$$</td>
 <td>Comma-separated list of light extinction coefficients for each waveband</td>
@@ -932,7 +948,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="light energy_frac comma-separated list of energy fraction captured by each waveband">
 <th scope="row"><code>energy_frac</code></th>
 <td>$$f_l$$</td>
 <td>Comma-separated list of energy fraction captured by each waveband</td>
@@ -940,7 +956,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="light benthic_imin critical fraction of incident light reaching the benthos">
 <th scope="row"><code>Benthic_Imin</code></th>
 <td>$$f_{BEN}_{crit}$$</td>
 <td>Critical fraction of incident light reaching the benthos</td>
@@ -979,7 +995,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr data-search="bird_model ap atmospheric pressure (hpa)">
 <th scope="row"><code>AP</code></th>
 <td>$$p$$</td>
 <td>Atmospheric pressure (hPa)</td>
@@ -987,7 +1003,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="bird_model oz ozone concentration (atm-cm)">
 <th scope="row"><code>Oz</code></th>
 <td>$$Oz$$</td>
 <td>Ozone concentration (atm-cm)</td>
@@ -995,7 +1011,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="bird_model watvap total precipitable water vapor (atm-cm)">
 <th scope="row"><code>WatVap</code></th>
 <td>$$W$$</td>
 <td>Total Precipitable water vapor (atm-cm)</td>
@@ -1003,7 +1019,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="bird_model aod500 dimensionless aerosol optical depth at wavelength 500 nm">
 <th scope="row"><code>AOD500</code></th>
 <td>$$AOD_{500}$$</td>
 <td>Dimensionless Aerosol Optical Depth at wavelength 500 nm</td>
@@ -1011,7 +1027,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="bird_model aod380 dimensionless aerosol optical depth at wavelength 380 nm">
 <th scope="row"><code>AOD380</code></th>
 <td>$$AOD_{380}$$</td>
 <td>Dimensionless Aerosol Optical Depth at wavelength 380 nm</td>
@@ -1019,7 +1035,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="bird_model albedo albedo of the surface used for bird model insolation calculation">
 <th scope="row"><code>Albedo</code></th>
 <td>$$\alpha_{SW}$$</td>
 <td>Albedo of the surface used for Bird Model insolation calculation</td>
@@ -1058,7 +1074,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr data-search="sediment sed_heat_ksoil heat conductivity of soil/sediment">
 <th scope="row"><code>sed_heat_Ksoil</code></th>
 <td>$$K_{soil}$$</td>
 <td>heat conductivity of soil/sediment</td>
@@ -1066,7 +1082,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>-</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="sediment sed_temp_depth depth of soil/sediment layer below the lake bottom, used for heat flux calculation">
 <th scope="row"><code>sed_temp_depth</code></th>
 <td>$$\delta z_{soil}$$</td>
 <td>Depth of soil/sediment layer below the lake bottom, used for heat flux calculation</td>
@@ -1074,7 +1090,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="sediment sed_temp_mean annual mean sediment temperature">
 <th scope="row"><code>sed_temp_mean</code></th>
 <td>$$T_{z_{mean}}$$</td>
 <td>Annual mean sediment temperature</td>
@@ -1082,7 +1098,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>comma-separated list if \(N_{SZ}>1\)</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="sediment sed_temp_amplitude amplitude of temperature variation experienced in the sediment over one year">
 <th scope="row"><code>sed_temp_amplitude</code></th>
 <td>$$\delta T_z$$</td>
 <td>Amplitude of temperature variation experienced in the sediment over one year</td>
@@ -1090,7 +1106,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>comma-separated list if \(N_{SZ}>1\)</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="sediment sed_temp_peak_doy day of the year where the sediment temperature peaks">
 <th scope="row"><code>sed_temp_peak_doy</code></th>
 <td>$$d_{T_{z}}$$</td>
 <td>Day of the year where the sediment temperature peaks</td>
@@ -1098,7 +1114,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>comma-separated list if \(N_{SZ}>1\)</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="sediment benthic_mode switch to configure which mode of benthic interaction to apply">
 <th scope="row"><code>benthic_mode</code></th>
 <td>$$\Theta_{benthic}$$</td>
 <td>Switch to configure which mode of benthic interaction to apply</td>
@@ -1113,7 +1129,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 \right.$$</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="sediment n_zones number of sediment zones to simulate">
 <th scope="row"><code>n_zones</code></th>
 <td>$$N_{SZ}$$</td>
 <td>Number of sediment zones to simulate</td>
@@ -1121,7 +1137,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Required for benthic_mode (\(\Theta_{benthic}\)) \(= 2\) or \(3\)</td>
 <td>0</td>
 </tr>
-<tr>
+<tr data-search="sediment zone_heights upper height of zone boundary">
 <th scope="row"><code>zone_heights</code></th>
 <td>$$h_z[1 ... N_{SZ}]$$</td>
 <td>Upper height of zone boundary</td>
@@ -1129,7 +1145,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Required for benthic_mode (\(\Theta_{benthic}\)) \(= 2\) or \(3\)</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="sediment sed_reflectivity sediment reflectivity">
 <th scope="row"><code>sed_reflectivity</code></th>
 <td>$$\alpha_{sed}$$</td>
 <td>Sediment reflectivity</td>
@@ -1137,7 +1153,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>0</td>
 </tr>
-<tr>
+<tr data-search="sediment sed_roughness tbc">
 <th scope="row"><code>sed_roughness</code></th>
 <td>$$d_{SS_{z}}$$</td>
 <td>TBC</td>
@@ -1181,7 +1197,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr data-search="snowice snow_albedo_factor scaling factor used to as a multiplier to scale the snow/ice albedo estimate">
 <th scope="row"><code>snow_albedo_factor</code></th>
 <td>$$f_{\alpha}$$</td>
 <td>Scaling factor used to as a multiplier to scale the snow/ice albedo estimate</td>
@@ -1189,7 +1205,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>1</td>
 </tr>
-<tr>
+<tr data-search="snowice snow_rho_min minimum snow density allowable ( )">
 <th scope="row"><code>snow_rho_min</code></th>
 <td>$$\rho_{s,min}$$</td>
 <td>Minimum snow density allowable (\(kg\ m^{-3}\))</td>
@@ -1197,7 +1213,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>50</td>
 </tr>
-<tr>
+<tr data-search="snowice snow_rho_max maximum snow density allowable ( )">
 <th scope="row"><code>snow_rho_max</code></th>
 <td>$$\rho_{s,max}$$</td>
 <td>Maximum snow density allowable (\(kg\ m^{-3}\))</td>
@@ -1235,7 +1251,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr data-search="meteorology met_sw switch to enable the surface heating module">
 <th scope="row"><code>met_sw</code></th>
 <td>$$\Theta_{met}$$</td>
 <td>Switch to enable the surface heating module</td>
@@ -1243,8 +1259,8 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>.true. OR .false.</td>
 <td>.true.</td>
 </tr>
-<tr class="subhead"><th colspan="6" scope="colgroup">Input meterological data</th></tr>
-<tr>
+<tr class="subhead" data-sub="1"><th colspan="6" scope="colgroup">Input meterological data</th></tr>
+<tr data-search="meteorology meteo_fl filename of the meterological file" data-sub="1">
 <th scope="row"><code>meteo_fl</code></th>
 <td>-</td>
 <td>Filename of the meterological file</td>
@@ -1252,7 +1268,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Include path and filename</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="meteorology subdaily switch to indicate the meteorological data is provided with sub-daily resolution, at an interval equivalent to" data-sub="1">
 <th scope="row"><code>subdaily</code></th>
 <td>$$\Theta_{subdaily}$$</td>
 <td>Switch to indicate the meteorological data is provided with sub-daily resolution, at an interval equivalent to \(\Delta t\)</td>
@@ -1260,7 +1276,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>.true. OR .false.</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="meteorology time_fmt time format of the 1st column in the inflow_fl" data-sub="1">
 <th scope="row"><code>time_fmt</code></th>
 <td>-</td>
 <td>Time format of the 1st column in the inflow_fl</td>
@@ -1268,8 +1284,8 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>'YYYY-MM-DD hh:mm:ss'</td>
 </tr>
-<tr class="subhead"><th colspan="6" scope="colgroup">SW & LW radiation</th></tr>
-<tr>
+<tr class="subhead" data-sub="2"><th colspan="6" scope="colgroup">SW & LW radiation</th></tr>
+<tr data-search="meteorology rad_mode switch to configure which incoming radiation option to use" data-sub="2">
 <th scope="row"><code>rad_mode</code></th>
 <td>$$\Theta_{rad}$$</td>
 <td>Switch to configure which incoming radiation option to use</td>
@@ -1285,7 +1301,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 \right.$$</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="meteorology albedo_mode switch to configure which albedo calculation option is used" data-sub="2">
 <th scope="row"><code>albedo_mode</code></th>
 <td>$$\Theta_{\alpha}$$</td>
 <td>Switch to configure which albedo calculation option is used</td>
@@ -1299,7 +1315,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 \right.$$</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="meteorology sw_factor scaling factor to adjust the shortwave radiation data provided in the meteo_fl ( )" data-sub="2">
 <th scope="row"><code>sw_factor</code></th>
 <td>$$f_{SW}$$</td>
 <td>Scaling factor to adjust the shortwave radiation data provided in the meteo_fl (\(\phi_{SW_x}\))</td>
@@ -1307,7 +1323,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>1</td>
 </tr>
-<tr>
+<tr data-search="meteorology lw_type switch to configure which input approach is being used for longwave/cloud data in the meteo_fl" data-sub="2">
 <th scope="row"><code>lw_type</code></th>
 <td>$$\Theta_{lw}$$</td>
 <td>Switch to configure which input approach is being used for longwave/cloud data in the meteo_fl</td>
@@ -1321,7 +1337,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 \right.$$</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="meteorology cloud_mode switch to configure which atmospheric emmissivity calculation option is used" data-sub="2">
 <th scope="row"><code>cloud_mode</code></th>
 <td>$$\Theta_{cloud}$$</td>
 <td>Switch to configure which atmospheric emmissivity calculation option is used</td>
@@ -1336,7 +1352,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 \right.$$</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="meteorology lw_factor scaling factor to adjust the longwave (or cloud) data provided in the meteo_fl ( )" data-sub="2">
 <th scope="row"><code>lw_factor</code></th>
 <td>$$f_{LW}$$</td>
 <td>Scaling factor to adjust the longwave (or cloud) data provided in the meteo_fl (\(C_x\))</td>
@@ -1344,8 +1360,8 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>1</td>
 </tr>
-<tr class="subhead"><th colspan="6" scope="colgroup">Sensible & latent heat</th></tr>
-<tr>
+<tr class="subhead" data-sub="3"><th colspan="6" scope="colgroup">Sensible & latent heat</th></tr>
+<tr data-search="meteorology atm_stab switch to configure which approach to atmospheric stability is used" data-sub="3">
 <th scope="row"><code>atm_stab</code></th>
 <td>$$\Theta_{atmstab}$$</td>
 <td>Switch to configure which approach to atmospheric stability is used</td>
@@ -1359,7 +1375,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 \right.$$</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="meteorology rh_factor scaling factor to adjust the relative humidity data provided in the meteo_fl ( )" data-sub="3">
 <th scope="row"><code>rh_factor</code></th>
 <td>$$f_{RH}$$</td>
 <td>Scaling factor to adjust the relative humidity data provided in the meteo_fl (\(RH_x\))</td>
@@ -1367,7 +1383,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>1</td>
 </tr>
-<tr>
+<tr data-search="meteorology at_factor scaling factor to adjust the air temperature data provided in the meteo_fl ( )" data-sub="3">
 <th scope="row"><code>at_factor</code></th>
 <td>$$f_{AT}$$</td>
 <td>Scaling factor to adjust the air temperature data provided in the meteo_fl (\(AT_x\))</td>
@@ -1375,7 +1391,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>1</td>
 </tr>
-<tr>
+<tr data-search="meteorology ce bulk aerodynamic transfer coefficient for latent heat flux" data-sub="3">
 <th scope="row"><code>ce</code></th>
 <td>$$C_E$$</td>
 <td>Bulk aerodynamic transfer coefficient for latent heat flux</td>
@@ -1383,7 +1399,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>0.0013</td>
 </tr>
-<tr>
+<tr data-search="meteorology ch bulk aerodynamic transfer coefficient for sensible heat flux" data-sub="3">
 <th scope="row"><code>ch</code></th>
 <td>$$C_H$$</td>
 <td>Bulk aerodynamic transfer coefficient for sensible heat flux</td>
@@ -1391,8 +1407,8 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>0.0013</td>
 </tr>
-<tr class="subhead"><th colspan="6" scope="colgroup">Rainfall & local runoff ("run-in")</th></tr>
-<tr>
+<tr class="subhead" data-sub="4"><th colspan="6" scope="colgroup">Rainfall & local runoff ("run-in")</th></tr>
+<tr data-search="meteorology rain_sw switch to configure rainfall input concentrations" data-sub="4">
 <th scope="row"><code>rain_sw</code></th>
 <td>$$\Theta_{rain}$$</td>
 <td>Switch to configure rainfall input concentrations</td>
@@ -1400,7 +1416,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>.true. OR .false.</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="meteorology rain_factor scaling factor to adjust the rainfall data provided in the meteo_fl ( )" data-sub="4">
 <th scope="row"><code>rain_factor</code></th>
 <td>$$f_R$$</td>
 <td>Scaling factor to adjust the rainfall data provided in the meteo_fl (\(R_x\))</td>
@@ -1408,7 +1424,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>1</td>
 </tr>
-<tr>
+<tr data-search="meteorology catchrain switch that configures runoff from exposed banks of lake area" data-sub="4">
 <th scope="row"><code>catchrain</code></th>
 <td>$$\Theta_{runin}$$</td>
 <td>Switch that configures runoff from exposed banks of lake area</td>
@@ -1416,7 +1432,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>.true. OR .false.</td>
 <td>.false.</td>
 </tr>
-<tr>
+<tr data-search="meteorology rain_threshold daily rainfall amount (m) required before runoff from exposed banks occurs" data-sub="4">
 <th scope="row"><code>rain_threshold</code></th>
 <td>$$R_L$$</td>
 <td>Daily rainfall amount (m) required before runoff from exposed banks occurs</td>
@@ -1424,7 +1440,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="meteorology runoff_coef conversion fraction of infiltration excess rainfall to runoff in exposed lake banks" data-sub="4">
 <th scope="row"><code>runoff_coef</code></th>
 <td>$$f_{ro}$$</td>
 <td>Conversion fraction of infiltration excess rainfall to runoff in exposed lake banks</td>
@@ -1432,8 +1448,8 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td></td>
 </tr>
-<tr class="subhead"><th colspan="6" scope="colgroup">Wind & wind-sheltering</th></tr>
-<tr>
+<tr class="subhead" data-sub="5"><th colspan="6" scope="colgroup">Wind & wind-sheltering</th></tr>
+<tr data-search="meteorology cd bulk aerodynamic transfer coefficient for momentum" data-sub="5">
 <th scope="row"><code>cd</code></th>
 <td>$$C_D$$</td>
 <td>Bulk aerodynamic transfer coefficient for momentum</td>
@@ -1441,7 +1457,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>0.0013</td>
 </tr>
-<tr>
+<tr data-search="meteorology wind_factor scaling factor to adjust the windspeed data provided in the meteo_fl ( )" data-sub="5">
 <th scope="row"><code>wind_factor</code></th>
 <td>$$f_U$$</td>
 <td>Scaling factor to adjust the windspeed data provided in the meteo_fl (\(U_x\))</td>
@@ -1449,7 +1465,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>1</td>
 </tr>
-<tr>
+<tr data-search="meteorology fetch_mode switch to configure which wind-sheltering/fetch option to use" data-sub="5">
 <th scope="row"><code>fetch_mode</code></th>
 <td>$$\Theta_{fetch}$$</td>
 <td>Switch to configure which wind-sheltering/fetch option to use</td>
@@ -1464,7 +1480,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 \right.$$</td>
 <td>0</td>
 </tr>
-<tr>
+<tr data-search="meteorology xws ..." data-sub="5">
 <th scope="row"><code>Xws</code></th>
 <td>$$x_{WS}$$</td>
 <td>...</td>
@@ -1472,7 +1488,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Required for fetch_mode (\(\Theta_{fetch}\)) \(= 2\)</td>
 <td>?</td>
 </tr>
-<tr>
+<tr data-search="meteorology num_dir number of wind direction reference points being read in" data-sub="5">
 <th scope="row"><code>num_dir</code></th>
 <td>-</td>
 <td>Number of wind direction reference points being read in</td>
@@ -1480,7 +1496,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Required for fetch_mode (\(\Theta_{fetch}\)) \(= 2\) or \(3\)</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="meteorology wind_dir wind directions used for wind-sheltering effects" data-sub="5">
 <th scope="row"><code>wind_dir</code></th>
 <td>$$\Phi_{wind}[1...]$$</td>
 <td>Wind directions used for wind-sheltering effects</td>
@@ -1488,7 +1504,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Required for fetch_mode (\(\Theta_{fetch}\)) \(= 2\) or \(3\)</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="meteorology fetch_scale direction specific wind-sheltering scaling factors" data-sub="5">
 <th scope="row"><code>fetch_scale</code></th>
 <td>$$f_{WS}[\Phi_{wind}]$$</td>
 <td>Direction specific wind-sheltering scaling factors</td>
@@ -1540,7 +1556,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr data-search="inflow num_inflows number of inflows to be simulated in this simulation">
 <th scope="row"><code>num_inflows</code></th>
 <td>$$N_{INF}$$</td>
 <td>Number of inflows to be simulated in this simulation</td>
@@ -1548,7 +1564,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>0</td>
 </tr>
-<tr>
+<tr data-search="inflow names_of_strms names of each inflow">
 <th scope="row"><code>names_of_strms</code></th>
 <td>-</td>
 <td>Names of each inflow</td>
@@ -1556,7 +1572,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>comma-separated list if \(N_{INF}>1\)</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="inflow subm_flag switch indicating if the inflow i is entering as a submerged input">
 <th scope="row"><code>subm_flag</code></th>
 <td>$$\Theta_{subm_I}$$</td>
 <td>Switch indicating if the inflow I is entering as a submerged input</td>
@@ -1564,7 +1580,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>.true. OR .false. <br> comma-separated list if \(N_{INTF}>1\)</td>
 <td>.false.</td>
 </tr>
-<tr>
+<tr data-search="inflow strm_hf_angle angle describing the width of an inflow river channel (&quot;half angle&quot;)">
 <th scope="row"><code>strm_hf_angle</code></th>
 <td>$$\alpha{inf}$$</td>
 <td>Angle describing the width of an inflow river channel ("half angle")</td>
@@ -1572,7 +1588,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>comma-separated list if \(N_{INF}>1\)</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="inflow strmbd_slope slope of the streambed / river thalweg for each river (degrees)">
 <th scope="row"><code>strmbd_slope</code></th>
 <td>$$\Phi_{inf}$$</td>
 <td>Slope of the streambed / river thalweg for each river (degrees)</td>
@@ -1580,7 +1596,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>comma-separated list if \(N_{INF}>1\)</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="inflow strmbd_drag drag coefficient of the river inflow thalweg, to calculate entrainment during insertion">
 <th scope="row"><code>strmbd_drag</code></th>
 <td>$$C_{D_{inf}}$$</td>
 <td>Drag coefficient of the river inflow thalweg, to calculate entrainment during insertion</td>
@@ -1588,7 +1604,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>comma-separated list if \(N_{INF}>1\)</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="inflow coef_inf_entrain -">
 <th scope="row"><code>coef_inf_entrain</code></th>
 <td>$$C_{entrain}$$</td>
 <td>-</td>
@@ -1596,7 +1612,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>comma-separated list if \(N_{INF}>1\)</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="inflow inflow_factor scaling factor that can be applied to adjust the provided input data">
 <th scope="row"><code>inflow_factor</code></th>
 <td>$$f_{inf_{I}}$$</td>
 <td>Scaling factor that can be applied to adjust the provided input data</td>
@@ -1604,7 +1620,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>comma-separated list if \(N_{INF}>1\)</td>
 <td>1</td>
 </tr>
-<tr>
+<tr data-search="inflow inflow_fl filename(s) of the inflow csv boundary condition files">
 <th scope="row"><code>inflow_fl</code></th>
 <td>-</td>
 <td>Filename(s) of the inflow CSV boundary condition files</td>
@@ -1612,7 +1628,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>comma-separated list if \(N_{INF}>1\)</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="inflow inflow_varnum number of variables being listed in the columns of inflow_fl (comma-separated list)">
 <th scope="row"><code>inflow_varnum</code></th>
 <td>-</td>
 <td>Number of variables being listed in the columns of inflow_fl (comma-separated list)</td>
@@ -1620,7 +1636,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Can include GLM variables including flow, temp and salt, plus WQ variables.</td>
 <td>0</td>
 </tr>
-<tr>
+<tr data-search="inflow inflow_vars names of the variables in the inflow_fl">
 <th scope="row"><code>inflow_vars</code></th>
 <td>-</td>
 <td>Names of the variables in the inflow_fl</td>
@@ -1628,7 +1644,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Provide variables in the order as they are in the file.</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="inflow time_fmt time format of the 1st column in the inflow_fl">
 <th scope="row"><code>time_fmt</code></th>
 <td>-</td>
 <td>Time format of the 1st column in the inflow_fl</td>
@@ -1677,7 +1693,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr data-search="outflow num_outlet number of outflows (including withdrawals, outlets or offtakes) to be included in this simulation">
 <th scope="row"><code>num_outlet</code></th>
 <td>$$N_{OUTF}$$</td>
 <td>Number of outflows (including withdrawals, outlets or offtakes) to be included in this simulation</td>
@@ -1685,7 +1701,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>-</td>
 <td>0</td>
 </tr>
-<tr>
+<tr data-search="outflow outflow_fl filename of the file containing the outflow time-series,">
 <th scope="row"><code>outflow_fl</code></th>
 <td>-</td>
 <td>Filename of the file containing the outflow time-series, \(Q_{outf_x}\)</td>
@@ -1693,7 +1709,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>-</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="outflow time_fmt time format of the 1st column in the outflow_fl">
 <th scope="row"><code>time_fmt</code></th>
 <td>-</td>
 <td>Time format of the 1st column in the outflow_fl</td>
@@ -1701,7 +1717,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 <td>'YYYY-MM-DD hh:mm:ss'</td>
 </tr>
-<tr>
+<tr data-search="outflow outflow_factor scaling factor used as a multiplier for outflows, such that:">
 <th scope="row"><code>outflow_factor</code></th>
 <td>$$f_{outf}$$</td>
 <td>Scaling factor used as a multiplier for outflows, such that: \(Q_{outf}=f_{outf}Q_{outf_x}\)</td>
@@ -1709,7 +1725,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>comma-separated list if \(N_{OUTF}>1\)</td>
 <td>1</td>
 </tr>
-<tr>
+<tr data-search="outflow outflow_thick_limit maximum vertical limit of withdrawal entrainment">
 <th scope="row"><code>outflow_thick_limit</code></th>
 <td>$$\delta_{outf_{max}}$$</td>
 <td>Maximum vertical limit of withdrawal entrainment</td>
@@ -1717,7 +1733,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>comma-separated list if \(N_{OUTF}>1\)</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="outflow single_layer_draw switch to only limit withdrawal entrainment and force outflows from layer at the outlet elevation height">
 <th scope="row"><code>single_layer_draw</code></th>
 <td>$$\Theta_{outf_{single}}$$</td>
 <td>Switch to only limit withdrawal entrainment and force outflows from layer at the outlet elevation height</td>
@@ -1725,7 +1741,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>.true. OR .false. <br> comma-separated list if \(N_{OUTF}>1\)</td>
 <td>.false.</td>
 </tr>
-<tr>
+<tr data-search="outflow flt_off_sw switch to indicate if the outflows are floating offtakes (taking water from near the surface)">
 <th scope="row"><code>flt_off_sw</code></th>
 <td>$$\Theta_{flt_O}$$</td>
 <td>Switch to indicate if the outflows are floating offtakes (taking water from near the surface)</td>
@@ -1733,7 +1749,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>.true. OR .false. <br> comma-separated list if \(N_{OUTF}>1\)</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="outflow outlet_type switch to configure approach of each withdrawal (comma-separated list if )">
 <th scope="row"><code>outlet_type</code></th>
 <td>$$\Theta_{outf}$$</td>
 <td>Switch to configure approach of each withdrawal (comma-separated list if \(N_{OUTF}>1\))</td>
@@ -1749,8 +1765,8 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 \right.$$</td>
 <td>1</td>
 </tr>
-<tr class="subhead"><th colspan="6" scope="colgroup">Normal Withdrawals</th></tr>
-<tr>
+<tr class="subhead" data-sub="1"><th colspan="6" scope="colgroup">Normal Withdrawals</th></tr>
+<tr data-search="outflow outl_elvs outlet elevations ( )" data-sub="1">
 <th scope="row"><code>outl_elvs</code></th>
 <td>$$h_{outf_O}$$</td>
 <td>Outlet elevations (\(m\))</td>
@@ -1758,7 +1774,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>comma-separated list if \(N_{OUTF}>1\)</td>
 <td>0</td>
 </tr>
-<tr>
+<tr data-search="outflow bsn_len_outl basin length at the outlet height(s) ( )" data-sub="1">
 <th scope="row"><code>bsn_len_outl</code></th>
 <td>$$L_{outf_O}$$</td>
 <td>Basin length at the outlet height(s) (\(m\))</td>
@@ -1766,7 +1782,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>comma-separated list if \(N_{OUTF}>1\)</td>
 <td></td>
 </tr>
-<tr>
+<tr data-search="outflow bsn_wid_outl basin width at the outlet heights ( )" data-sub="1">
 <th scope="row"><code>bsn_wid_outl</code></th>
 <td>$$W_{outf_O}$$</td>
 <td>Basin width at the outlet heights (\(m\))</td>
@@ -1774,8 +1790,8 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>comma-separated list if \(N_{OUTF}>1\)</td>
 <td></td>
 </tr>
-<tr class="subhead"><th colspan="6" scope="colgroup">Adaptive withdrawals</th></tr>
-<tr>
+<tr class="subhead" data-sub="2"><th colspan="6" scope="colgroup">Adaptive withdrawals</th></tr>
+<tr data-search="outflow crit_o2 tbc" data-sub="2">
 <th scope="row"><code>crit_O2</code></th>
 <td>-</td>
 <td>TBC</td>
@@ -1783,7 +1799,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>-</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="outflow crit_o2_dep " data-sub="2">
 <th scope="row"><code>crit_O2_dep</code></th>
 <td>-</td>
 <td></td>
@@ -1791,7 +1807,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>-</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="outflow crit_o2_days " data-sub="2">
 <th scope="row"><code>crit_O2_days</code></th>
 <td>-</td>
 <td></td>
@@ -1799,7 +1815,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>-</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="outflow outlet_crit " data-sub="2">
 <th scope="row"><code>outlet_crit</code></th>
 <td>-</td>
 <td></td>
@@ -1807,7 +1823,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>-</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="outflow o2name " data-sub="2">
 <th scope="row"><code>O2name</code></th>
 <td>-</td>
 <td></td>
@@ -1815,7 +1831,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>-</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="outflow o2idx " data-sub="2">
 <th scope="row"><code>O2idx</code></th>
 <td>-</td>
 <td></td>
@@ -1823,7 +1839,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>-</td>
 <td>-</td>
 </tr>
-<tr>
+<tr data-search="outflow withdrtemp_fl filename of the file containing the temperature time-series the adaptive withdrawal is targeting" data-sub="2">
 <th scope="row"><code>withdrTemp_fl</code></th>
 <td>-</td>
 <td>Filename of the file containing the temperature time-series the adaptive withdrawal is targeting</td>
@@ -1831,8 +1847,8 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Required if outlet_type (\(\Theta_{outf}\)) \(=5\)</td>
 <td>-</td>
 </tr>
-<tr class="subhead"><th colspan="6" scope="colgroup">Seepage</th></tr>
-<tr>
+<tr class="subhead" data-sub="3"><th colspan="6" scope="colgroup">Seepage</th></tr>
+<tr data-search="outflow seepage switch to enable the seepage of water from the lake bottom" data-sub="3">
 <th scope="row"><code>seepage</code></th>
 <td>$$\Theta_{seep}$$</td>
 <td>Switch to enable the seepage of water from the lake bottom</td>
@@ -1840,7 +1856,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>.true. OR .false.</td>
 <td>.false.</td>
 </tr>
-<tr>
+<tr data-search="outflow seepage_rate seepage rate of water, or, soil hydraulic conductivity ( )" data-sub="3">
 <th scope="row"><code>seepage_rate</code></th>
 <td>\(G\) or \(K_{seep}\)</td>
 <td>Seepage rate of water, or, soil hydraulic conductivity (\(m\ day^{-1}\))</td>
@@ -1848,8 +1864,8 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td><strong>-ve</strong> seepage_rate is taken as \(G\);<br> <strong>+ve</strong> seepage_rate is taken as \(K_{seep}\)</td>
 <td>0</td>
 </tr>
-<tr class="subhead"><th colspan="6" scope="colgroup">Weir overflow</th></tr>
-<tr>
+<tr class="subhead" data-sub="4"><th colspan="6" scope="colgroup">Weir overflow</th></tr>
+<tr data-search="outflow crest_width width of weir (at crest height) where lake overflows ( )" data-sub="4">
 <th scope="row"><code>crest_width</code></th>
 <td>$$W_{weir}$$</td>
 <td>Width of weir (at crest height) where lake overflows (\(m\))</td>
@@ -1857,7 +1873,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>-</td>
 <td>0</td>
 </tr>
-<tr>
+<tr data-search="outflow crest_factor drag coefficient associated with the weir crest, used to compute the overflow discharge rate," data-sub="4">
 <th scope="row"><code>crest_factor</code></th>
 <td>$$C_{D_{weir}}$$</td>
 <td>Drag coefficient associated with the weir crest, used to compute the overflow discharge rate, \(Q_{weir}\)</td>
@@ -1885,6 +1901,8 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 </section>
 </main>
 </div>
+
+<script src="assets/search.js" defer></script>
 
 <footer>
   <div class="wrap">

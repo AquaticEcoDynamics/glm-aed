@@ -70,6 +70,33 @@ nav.top a:hover { color: var(--accent); }
 
 .layout { padding-top: 28px; padding-bottom: 64px; }
 
+/* ---- search ---- */
+
+.searchbar { border-bottom: 1px solid var(--line); background: var(--bg); }
+.searchbar .wrap {
+  display: flex; align-items: center; gap: 12px;
+  padding-top: 12px; padding-bottom: 12px;
+}
+.field {
+  display: flex; align-items: center; gap: 8px; flex: 1; max-width: 420px;
+  padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--panel);
+}
+.field:focus-within { border-color: var(--accent); background: var(--bg); }
+.field svg { fill: var(--muted); flex: none; }
+.field input {
+  flex: 1; min-width: 0; border: 0; outline: 0; background: none;
+  color: var(--ink); font: inherit; font-size: 14px;
+}
+.field input::-webkit-search-cancel-button { cursor: pointer; }
+.count { color: var(--muted); font-size: 13px; white-space: nowrap; }
+
+.noresults {
+  margin: 32px 0; padding: 16px; text-align: center;
+  color: var(--muted); background: var(--panel);
+  border: 1px dashed var(--line); border-radius: 6px;
+}
+
 /* ---- sticky "jump to" bar ---- */
 
 nav.jump {
@@ -102,6 +129,8 @@ nav.jump a {
 nav.jump a:hover, nav.jump a:focus-visible {
   background: var(--accent); border-color: var(--accent); color: #fff;
 }
+/* Block filtered out by the current search. */
+nav.jump a.dim { opacity: .3; }
 
 main { min-width: 0; }
 
