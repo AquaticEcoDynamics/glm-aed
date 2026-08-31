@@ -3038,6 +3038,41 @@ be replayed as an animation.</p>
 </table>
 </div>
 </section>
+
+<aside class="audit">
+<h2>How this page is kept honest</h2>
+
+<p class="note">Last checked against the source on <strong>1 September
+2026</strong>, at GLM <strong>4.0.0</strong> (commit <code>df7a4be</code>).</p>
+
+<p class="note">Everything documented here is cross-checked against the
+<code>NAMELIST[]</code> tables in <code>src/glm_init.c</code>,
+<code>src/glm_bird.c</code> and <code>src/glm_plot.c</code>. Those tables are the
+whole vocabulary: <code>get_namelist()</code> walks the code's list and looks
+each name up in your file, so a key the tables do not list is never consulted
+and is silently ignored &mdash; no warning, no error, just a default quietly
+left in place. That makes a wrong entry on this page more costly than a missing
+one, which is why the checks run in both directions.</p>
+
+<p class="note">Three scripts do the checking.
+<code>audit_glm_config.py</code> diffs block and variable names against the
+tables: <strong>26 of 26 blocks</strong> documented, <strong>239 of 312
+variables</strong>, and <strong>0 entries on this page that the code does not
+read</strong>. <code>audit_glm_defaults.py</code> compares the Default column
+with the initialisers in <code>glm_globals.c</code> and <code>glm_init.c</code>:
+<strong>43 defaults compared, 0 disagreeing</strong>; the rest are symbolic,
+conditional or blank in one of the two places and are reported for review rather
+than guessed at. <code>audit_glm_examples.py</code> runs every key in the shipped
+<code>glm-examples</code> nml files past the same tables, and finds
+<strong>2</strong> that the code never asks for.</p>
+
+<p class="note">The 73 variables that the code reads but this page does not yet
+describe are concentrated in <code>&amp;snowice</code>,
+<code>&amp;sediment</code> and <code>&amp;outflow</code>; they are being worked
+through, and none of them are stale &mdash; the gap is coverage, not
+correctness.</p>
+</aside>
+
 </main>
 </div>
 

@@ -224,6 +224,16 @@ p.note.req {
 /* A block the reader still parses but that has no effect on the simulation. */
 p.note.warn { border-left-style: dashed; border-left-width: 4px; }
 
+/* Provenance note at the foot of the reference. Deliberately neither a
+   <section> nor an h2.group -- the search filter hides both of those once
+   their rows stop matching, and this note should survive any query. */
+.audit { margin: 56px 0 0; }
+.audit h2 {
+  font-size: 13px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--muted); margin: 0 0 16px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
 /* A lede that introduces a whole group rather than a single block; it is
    hidden alongside its heading when the filter empties the group. */
 .group-note { margin: 12px 0 0; }
