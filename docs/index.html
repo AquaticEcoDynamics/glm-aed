@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GLM documentation</title>
-<meta name="description" content="Documentation for the General Lake Model (GLM), coupled with the AED water quality library.">
+<title>The General Lake Model (GLM)</title>
+<meta name="description" content="The General Lake Model (GLM) is an open-source one-dimensional model of lake and reservoir hydrodynamics, coupled with the AED water quality library. Documentation, workbook, wiki and configuration reference.">
+<link rel="icon" href="assets/glm-icon.png">
 <link rel="stylesheet" href="assets/glm.css">
 </head>
 <body>
@@ -18,51 +19,164 @@
     <nav class="top">
       <a href="https://github.com/AquaticEcoDynamics/glm-aed">Repository</a>
       <a href="https://github.com/AquaticEcoDynamics/glm-aed/wiki">Wiki</a>
-      <a href="https://aquaticecodynamics.github.io/aed-science/">AED science</a>
+      <a href="https://github.com/orgs/AquaticEcoDynamics/discussions/categories/glm-aed-discussion">Discussion</a>
     </nav>
   </div>
 </header>
 
-<div class="wrap" style="padding-top:32px; padding-bottom:64px; max-width:820px;">
+<div class="wrap page">
 <main id="content">
-<h1>GLM documentation</h1>
-<p class="lede">The <strong>General Lake Model</strong> (GLM) is a one-dimensional
-hydrodynamic model for lakes, reservoirs, ponds and wetlands, coupled here with the
-<a href="https://aquaticecodynamics.github.io/aed-science/">AED</a> water quality library.</p>
 
-<h2 class="group">Reference</h2>
-<section>
-  <h3><a href="configuration.html">Configuration reference</a></h3>
-  <p>Every option available in the <code>glm3.nml</code> or <code>glm4.nml</code> namelist
-  file, block by block, with types, units, defaults and worked examples.</p>
+<div class="hero">
+<h1>The General Lake Model</h1>
+<p class="lede">An open-source, one-dimensional model of lake and reservoir
+hydrodynamics &mdash; water balance, vertical stratification and mixing &mdash;
+coupled with the <a href="https://aquaticecodynamics.github.io/aed-science/">AED</a>
+water quality library.</p>
+
+<nav class="actions" aria-label="Quick links">
+  <a class="primary" href="https://aquaticecodynamics.github.io/glm-workbook/">Get started</a>
+  <a href="configuration.html">Configuration reference</a>
+  <a href="https://github.com/AquaticEcoDynamics/glm-aed/tree/main/binaries">Download</a>
+  <a href="https://github.com/AquaticEcoDynamics/glm-aed/wiki">Wiki</a>
+  <a href="https://github.com/orgs/AquaticEcoDynamics/discussions/categories/glm-aed-discussion">Ask a question</a>
+</nav>
+
+<figure class="shot">
+  <img src="assets/glm-overview.jpg" width="1658" height="960"
+       alt="Cutaway diagram of a lake showing the processes GLM resolves: solar and longwave radiation, rainfall and snowfall, evaporative cooling, wind stirring, surface and bottom mixing, ice formation, light penetration and the thermocline, inflow entrainment and insertion, overflow and outflow extractions.">
+  <figcaption>The processes GLM resolves through the water column, from the
+  surface energy balance down to bottom mixing and sediment exchange.</figcaption>
+</figure>
+</div>
+
+<h2 class="group">Background</h2>
+<section class="prose">
+<p>GLM simulates the water balance and vertical stratification of lakes,
+reservoirs, ponds and wetlands. It was designed to be an open-source community
+model, suited to environmental modelling studies where a simulation of a lake or
+reservoir is required. (It is not the General Linear Model, which shares the
+acronym.)</p>
+
+<p>The model was developed as an initiative of the
+<a href="https://gleon.org/">Global Lake Ecological Observatory Network</a>
+(GLEON), in collaboration with the Aquatic Ecosystem Modelling Network (AEMON),
+beginning in 2010. It was first introduced in Leipzig at the 2nd Lake Ecosystem
+Modelling Symposium in 2012, and has since been applied to numerous lakes within
+the GLEON network and well beyond it.</p>
+
+<p>For water quality and ecosystem health, GLM couples to the AED library and to
+the Framework for Aquatic Biogeochemical Models (FABM). The precompiled binaries
+in the repository include that coupling, so a water quality simulation needs no
+rebuild.</p>
 </section>
 
-<h2 class="group">Elsewhere</h2>
-<section>
-  <h3><a href="https://github.com/AquaticEcoDynamics/glm-aed/wiki">Wiki</a></h3>
-  <p>Downloading, installing and running the model; navigating its output; building
-  from source; and the FAQs.</p>
+<h2 class="group">Overview</h2>
+<section class="prose">
+<p>GLM computes vertical profiles of temperature, salinity and density by
+accounting for inflows and outflows, mixing, and surface heating and cooling,
+including the effect of ice cover. Because the model is one-dimensional it
+assumes no horizontal variability, so it is worth confirming that the lake in
+question genuinely meets that assumption. It suits long-term investigations
+spanning seasons to decades, and coupling with biogeochemical models to explore
+how stratification and vertical mixing shape lake ecosystems.</p>
+
+<p>The model uses a flexible Lagrangian layer structure, in the manner of
+several earlier 1-D lake model designs (Imberger and Patterson, 1981; Hamilton
+and Schladow, 1997). That approach was originally introduced in DYRESM,
+developed at the Centre for Water Research, and it lets layers change thickness
+&mdash; contracting and expanding in response to inflows, outflows, mixing and
+surface mass fluxes. Where enough energy becomes available to overcome the
+density gradient, two layers merge, and that is how mixing is accounted for.
+Layer thicknesses are adjusted to resolve the vertical density gradient as it
+develops. Unlike a fixed-grid design, numerical diffusion of the thermocline is
+limited, which is much of why the approach suits long simulations.</p>
+
+<p>Many of the heating and mixing algorithms build on equations presented by
+Hamilton and Schladow (1997) and earlier studies, rewritten with a modernised
+code structure. GLM integrates with Lake Analyzer for deriving metrics of
+relevance to lake hydrodynamics, and can be driven from R, Python or MATLAB for
+calibration and scenario work.</p>
+
+<figure class="shot">
+  <img src="assets/glm-operation.jpg" width="1600" height="900" loading="lazy"
+       alt="Workflow diagram. On the left, pre-processed data and weather, catchment and groundwater models feed time-series boundary conditions and a namelist configuration file into GLM. In the centre GLM couples to FABM and AED. On the right it writes NetCDF and CSV output, which feeds post-processing, visualisation, calibration and uncertainty tools.">
+  <figcaption>How a GLM simulation fits together: boundary-condition time series
+  and a namelist configuration file go in, GLM runs coupled to FABM and AED, and
+  NetCDF and CSV output feeds post-processing and calibration. The block names
+  in the configuration column are documented in full in the
+  <a href="configuration.html">configuration reference</a>. Note this diagram
+  predates the current naming &mdash; the water quality library is now AED, and
+  the namelist file is <code>glm3.nml</code> or <code>glm4.nml</code>.</figcaption>
+</figure>
 </section>
+
+<h2 class="group">Documentation</h2>
 <section>
-  <h3><a href="https://github.com/AquaticEcoDynamics/glm-aed/tree/main/glm-examples">Examples</a></h3>
-  <p>Worked simulations shipped with the repository, each with its configuration
-  and input files.</p>
+<div class="cards">
+
+  <a class="card" href="https://aquaticecodynamics.github.io/glm-workbook/">
+    <h3>Workbook</h3>
+    <p>Start here if you are new. Introductory exercises that take you from
+    installing the model to a first working simulation.</p>
+  </a>
+
+  <a class="card" href="https://github.com/AquaticEcoDynamics/glm-aed/wiki">
+    <h3>Wiki</h3>
+    <p>User and developer information &mdash; downloading, installing and
+    running the model, navigating its output, building from source, and the
+    FAQs.</p>
+  </a>
+
+  <a class="card" href="configuration.html">
+    <h3>Configuration reference</h3>
+    <p>The full specification for detailed setup: every block and variable the
+    model reads from <code>glm3.nml</code> or <code>glm4.nml</code>, with types,
+    defaults and worked examples.</p>
+  </a>
+
+  <a class="card" href="https://doi.org/10.5194/gmd-12-473-2019">
+    <h3>Model description paper</h3>
+    <p>Hipsey et al. (2019), <em>Geoscientific Model Development</em>. The
+    open-access description of the model and its scientific basis &mdash; cite
+    this if you use GLM.</p>
+  </a>
+
+  <a class="card" href="https://scholar.google.com/citations?user=nDqUBjQAAAAJ&amp;hl=en&amp;view_op=list_works">
+    <h3>Publications</h3>
+    <p>Studies that have applied or extended GLM, kept current through the
+    model's Google Scholar profile.</p>
+  </a>
+
+  <a class="card" href="https://aquaticecodynamics.github.io/aed-science/">
+    <h3>AED science manual</h3>
+    <p>The water quality module set &mdash; its parameters, its equations and
+    the science behind them.</p>
+  </a>
+
+  <a class="card" href="https://github.com/AquaticEcoDynamics/glm-aed/tree/main/glm-examples">
+    <h3>Examples</h3>
+    <p>Worked simulations shipped with the repository, each complete with its
+    configuration and input files.</p>
+  </a>
+
+  <a class="card" href="https://github.com/orgs/AquaticEcoDynamics/discussions/categories/glm-aed-discussion">
+    <h3>Discussion</h3>
+    <p>Questions, answers and announcements. The place to ask if something is
+    not covered above.</p>
+  </a>
+
+</div>
 </section>
-<section>
-  <h3><a href="https://aquaticecodynamics.github.io/glm-workbook/">GLM workbook</a></h3>
-  <p>Introductory modelling exercises for people new to GLM.</p>
-</section>
-<section>
-  <h3><a href="https://aquaticecodynamics.github.io/aed-science/">AED science e-book</a></h3>
-  <p>The water quality module set, its parameters and the science behind it.</p>
-</section>
+
 </main>
 </div>
 
 <footer>
   <div class="wrap">
     <p>Part of the <a href="https://github.com/AquaticEcoDynamics/glm-aed">glm-aed</a>
-    documentation. Maintained by <a href="https://github.com/AquaticEcoDynamics">AquaticEcoDynamics</a>.</p>
+    repository. Maintained by <a href="https://github.com/AquaticEcoDynamics">AquaticEcoDynamics</a>
+    at <a href="https://www.uwa.edu.au/">The University of Western Australia</a>.</p>
   </div>
 </footer>
 </body>
