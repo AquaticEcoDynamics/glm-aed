@@ -81,23 +81,9 @@ nav.top a:hover { color: var(--accent); }
 .hero h1 { font-size: 38px; line-height: 1.15; margin: 0 0 12px; }
 .hero .lede { font-size: 18px; max-width: 58ch; margin: 0; }
 
-/* Shortcut buttons -- the five places a new user is most likely to want. */
-.actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 0; }
-.actions a {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 9px 17px; border-radius: 999px;
-  border: 1px solid var(--line); background: var(--bg);
-  color: var(--ink); text-decoration: none;
-  font-size: 14px; font-weight: 600;
-  transition: background .12s, color .12s, border-color .12s;
-}
-.actions a:hover, .actions a:focus-visible {
-  border-color: var(--accent); color: var(--accent); background: var(--accent-soft);
-}
-.actions a.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-.actions a.primary:hover, .actions a.primary:focus-visible {
-  background: var(--accent); color: #fff; filter: brightness(1.1);
-}
+/* The landing page has no sticky bar to clear, so its anchors want a normal
+   offset rather than the jump-bar allowance the reference page needs. */
+.page h2.group, .page section { scroll-margin-top: 20px; }
 
 figure.shot { margin: 30px 0 0; }
 figure.shot img {
@@ -110,6 +96,7 @@ figure.shot figcaption {
 
 .prose p { max-width: 68ch; }
 .prose p + p { margin-top: 14px; }
+.prose h3 { font-size: 18px; margin: 28px 0 8px; }
 
 /* Link cards -- one per documentation destination. */
 .cards {
@@ -126,6 +113,8 @@ figure.shot figcaption {
 }
 .card h3 { font-size: 16px; margin: 0 0 5px; color: var(--accent); }
 .card p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
+/* The one card that stays on this page -- the arrow says so before the click. */
+.card.here h3::after { content: " \2193"; font-weight: 400; opacity: .65; }
 
 @media (max-width: 620px) {
   .hero h1 { font-size: 30px; }
