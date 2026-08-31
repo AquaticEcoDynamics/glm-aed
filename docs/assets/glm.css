@@ -11,6 +11,10 @@
   --req: #8a5a00;
   --req-bg: #fff6e0;
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  /* Height of the sticky jump bar. It now runs to one row per category, and
+     that row count changes with the viewport, so search.js measures it and
+     overwrites this; the value here is only the pre-script fallback. */
+  --jump-h: 150px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -105,19 +109,20 @@ nav.jump {
   backdrop-filter: saturate(180%) blur(8px);
   border-bottom: 1px solid var(--line);
 }
+/* One row per category: the label sits in the first column and its chips fill
+   the second, so the five groups read as five lines rather than one long wrap. */
 nav.jump .wrap {
-  display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
-  padding-top: 8px; padding-bottom: 8px;
+  display: grid; grid-template-columns: max-content minmax(0, 1fr);
+  align-items: baseline; column-gap: 14px; row-gap: 7px;
+  padding-top: 9px; padding-bottom: 9px;
 }
 .jump-label {
   font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
-  color: var(--muted); font-weight: 600; margin-right: 2px;
-}
-.jump-label:not(:first-child) {
-  margin-left: 10px; padding-left: 12px; border-left: 1px solid var(--line);
+  color: var(--muted); font-weight: 600; text-align: right;
 }
 nav.jump ul {
-  display: contents; list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; gap: 6px;
+  list-style: none; margin: 0; padding: 0;
 }
 nav.jump a {
   display: inline-block; padding: 3px 9px; border-radius: 999px;
@@ -143,9 +148,9 @@ h2.group {
   border-bottom: 1px solid var(--line);
 }
 
-h2.group { scroll-margin-top: 68px; }
+h2.group { scroll-margin-top: calc(var(--jump-h) + 12px); }
 
-section { margin: 32px 0 0; scroll-margin-top: 64px; }
+section { margin: 32px 0 0; scroll-margin-top: calc(var(--jump-h) + 8px); }
 section h3 { font-size: 20px; margin: 0 0 10px; }
 /* Briefly mark whichever block was jumped to. */
 section:target h3 code { color: var(--ink); }
@@ -166,6 +171,12 @@ p.note {
 p.note.req {
   color: var(--req); background: var(--req-bg); border-left-color: var(--req);
 }
+/* A block the reader still parses but that has no effect on the simulation. */
+p.note.warn { border-left-style: dashed; border-left-width: 4px; }
+
+/* A lede that introduces a whole group rather than a single block; it is
+   hidden alongside its heading when the filter empties the group. */
+.group-note { margin: 12px 0 0; }
 
 /* ---- tables ---- */
 
@@ -192,6 +203,11 @@ code {
 
 /* Keep the LaTeX in the Options column from stretching the row. */
 tbody td mjx-container { margin: 2px 0 !important; }
+
+/* Parameters the reader accepts but the model does not yet act on. Greyed so
+   they read as inactive without being hidden -- they still need to be findable,
+   because they turn up in existing nml files. */
+tbody tr.unused th, tbody tr.unused td { color: var(--muted); }
 
 /* ---- examples ---- */
 
@@ -224,13 +240,13 @@ footer a { color: var(--accent); }
 a { color: var(--accent); }
 
 @media (max-width: 860px) {
-  /* Too many chips to wrap comfortably -- scroll the bar sideways instead. */
-  nav.jump .wrap {
+  /* Wrapping five rows of chips would take most of the screen -- keep one row
+     per category and scroll each sideways instead. */
+  nav.jump ul {
     flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
-  nav.jump .wrap::-webkit-scrollbar { display: none; }
-  .jump-label { position: sticky; left: 0; background: var(--bg); }
+  nav.jump ul::-webkit-scrollbar { display: none; }
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -8,6 +8,19 @@
 (function () {
   "use strict";
 
+  // The jump bar is sticky and now runs to one row per category, so its height
+  // varies with the viewport. Anchors need to clear it, and scroll-margin-top
+  // cannot read a layout height on its own -- publish it as a variable.
+  var jump = document.querySelector("nav.jump");
+  if (jump) {
+    var measure = function () {
+      document.documentElement.style.setProperty("--jump-h", jump.offsetHeight + "px");
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    if (window.ResizeObserver) new ResizeObserver(measure).observe(jump);
+  }
+
   var input = document.getElementById("q");
   var count = document.getElementById("count");
   var none = document.getElementById("noresults");
@@ -53,13 +66,17 @@
       shown += hits;
     });
 
-    // Hide a group heading once all of its blocks are filtered out.
+    // Hide a group heading, and any lede that introduces the group, once all
+    // of its blocks are filtered out.
     groups.forEach(function (h) {
       var any = false;
+      var notes = [];
       for (var n = h.nextElementSibling; n && n.tagName !== "H2"; n = n.nextElementSibling) {
-        if (n.tagName === "SECTION" && !n.hidden) { any = true; break; }
+        if (n.classList.contains("group-note")) notes.push(n);
+        if (n.tagName === "SECTION" && !n.hidden) any = true;
       }
       h.hidden = !any;
+      notes.forEach(function (p) { p.hidden = !any; });
     });
 
     if (none) none.hidden = shown !== 0;

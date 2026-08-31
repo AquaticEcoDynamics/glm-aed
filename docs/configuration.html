@@ -56,12 +56,33 @@
 <li><a href="#bird_model">&amp;bird_model</a></li>
 <li><a href="#sediment">&amp;sediment</a></li>
 <li><a href="#snowice">&amp;snowice</a></li>
+<li><a href="#particles">&amp;particles</a></li>
 </ul>
 <span class="jump-label">Boundary conditions</span>
 <ul>
 <li><a href="#meteorology">&amp;meteorology</a></li>
+<li><a href="#fetch">&amp;fetch</a></li>
 <li><a href="#inflow">&amp;inflow</a></li>
 <li><a href="#outflow">&amp;outflow</a></li>
+<li><a href="#evaporation">&amp;evaporation</a></li>
+<li><a href="#groundwater">&amp;groundwater</a></li>
+</ul>
+<span class="jump-label">Engineering options</span>
+<ul>
+<li><a href="#oxygenation">&amp;oxygenation</a></li>
+<li><a href="#bubbler">&amp;bubbler</a></li>
+<li><a href="#heat_pump">&amp;heat_pump</a></li>
+</ul>
+<span class="jump-label">Diagnostics</span>
+<ul>
+<li><a href="#mass_balance">&amp;mass_balance</a></li>
+<li><a href="#debugging">&amp;debugging</a></li>
+</ul>
+<span class="jump-label">Plotting</span>
+<ul>
+<li><a href="#plots_window">&amp;plots_window</a></li>
+<li><a href="#plots">&amp;plots</a></li>
+<li><a href="#animate">&amp;animate</a></li>
 </ul>
   </div>
 </nav>
@@ -151,12 +172,11 @@ parameters is summarised below. For a summary of the notation and nomenclature r
 <td>-</td>
 <td>$$\rho[T,S] \longleftarrow \left\{
 \begin{array}{ll}
-\textrm{TEOS-10: }&\Theta_{\rho}=1 \\
-\textrm{UNESCO(1981): }&\Theta_{\rho}=2\\
-\textrm{custom: }&\Theta_{\rho}=3+
+\textrm{UNESCO(1981): }&\Theta_{\rho}=0 \\
+\textrm{TEOS-10: }&\Theta_{\rho}=1
 \end{array}
 \right.$$</td>
-<td>1</td>
+<td>0</td>
 </tr>
 <tr data-search="glm_setup non_avg switch to configure flow boundary condition temporal interpolation">
 <th scope="row"><code>non_avg</code></th>
@@ -170,7 +190,7 @@ Q_{inf}^{t} & \Theta_{bc}=T \\
 (Q_{inf}^{t}+Q_{inf}^{t-1})/2 & \Theta_{bc}=F
 \end{array}
 \right.$$</td>
-<td>.true.</td>
+<td>.false.</td>
 </tr>
 </tbody>
 </table>
@@ -451,11 +471,13 @@ K_{w}+K_{ss}+K_{dom}+K_{pom}+K_{phy} & \Theta_{kw}=T \\
 <tr data-search="morphometry base_elev elevation of the bottom-most point of the lake">
 <th scope="row"><code>base_elev</code></th>
 <td>$$H_{0}$$</td>
-<td>Elevation of the bottom-most point of the lake</td>
+<td>Elevation of the bottom-most point of the lake.
+<strong>Deprecated</strong> &mdash; the value is read but no longer used;
+\(H[1]\) is assumed instead. GLM prints a note if it is set</td>
 <td>[real]</td>
 <td>\(m\) above datum</td>
-<td></td>
-<td></td>
+<td>-</td>
+<td>-</td>
 </tr>
 <tr data-search="morphometry crest_elev elevation of a weir crest, where overflow begins">
 <th scope="row"><code>crest_elev</code></th>
@@ -938,7 +960,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Number of light bandwidths to simulate</td>
 <td>[integer]</td>
 <td>Used when \(\Theta_{light}=1\)</td>
-<td>4</td>
+<td>2</td>
 </tr>
 <tr data-search="light light_extc comma-separated list of light extinction coefficients for each waveband">
 <th scope="row"><code>light_extc</code></th>
@@ -1233,6 +1255,184 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 </details>
 </section>
 
+<section id="particles">
+<h3><code>&amp;particles</code></h3>
+<p class="note">Configures the Particle Tracking Model (PTM), which advects
+Lagrangian particles through the layer structure. This block is optional; if it
+is absent GLM reports <em>&ldquo;No 'particles' config, assuming no
+particles&rdquo;</em> and continues. Particles are only stepped when
+<code>ptm_sw</code> is <code>.true.</code></p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Symbol</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr data-search="particles ptm_sw switch to enable the particle tracking model ptm">
+<th scope="row"><code>ptm_sw</code></th>
+<td>$$\Theta_{ptm}$$</td>
+<td>Switch to enable the particle tracking model</td>
+<td>[boolean]</td>
+<td>.true. OR .false.</td>
+<td>.false.</td>
+</tr>
+<tr class="unused" data-search="particles num_particle_grp number of particle groups planned for future update">
+<th scope="row"><code>num_particle_grp</code></th>
+<td>$$N_{grp}$$</td>
+<td>Number of particle groups. Accepted by the reader; <strong>planned for
+future update</strong> &mdash; the group count applied internally is fixed at
+1</td>
+<td>[integer]</td>
+<td>-</td>
+<td>1</td>
+</tr>
+<tr data-search="particles max_particle_num maximum number of particles that may exist at any time">
+<th scope="row"><code>max_particle_num</code></th>
+<td>$$N_{max}$$</td>
+<td>Maximum number of particles that may exist at any one time. This sizes the
+particle arrays, so raising it raises the memory footprint</td>
+<td>[integer]</td>
+<td>\(\le 10000\)</td>
+<td>10000</td>
+</tr>
+<tr data-search="particles init_particle_num number of particles seeded at the start of the simulation">
+<th scope="row"><code>init_particle_num</code></th>
+<td>$$N_{init}$$</td>
+<td>Number of particles seeded at the start of the simulation</td>
+<td>[integer]</td>
+<td>\(\le\) <code>max_particle_num</code></td>
+<td>10</td>
+</tr>
+<tr data-search="particles init_depth_min shallowest depth of the initial particle seeding band">
+<th scope="row"><code>init_depth_min</code></th>
+<td>$$z_{min}$$</td>
+<td>Shallowest depth of the band the initial particles are seeded into,
+measured down from the water surface (\(m\))</td>
+<td>[real]</td>
+<td>-</td>
+<td>0.0</td>
+</tr>
+<tr data-search="particles init_depth_max deepest depth of the initial particle seeding band">
+<th scope="row"><code>init_depth_max</code></th>
+<td>$$z_{max}$$</td>
+<td>Deepest depth of the band the initial particles are seeded into, measured
+down from the water surface (\(m\))</td>
+<td>[real]</td>
+<td>\(&gt;\) <code>init_depth_min</code></td>
+<td>2.0</td>
+</tr>
+<tr data-search="particles inflow_conc particle concentration in each inflow number per cubic metre">
+<th scope="row"><code>inflow_conc</code></th>
+<td>$$C_{ptm}[1...N_{inflow}]$$</td>
+<td>Particle concentration carried by each inflow
+(\(\#\;m^{-3}\)). One value per inflow, in the order the inflows are declared
+in <a href="#inflow"><code>&amp;inflow</code></a></td>
+<td>[array]</td>
+<td>comma-separated list</td>
+<td>0</td>
+</tr>
+<tr data-search="particles ptm_diffusivity minimum vertical diffusivity applied to particle random walk">
+<th scope="row"><code>ptm_diffusivity</code></th>
+<td>$$K_{ptm}$$</td>
+<td>Floor applied to the vertical diffusivity used in the particle random walk
+(\(m^{2}\,s^{-1}\)). Where the resolved \(K_z\) falls below this value, this
+value is used instead</td>
+<td>[real]</td>
+<td>-</td>
+<td>1e-6</td>
+</tr>
+<tr class="unused" data-search="particles ptm_time_step sub time step used by the particle tracking model planned for future update">
+<th scope="row"><code>ptm_time_step</code></th>
+<td>$$\Delta t_{ptm}$$</td>
+<td>Sub time step for particle motion. Accepted by the reader;
+<strong>planned for future update</strong>. Note the source initialiser is
+written
+<code>1/60</code>, which is integer division in C and therefore evaluates to
+\(0\), not one minute</td>
+<td>[real]</td>
+<td>-</td>
+<td>0</td>
+</tr>
+<tr data-search="particles particle_density density of a particle used in the settling calculation">
+<th scope="row"><code>particle_density</code></th>
+<td>$$\rho_{p}$$</td>
+<td>Density assigned to each particle (\(kg\;m^{-3}\)), used in the settling
+calculation</td>
+<td>[real]</td>
+<td>-</td>
+<td>1000.0</td>
+</tr>
+<tr data-search="particles particle_diameter diameter of a particle used in the settling calculation">
+<th scope="row"><code>particle_diameter</code></th>
+<td>$$d_{p}$$</td>
+<td>Diameter assigned to each particle (\(m\)), used in the settling
+calculation</td>
+<td>[real]</td>
+<td>-</td>
+<td>1e-6</td>
+</tr>
+<tr data-search="particles settling_velocity prescribed settling velocity of a particle">
+<th scope="row"><code>settling_velocity</code></th>
+<td>$$v_{s}$$</td>
+<td>Prescribed particle settling velocity (\(m\;s^{-1}\)). Negative values
+sink</td>
+<td>[real]</td>
+<td>-</td>
+<td>0.0</td>
+</tr>
+<tr data-search="particles settling_efficiency probability that a particle reaching the sediment is retained">
+<th scope="row"><code>settling_efficiency</code></th>
+<td>$$\eta_{s}$$</td>
+<td>Scales the probability that a particle reaching the bottom layer is
+retained by the sediment. \(1\) retains every particle that arrives</td>
+<td>[real]</td>
+<td>\(0 \le \eta_{s} \le 1\)</td>
+<td>1.0</td>
+</tr>
+<tr data-search="particles sed_deactivation switch to deactivate particles once they settle to the sediment">
+<th scope="row"><code>sed_deactivation</code></th>
+<td>$$\Theta_{sed_{ptm}}$$</td>
+<td>Switch to deactivate particles once they settle to the sediment, rather
+than leaving them available for resuspension</td>
+<td>[boolean]</td>
+<td>.true. OR .false.</td>
+<td>.false.</td>
+</tr>
+<tr data-search="particles do_particle_bgc switch to enable particle attached biogeochemistry in aed">
+<th scope="row"><code>do_particle_bgc</code></th>
+<td>$$\Theta_{bgc_{ptm}}$$</td>
+<td>Switch to enable particle-attached biogeochemistry. The flag is passed
+through to AED, so it only has an effect when a water quality model is
+active</td>
+<td>[boolean]</td>
+<td>.true. OR .false.</td>
+<td>.false.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;particles
+   ptm_sw            = .true.
+   max_particle_num  = 10000
+   init_particle_num = 1000
+   init_depth_min    = 0.0
+   init_depth_max    = 2.0
+   ptm_diffusivity   = 1e-6
+   particle_density  = 1000.0
+   particle_diameter = 1e-6
+   settling_velocity = 0.0
+/</code></pre>
+</details>
+</section>
+
 <h2 class="group">Model Boundary Conditions</h2>
 
 <section id="meteorology">
@@ -1257,7 +1457,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Switch to enable the surface heating module</td>
 <td>[boolean]</td>
 <td>.true. OR .false.</td>
-<td>.true.</td>
+<td>.false.</td>
 </tr>
 <tr class="subhead" data-sub="1"><th colspan="6" scope="colgroup">Input meterological data</th></tr>
 <tr data-search="meteorology meteo_fl filename of the meterological file" data-sub="1">
@@ -1468,49 +1668,47 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <tr data-search="meteorology fetch_mode switch to configure which wind-sheltering/fetch option to use" data-sub="5">
 <th scope="row"><code>fetch_mode</code></th>
 <td>$$\Theta_{fetch}$$</td>
-<td>Switch to configure which wind-sheltering/fetch option to use</td>
+<td>Switch to configure which wind-sheltering/fetch option to use.
+Modes 2 and 3 read a wind-direction column from the <code>meteo_fl</code> and
+require the <a href="#fetch"><code>&amp;fetch</code></a> block</td>
 <td>[integer]</td>
 <td>$$ \left\{
 \begin{array}{ll}
 \textrm{No sheltering } & \Theta_{fetch}=0 \\
 \textrm{Area-based scaling } & \Theta_{fetch}=1 \\
-\textrm{Markfort length-scale } & \Theta_{fetch}=2 \\ 
-\textrm{User input scaling table } & \Theta_{fetch}=3 
+\textrm{Markfort length-scale } & \Theta_{fetch}=2 \\
+\textrm{User input scaling table } & \Theta_{fetch}=3
 \end{array}
 \right.$$</td>
 <td>0</td>
 </tr>
-<tr data-search="meteorology xws ..." data-sub="5">
+<tr data-search="meteorology aws area scale controlling the effective-area sheltering relationship" data-sub="5">
+<th scope="row"><code>Aws</code></th>
+<td>$$A_{WS}$$</td>
+<td>Area scale controlling the effective-area sheltering relationship,
+\(A_{eff} = A\tanh(A/A_{WS})\)</td>
+<td>[real]</td>
+<td>Required for fetch_mode (\(\Theta_{fetch}\)) \(= 1\)</td>
+<td>0</td>
+</tr>
+<tr class="unused" data-search="meteorology xws planned for future update not used by any fetch_mode" data-sub="5">
 <th scope="row"><code>Xws</code></th>
 <td>$$x_{WS}$$</td>
-<td>...</td>
+<td>Accepted by the reader; <strong>planned for future update</strong> and not
+yet applied by any <code>fetch_mode</code>. Modes 2 and 3 take their sheltering
+from the <a href="#fetch"><code>&amp;fetch</code></a> block</td>
 <td>[real]</td>
-<td>Required for fetch_mode (\(\Theta_{fetch}\)) \(= 2\)</td>
-<td>?</td>
-</tr>
-<tr data-search="meteorology num_dir number of wind direction reference points being read in" data-sub="5">
-<th scope="row"><code>num_dir</code></th>
 <td>-</td>
-<td>Number of wind direction reference points being read in</td>
-<td>[integer]</td>
-<td>Required for fetch_mode (\(\Theta_{fetch}\)) \(= 2\) or \(3\)</td>
-<td>-</td>
+<td>0</td>
 </tr>
-<tr data-search="meteorology wind_dir wind directions used for wind-sheltering effects" data-sub="5">
-<th scope="row"><code>wind_dir</code></th>
-<td>$$\Phi_{wind}[1...]$$</td>
-<td>Wind directions used for wind-sheltering effects</td>
-<td>[real]</td>
-<td>Required for fetch_mode (\(\Theta_{fetch}\)) \(= 2\) or \(3\)</td>
+<tr class="unused" data-search="meteorology fws planned for future update not used by any fetch_mode" data-sub="5">
+<th scope="row"><code>Fws</code></th>
+<td>$$f_{WS}$$</td>
+<td>Accepted by the reader; <strong>planned for future update</strong> and not
+yet applied by any <code>fetch_mode</code></td>
+<td>[string]</td>
 <td>-</td>
-</tr>
-<tr data-search="meteorology fetch_scale direction specific wind-sheltering scaling factors" data-sub="5">
-<th scope="row"><code>fetch_scale</code></th>
-<td>$$f_{WS}[\Phi_{wind}]$$</td>
-<td>Direction specific wind-sheltering scaling factors</td>
-<td>[real]</td>
-<td>Required for fetch_mode (\(\Theta_{fetch}\)) \(= 2\) or \(3\)</td>
-<td>1</td>
+<td>-</td>
 </tr>
 </tbody>
 </table>
@@ -1538,6 +1736,93 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 				  !rain_threshold = 0.001
 				  !runoff_coef    = 0.0
 				/</code></pre>
+</details>
+</section>
+
+<section id="fetch">
+<h3><code>&amp;fetch</code></h3>
+<p class="note">Direction-dependent wind sheltering. This block is optional, and
+supplies the scaling table used by <code>fetch_mode</code> \(= 2\) and \(= 3\)
+in <a href="#meteorology"><code>&amp;meteorology</code></a>. The scaling is
+linearly interpolated between the supplied directions and wraps at
+\(360^{\circ}\).</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Symbol</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr data-search="fetch fetch_sw switch to enable direction dependent wind sheltering">
+<th scope="row"><code>fetch_sw</code></th>
+<td>$$\Theta_{fetch_{sw}}$$</td>
+<td>Switch to enable direction-dependent sheltering. Note that GLM sets this
+from the <em>presence</em> of the <code>&amp;fetch</code> block, so a value
+given here is overwritten</td>
+<td>[boolean]</td>
+<td>.true. OR .false.</td>
+<td>.false.</td>
+</tr>
+<tr data-search="fetch num_dir number of wind direction reference points being read in">
+<th scope="row"><code>num_dir</code></th>
+<td>$$N_{\Phi}$$</td>
+<td>Number of wind direction reference points being read in</td>
+<td>[integer]</td>
+<td>Length of <code>wind_dir</code> and <code>fetch_scale</code></td>
+<td>0</td>
+</tr>
+<tr data-search="fetch wind_dir wind directions used for wind-sheltering effects">
+<th scope="row"><code>wind_dir</code></th>
+<td>$$\Phi_{wind}[1...N_{\Phi}]$$</td>
+<td>Wind directions at which the sheltering scale is specified
+(\(^{\circ}\))</td>
+<td>[array]</td>
+<td>comma-separated list of \(N_{\Phi}\) values</td>
+<td>-</td>
+</tr>
+<tr data-search="fetch fetch_scale direction specific wind-sheltering scaling factors">
+<th scope="row"><code>fetch_scale</code></th>
+<td>$$f_{WS}[\Phi_{wind}]$$</td>
+<td>Direction-specific sheltering scale. For \(\Theta_{fetch}=3\) this
+multiplies the wind speed directly; for \(\Theta_{fetch}=2\) it is the fetch
+length used by the Markfort et al. (2009) effective-area calculation</td>
+<td>[array]</td>
+<td>comma-separated list of \(N_{\Phi}\) values</td>
+<td>-</td>
+</tr>
+<tr class="unused" data-search="fetch edge_height height of the vegetation or obstruction at the lake edge planned for future update">
+<th scope="row"><code>edge_height</code></th>
+<td>$$h_{edge}$$</td>
+<td>Height of the vegetation or obstruction at the lake edge (\(m\)).
+Accepted by the reader; <strong>planned for future update</strong></td>
+<td>[real]</td>
+<td>-</td>
+<td>0</td>
+</tr>
+<tr class="unused" data-search="fetch edge_porosity porosity of the vegetation or obstruction at the lake edge planned for future update">
+<th scope="row"><code>edge_porosity</code></th>
+<td>$$\phi_{edge}$$</td>
+<td>Porosity of the vegetation or obstruction at the lake edge.
+Accepted by the reader; <strong>planned for future update</strong></td>
+<td>[real]</td>
+<td>-</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;fetch
+   num_dir     = 4
+   wind_dir    = 0.0, 90.0, 180.0, 270.0
+   fetch_scale = 1.0, 0.7,  0.4,   0.7
+/</code></pre>
 </details>
 </section>
 
@@ -1579,6 +1864,25 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>[boolean]</td>
 <td>.true. OR .false. <br> comma-separated list if \(N_{INTF}>1\)</td>
 <td>.false.</td>
+</tr>
+<tr data-search="inflow subm_height height above the bottom at which a submerged inflow enters">
+<th scope="row"><code>subm_height</code></th>
+<td>$$h_{subm_I}$$</td>
+<td>Height above the bottom at which a submerged inflow enters (\(m\)).
+Required when <code>subm_flag</code> is <code>.true.</code></td>
+<td>[real]</td>
+<td>comma-separated list if \(N_{INTF}>1\)</td>
+<td>0</td>
+</tr>
+<tr data-search="inflow subm_elev deprecated alias for subm_height">
+<th scope="row"><code>subm_elev</code></th>
+<td>-</td>
+<td><strong>Deprecated</strong> alias for <code>subm_height</code>. Still
+accepted when <code>subm_height</code> is absent, but GLM emits a warning
+asking for it to be renamed</td>
+<td>[real]</td>
+<td>Ignored if <code>subm_height</code> is set</td>
+<td>-</td>
 </tr>
 <tr data-search="inflow strm_hf_angle angle describing the width of an inflow river channel (&quot;half angle&quot;)">
 <th scope="row"><code>strm_hf_angle</code></th>
@@ -1791,52 +2095,67 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td></td>
 </tr>
 <tr class="subhead" data-sub="2"><th colspan="6" scope="colgroup">Adaptive withdrawals</th></tr>
-<tr data-search="outflow crit_o2 tbc" data-sub="2">
-<th scope="row"><code>crit_O2</code></th>
+<tr data-search="outflow crit_varname o2name name of the water quality variable monitored to trigger the adaptive withdrawal" data-sub="2">
+<th scope="row"><code>crit_varname</code></th>
 <td>-</td>
-<td>TBC</td>
-<td>[integer]</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr data-search="outflow crit_o2_dep " data-sub="2">
-<th scope="row"><code>crit_O2_dep</code></th>
-<td>-</td>
-<td></td>
-<td>[integer]</td>
-<td>-</td>
+<td>Name of the water quality variable monitored to trigger the adaptive
+withdrawal, resolved against the active WQ library (renamed from <code>O2name</code>)</td>
+<td>[string]</td>
+<td>comma-separated list if \(N_{OUTF}&gt;1\)</td>
 <td>-</td>
 </tr>
-<tr data-search="outflow crit_o2_days " data-sub="2">
-<th scope="row"><code>crit_O2_days</code></th>
+<tr data-search="outflow crit_idx o2idx index of the monitored water quality variable, used when crit_varname is not supplied" data-sub="2">
+<th scope="row"><code>crit_idx</code></th>
 <td>-</td>
-<td></td>
+<td>Index of the monitored water quality variable, used when
+<code>crit_varname</code> is not supplied (renamed from <code>O2idx</code>)</td>
 <td>[integer]</td>
-<td>-</td>
-<td>-</td>
+<td>Ignored if <code>crit_varname</code> is set</td>
+<td>0</td>
 </tr>
-<tr data-search="outflow outlet_crit " data-sub="2">
+<tr data-search="outflow crit_dep crit_o2_dep elevation at which the monitored variable is sampled" data-sub="2">
+<th scope="row"><code>crit_dep</code></th>
+<td>$$h_{crit}$$</td>
+<td>Elevation at which the monitored variable is sampled (\(m\) above datum)
+(renamed from <code>crit_O2_dep</code>)</td>
+<td>[real]</td>
+<td>Must be \(\ge\) the lowest elevation, \(H[1]\)</td>
+<td>-1</td>
+</tr>
+<tr data-search="outflow crit_val crit_o2 threshold value of the monitored variable that triggers the switch to the alternate outlet" data-sub="2">
+<th scope="row"><code>crit_val</code></th>
+<td>$$C_{crit}$$</td>
+<td>Threshold value of the monitored variable that triggers the switch to the
+alternate outlet (renamed from <code>crit_O2</code>)</td>
+<td>[real]</td>
+<td>Must be \(\ge 0\) when <code>outlet_crit</code> is set</td>
+<td>-1</td>
+</tr>
+<tr data-search="outflow crit_above direction of the threshold test" data-sub="2">
+<th scope="row"><code>crit_above</code></th>
+<td>-</td>
+<td>Direction of the threshold test: trigger when the monitored value rises
+<em>above</em> <code>crit_val</code> rather than falling below it</td>
+<td>[boolean]</td>
+<td>.true. OR .false.</td>
+<td>.false.</td>
+</tr>
+<tr data-search="outflow crit_days crit_o2_days number of days the alternate outlet remains engaged once triggered" data-sub="2">
+<th scope="row"><code>crit_days</code></th>
+<td>$$N_{crit}$$</td>
+<td>Number of days the alternate outlet remains engaged once triggered
+(renamed from <code>crit_O2_days</code>)</td>
+<td>[integer]</td>
+<td>Must be \(\ge 1\) when <code>outlet_crit</code> is set</td>
+<td>-1</td>
+</tr>
+<tr data-search="outflow outlet_crit elevation of the alternate outlet to draw from while the criterion is met" data-sub="2">
 <th scope="row"><code>outlet_crit</code></th>
-<td>-</td>
-<td></td>
-<td>[integer]</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr data-search="outflow o2name " data-sub="2">
-<th scope="row"><code>O2name</code></th>
-<td>-</td>
-<td></td>
-<td>[string]</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr data-search="outflow o2idx " data-sub="2">
-<th scope="row"><code>O2idx</code></th>
-<td>-</td>
-<td></td>
-<td>[string]</td>
-<td>-</td>
+<td>$$h_{outf_{crit}}$$</td>
+<td>Elevation of the alternate outlet to draw from while the criterion is met
+(\(m\) above datum). Setting this activates the criterion check</td>
+<td>[real]</td>
+<td>comma-separated list if \(N_{OUTF}&gt;1\)</td>
 <td>-</td>
 </tr>
 <tr data-search="outflow withdrtemp_fl filename of the file containing the temperature time-series the adaptive withdrawal is targeting" data-sub="2">
@@ -1871,7 +2190,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Width of weir (at crest height) where lake overflows (\(m\))</td>
 <td>[real]</td>
 <td>-</td>
-<td>0</td>
+<td>6.0</td>
 </tr>
 <tr data-search="outflow crest_factor drag coefficient associated with the weir crest, used to compute the overflow discharge rate," data-sub="4">
 <th scope="row"><code>crest_factor</code></th>
@@ -1879,7 +2198,7 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 <td>Drag coefficient associated with the weir crest, used to compute the overflow discharge rate, \(Q_{weir}\)</td>
 <td>[real]</td>
 <td>Applies only when the crest elevation is configured <br> to be less than the maximum elevation of the domain <br>(\(H_{crest} < H_{max}\))</td>
-<td>0</td>
+<td>0.61</td>
 </tr>
 </tbody>
 </table>
@@ -1898,6 +2217,826 @@ t = t_{0} ... (t_{0}+N_d);\ t_{N_{\Delta t}} = t_{0}+N_d & \Theta_{time}=3 \\
 				  !seepage_rate   = 0.01
 				/</code></pre>
 </details>
+</section>
+
+<section id="evaporation">
+<h3><code>&amp;evaporation</code></h3>
+<p class="note">Supplies a measured evaporation time series in place of the rate
+GLM computes from the surface energy budget. This block is optional; if it is
+absent, or if <code>evap_file</code> is left unset, GLM computes evaporation
+internally.</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr data-search="evaporation evap_file name of the csv file supplying measured evaporation">
+<th scope="row"><code>evap_file</code></th>
+<td>Name of the CSV file supplying measured evaporation. The file must contain
+a time column and a column named <code>Evap</code>; GLM stops with an error if
+either is missing</td>
+<td>[string]</td>
+<td></td>
+<td>-</td>
+</tr>
+<tr data-search="evaporation time_fmt format of the time column in the evaporation file">
+<th scope="row"><code>time_fmt</code></th>
+<td>Format of the time column in <code>evap_file</code>, in the same notation
+used by the inflow and outflow blocks</td>
+<td>[string]</td>
+<td>e.g. <code>YYYY-MM-DD hh:mm:ss</code></td>
+<td>-</td>
+</tr>
+<tr class="unused" data-search="evaporation timezone timezone offset of the evaporation file planned for future update">
+<th scope="row"><code>timezone</code></th>
+<td>Timezone offset of the evaporation file. Accepted by the reader;
+<strong>planned for future update</strong> &mdash; the value is not passed to
+the file reader</td>
+<td>[real]</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;evaporation
+   evap_file = 'bcs/evap.csv'
+   time_fmt  = 'YYYY-MM-DD hh:mm:ss'
+/</code></pre>
+</details>
+</section>
+
+<section id="groundwater">
+<h3><code>&amp;groundwater</code></h3>
+<p class="note warn">This block is read by GLM but is <strong>planned for
+future update</strong> &mdash; it is not active yet. The values are parsed into
+their variables, but the routine
+that would apply a groundwater flux (<code>read_daily_gw</code>) is commented
+out in <code>glm_model.c</code>, and the setup loop in <code>glm_init.c</code>
+only runs when the block is <em>absent</em>. For seepage losses use
+<code>seepage</code> and <code>seepage_rate</code> in
+<a href="#outflow"><code>&amp;outflow</code></a> instead. It is documented here
+so that keys found in older nml files can be recognised.</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="unused" data-search="groundwater gw_mode number of groundwater inflows to add">
+<th scope="row"><code>gw_mode</code></th>
+<td>Number of groundwater inflows to append to the inflow list. The total of
+<code>num_inflows</code> and <code>gw_mode</code> must not exceed the compiled
+inflow limit</td>
+<td>[integer]</td>
+<td>-</td>
+<td>0</td>
+</tr>
+<tr class="unused" data-search="groundwater gw_file name of the groundwater forcing file">
+<th scope="row"><code>gw_file</code></th>
+<td>Name of the groundwater forcing file</td>
+<td>[string]</td>
+<td></td>
+<td>-</td>
+</tr>
+<tr class="unused" data-search="groundwater k_gw hydraulic conductivity of the sediment for each groundwater inflow">
+<th scope="row"><code>K_gw</code></th>
+<td>Hydraulic conductivity of the sediment, one value per groundwater
+inflow</td>
+<td>[array]</td>
+<td>comma-separated list</td>
+<td>-</td>
+</tr>
+<tr class="unused" data-search="groundwater l_gw characteristic flow path length for each groundwater inflow">
+<th scope="row"><code>L_gw</code></th>
+<td>Characteristic flow path length, one value per groundwater inflow</td>
+<td>[array]</td>
+<td>comma-separated list</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<h2 class="group">Engineering Options</h2>
+
+<section id="oxygenation">
+<h3><code>&amp;oxygenation</code></h3>
+<p class="note">Configures artificial oxygenation, either by direct injection of
+oxygen at one or more fixed heights, or by a hypolimnetic recirculation system
+that withdraws water from one height and returns oxygenated water at another.
+The block requires an active water quality model, because the oxygen is added
+to a named AED variable; GLM stops with an error if that variable cannot be
+resolved.</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr data-search="oxygenation oxygenation_mode mode of the oxygenation system">
+<th scope="row"><code>oxygenation_mode</code></th>
+<td>Operating mode of the oxygenation system</td>
+<td>[integer]</td>
+<td>0 = off<br>1 = direct addition, constant rates<br>2 = direct addition, rates
+read from file<br>3 = recirculation</td>
+<td>0</td>
+</tr>
+<tr data-search="oxygenation oxy_name name of the aed dissolved oxygen variable to add to">
+<th scope="row"><code>oxy_name</code></th>
+<td>Name of the AED dissolved oxygen variable that the added oxygen is applied
+to</td>
+<td>[string]</td>
+<td>Must match a variable defined by the active WQ model</td>
+<td>OXY_oxy</td>
+</tr>
+<tr data-search="oxygenation oxy_max upper cap applied to the oxygen concentration">
+<th scope="row"><code>oxy_max</code></th>
+<td>Optional cap on the resulting oxygen concentration. Values \(\le 0\)
+disable the cap</td>
+<td>[real]</td>
+<td>-</td>
+<td>0.0</td>
+</tr>
+<tr data-search="oxygenation num_oxy number of direct addition oxygenation devices">
+<th scope="row"><code>num_oxy</code></th>
+<td>Number of direct-addition devices. Used by modes 1 and 2; the arrays below
+must each supply this many values</td>
+<td>[integer]</td>
+<td>-</td>
+<td>0</td>
+</tr>
+<tr data-search="oxygenation oxy_input_type how the oxygen load of each device is specified">
+<th scope="row"><code>oxy_input_type</code></th>
+<td>How the load of each device is specified: as a mass rate, or as a flow
+multiplied by a concentration</td>
+<td>[array]</td>
+<td>1 = mass rate (<code>oxy_load</code>)<br>2 = flow &times; concentration
+(<code>oxy_flow</code>, <code>oxy_conc</code>)</td>
+<td>-</td>
+</tr>
+<tr data-search="oxygenation oxy_height height above the bottom at which each device adds oxygen">
+<th scope="row"><code>oxy_height</code></th>
+<td>Height above the lake bottom at which each device adds oxygen (\(m\)). The
+oxygen is added to the layer containing that height</td>
+<td>[array]</td>
+<td>comma-separated list of <code>num_oxy</code> values</td>
+<td>0.0</td>
+</tr>
+<tr data-search="oxygenation oxy_load oxygen mass loading rate of each device">
+<th scope="row"><code>oxy_load</code></th>
+<td>Oxygen mass loading rate of each device, per day. Used where
+<code>oxy_input_type</code> is 1</td>
+<td>[array]</td>
+<td>comma-separated list of <code>num_oxy</code> values</td>
+<td>0.0</td>
+</tr>
+<tr data-search="oxygenation oxy_flow flow rate through each oxygenation device">
+<th scope="row"><code>oxy_flow</code></th>
+<td>Flow rate through each device (\(m^{3}\;day^{-1}\)). Used with
+<code>oxy_conc</code> where <code>oxy_input_type</code> is 2</td>
+<td>[array]</td>
+<td>comma-separated list of <code>num_oxy</code> values</td>
+<td>0.0</td>
+</tr>
+<tr data-search="oxygenation oxy_conc oxygen concentration of the flow through each device">
+<th scope="row"><code>oxy_conc</code></th>
+<td>Oxygen concentration of the flow through each device. Used with
+<code>oxy_flow</code> where <code>oxy_input_type</code> is 2</td>
+<td>[array]</td>
+<td>comma-separated list of <code>num_oxy</code> values</td>
+<td>0.0</td>
+</tr>
+<tr data-search="oxygenation oxy_fl names of the csv files supplying time varying oxygenation data">
+<th scope="row"><code>oxy_fl</code></th>
+<td>CSV files supplying time-varying data. In mode 2 one file is opened per
+device; in mode 3 only the first entry is used, and it supplies the
+recirculation flow and load</td>
+<td>[array]</td>
+<td>comma-separated list of filenames</td>
+<td>-</td>
+</tr>
+<tr data-search="oxygenation oxy_recirc_withdraw_height height above the bottom that recirculated water is withdrawn from">
+<th scope="row"><code>oxy_recirc_withdraw_height</code></th>
+<td>Height above the lake bottom that water is withdrawn from, in mode 3
+(\(m\))</td>
+<td>[real]</td>
+<td>Must be \(\ge 0\)</td>
+<td>0.0</td>
+</tr>
+<tr data-search="oxygenation oxy_recirc_return_height height above the bottom that oxygenated water is returned to">
+<th scope="row"><code>oxy_recirc_return_height</code></th>
+<td>Height above the lake bottom that the oxygenated water is returned to, in
+mode 3 (\(m\))</td>
+<td>[real]</td>
+<td>Must be \(\ge 0\)</td>
+<td>0.0</td>
+</tr>
+<tr data-search="oxygenation oxy_recirc_flow recirculation flow rate">
+<th scope="row"><code>oxy_recirc_flow</code></th>
+<td>Recirculation flow rate (\(m^{3}\;s^{-1}\)). Overwritten each day from
+<code>oxy_fl</code> where that file is supplied</td>
+<td>[real]</td>
+<td>-</td>
+<td>0.0</td>
+</tr>
+<tr data-search="oxygenation oxy_recirc_add oxygen mass loading rate added to the recirculated water">
+<th scope="row"><code>oxy_recirc_add</code></th>
+<td>Oxygen mass added to the recirculated water, per day. Overwritten each day
+from <code>oxy_fl</code> where that file is supplied</td>
+<td>[real]</td>
+<td>-</td>
+<td>0.0</td>
+</tr>
+<tr data-search="oxygenation time_fmt format of the time column in the oxygenation files">
+<th scope="row"><code>time_fmt</code></th>
+<td>Format of the time column in the <code>oxy_fl</code> files</td>
+<td>[string]</td>
+<td>e.g. <code>YYYY-MM-DD hh:mm:ss</code></td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;oxygenation
+   oxygenation_mode = 1
+   oxy_name         = 'OXY_oxy'
+   num_oxy          = 2
+   oxy_input_type   = 1, 1
+   oxy_height       = 2.0, 5.0
+   oxy_load         = 500.0, 250.0
+/</code></pre>
+</details>
+</section>
+
+<section id="bubbler">
+<h3><code>&amp;bubbler</code></h3>
+<p class="note">Configures a destratification bubble plume (aeration diffuser
+line). Note that the keys in this block are unprefixed &mdash; <code>on</code>,
+<code>aflow</code> and so on &mdash; so they are easily confused with keys of
+other blocks if a <code>/</code> terminator is missed.</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr data-search="bubbler on switch to enable the bubble plume destratification system">
+<th scope="row"><code>on</code></th>
+<td>Switch to enable the bubble plume</td>
+<td>[boolean]</td>
+<td>.true. OR .false.</td>
+<td>.false.</td>
+</tr>
+<tr data-search="bubbler aflow air flow rate delivered to the diffuser line">
+<th scope="row"><code>aflow</code></th>
+<td>Air flow rate delivered to the diffuser line. The plume is switched off for
+any step where this is \(\le 0\)</td>
+<td>[real]</td>
+<td>-</td>
+<td>0.0</td>
+</tr>
+<tr data-search="bubbler nports number of ports along the diffuser line">
+<th scope="row"><code>nports</code></th>
+<td>Number of release ports along the diffuser line</td>
+<td>[integer]</td>
+<td>-</td>
+<td>0</td>
+</tr>
+<tr data-search="bubbler bublen length of the diffuser line">
+<th scope="row"><code>bublen</code></th>
+<td>Length of the diffuser line (\(m\))</td>
+<td>[real]</td>
+<td>-</td>
+<td>0.0</td>
+</tr>
+<tr data-search="bubbler bdepth height above the bottom at which the diffuser line is installed">
+<th scope="row"><code>bdepth</code></th>
+<td>Height above the lake bottom at which the diffuser line sits (\(m\)). This
+selects the layer the plume is released from</td>
+<td>[real]</td>
+<td>-</td>
+<td>0.0</td>
+</tr>
+<tr data-search="bubbler start date the bubbler operating period begins">
+<th scope="row"><code>start</code></th>
+<td>Date the operating period begins. Outside the
+<code>start</code>&ndash;<code>stop</code> window the plume is off</td>
+<td>[string]</td>
+<td>e.g. <code>2020-01-01 00:00:00</code></td>
+<td>-</td>
+</tr>
+<tr data-search="bubbler stop date the bubbler operating period ends">
+<th scope="row"><code>stop</code></th>
+<td>Date the operating period ends</td>
+<td>[string]</td>
+<td>e.g. <code>2020-12-31 00:00:00</code></td>
+<td>-</td>
+</tr>
+<tr data-search="bubbler opopt switch to run the bubbler on a temperature difference trigger">
+<th scope="row"><code>opopt</code></th>
+<td>Switch to run the plume on a temperature-difference trigger rather than
+continuously through the operating window. When <code>.false.</code> the plume
+runs whenever the date falls inside the window</td>
+<td>[boolean]</td>
+<td>.true. OR .false.</td>
+<td>.false.</td>
+</tr>
+<tr data-search="bubbler ton surface to release layer temperature difference that switches the bubbler on">
+<th scope="row"><code>ton</code></th>
+<td>Surface-to-release-layer temperature difference that switches the plume on
+(\(^{\circ}C\)). Only used when <code>opopt</code> is <code>.true.</code></td>
+<td>[real]</td>
+<td>-</td>
+<td>0.0</td>
+</tr>
+<tr data-search="bubbler toff surface to release layer temperature difference that switches the bubbler off">
+<th scope="row"><code>toff</code></th>
+<td>Temperature difference below which the plume switches off
+(\(^{\circ}C\)). Only used when <code>opopt</code> is <code>.true.</code></td>
+<td>[real]</td>
+<td>\(&lt;\) <code>ton</code></td>
+<td>0.0</td>
+</tr>
+<tr data-search="bubbler intopt switch selecting the plume integration option">
+<th scope="row"><code>intopt</code></th>
+<td>Selects the plume integration option used by the bubble rise
+calculation</td>
+<td>[boolean]</td>
+<td>.true. OR .false.</td>
+<td>.false.</td>
+</tr>
+<tr data-search="bubbler data_file csv file supplying time varying bubbler settings">
+<th scope="row"><code>data_file</code></th>
+<td>CSV file supplying time-varying settings, overriding the constants above
+each day. Must contain a time column plus <code>aFlow</code>,
+<code>nPorts</code>, <code>bDepth</code> and <code>bLength</code></td>
+<td>[string]</td>
+<td></td>
+<td>-</td>
+</tr>
+<tr data-search="bubbler eff switch to write the bubbler efficiency diagnostic file">
+<th scope="row"><code>eff</code></th>
+<td>Switch to write a plume efficiency diagnostic file</td>
+<td>[boolean]</td>
+<td>.true. OR .false.</td>
+<td>.false.</td>
+</tr>
+<tr data-search="bubbler eff_file name of the bubbler efficiency diagnostic output file">
+<th scope="row"><code>eff_file</code></th>
+<td>Name of the efficiency diagnostic file written when <code>eff</code> is
+<code>.true.</code></td>
+<td>[string]</td>
+<td></td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;bubbler
+   on      = .true.
+   aflow   = 0.05
+   nports  = 20
+   bublen  = 250.0
+   bdepth  = 1.0
+   start   = '2020-10-01 00:00:00'
+   stop    = '2021-04-30 00:00:00'
+   opopt   = .true.
+   ton     = 3.0
+   toff    = 1.0
+/</code></pre>
+</details>
+</section>
+
+<section id="heat_pump">
+<h3><code>&amp;heat_pump</code></h3>
+<p class="note">Configures a heat pump that draws water from a nominated
+outflow, changes its temperature, and returns it through a nominated inflow.
+The referenced inflow and outflow must already be declared in
+<a href="#inflow"><code>&amp;inflow</code></a> and
+<a href="#outflow"><code>&amp;outflow</code></a>; GLM stops with an error if
+<code>heat_pump_inflow_idx</code> is out of range.</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr data-search="heat_pump heat_pump_switch mode of the heat pump">
+<th scope="row"><code>heat_pump_switch</code></th>
+<td>Operating mode of the heat pump</td>
+<td>[integer]</td>
+<td>0 = off<br>1 = prescribed temperature change<br>2 = prescribed heat
+flux</td>
+<td>0</td>
+</tr>
+<tr data-search="heat_pump heat_pump_inflow_idx index of the inflow the heat pump returns water through">
+<th scope="row"><code>heat_pump_inflow_idx</code></th>
+<td>Index of the inflow the heat pump returns water through. The return height
+is taken from that inflow's <code>subm_height</code>. <strong>Zero-based</strong>
+&mdash; the first inflow is 0</td>
+<td>[integer]</td>
+<td>\(0 \le i &lt; \) number of inflows</td>
+<td>0</td>
+</tr>
+<tr data-search="heat_pump heat_pump_outflow_idx index of the outflow the heat pump withdraws water from">
+<th scope="row"><code>heat_pump_outflow_idx</code></th>
+<td>Index of the outflow the heat pump withdraws water from.
+<strong>Zero-based</strong> &mdash; the first outflow is 0</td>
+<td>[integer]</td>
+<td>\(0 \le i &lt; \) number of outflows</td>
+<td>0</td>
+</tr>
+<tr data-search="heat_pump heat_pump_temp_change temperature change applied to the water passing through the heat pump">
+<th scope="row"><code>heat_pump_temp_change</code></th>
+<td>Temperature change applied to the water passing through the pump
+(\(^{\circ}C\)). Used in mode 1</td>
+<td>[real]</td>
+<td>-</td>
+<td>0.0</td>
+</tr>
+<tr data-search="heat_pump heat_pump_heat_flux heat flux added or removed by the heat pump">
+<th scope="row"><code>heat_pump_heat_flux</code></th>
+<td>Heat flux added to (positive) or removed from (negative) the water
+(\(W\)). Used in mode 2, and may be overridden day by day from a CSV
+column</td>
+<td>[real]</td>
+<td>-</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;heat_pump
+   heat_pump_switch      = 1
+   heat_pump_inflow_idx  = 0
+   heat_pump_outflow_idx = 0
+   heat_pump_temp_change = -3.0
+/</code></pre>
+</details>
+</section>
+
+<h2 class="group">Diagnostics</h2>
+
+<section id="mass_balance">
+<h3><code>&amp;mass_balance</code></h3>
+<p class="note">Writes a per-timestep mass balance file for nominated water
+quality variables, accounting for the mass entering and leaving through each
+flux term. This block is optional, and is only processed after the water
+quality model has been initialised.</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr data-search="mass_balance balance_file name of the mass balance output file">
+<th scope="row"><code>balance_file</code></th>
+<td>Name of the mass balance output file, written into
+<code>out_dir</code></td>
+<td>[string]</td>
+<td></td>
+<td>-</td>
+</tr>
+<tr data-search="mass_balance balance_varnum number of variables listed in balance_vars">
+<th scope="row"><code>balance_varnum</code></th>
+<td>Number of variables listed in <code>balance_vars</code></td>
+<td>[integer]</td>
+<td>Length of <code>balance_vars</code></td>
+<td>-</td>
+</tr>
+<tr data-search="mass_balance balance_vars names of the water quality variables to track">
+<th scope="row"><code>balance_vars</code></th>
+<td>Names of the water quality variables to track</td>
+<td>[array]</td>
+<td>comma-separated list of <code>balance_varnum</code> names</td>
+<td>-</td>
+</tr>
+<tr data-search="mass_balance time_fmt format of the time column written to the mass balance file">
+<th scope="row"><code>time_fmt</code></th>
+<td>Format of the time column written to the balance file</td>
+<td>[string]</td>
+<td>e.g. <code>YYYY-MM-DD hh:mm:ss</code></td>
+<td>-</td>
+</tr>
+<tr class="unused" data-search="mass_balance timezone timezone offset of the mass balance file planned for future update">
+<th scope="row"><code>timezone</code></th>
+<td>Timezone offset of the balance file. Accepted by the reader;
+<strong>planned for future update</strong> &mdash; the value is not passed to
+the writer</td>
+<td>[real]</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;mass_balance
+   balance_file   = 'balance.csv'
+   balance_varnum = 2
+   balance_vars   = 'OXY_oxy', 'NIT_nit'
+/</code></pre>
+</details>
+</section>
+
+<section id="debugging">
+<h3><code>&amp;debugging</code></h3>
+<p class="note">Developer switches. These change model behaviour and should not
+be left set in a production configuration.</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr data-search="debugging debug_mixer switch to write diagnostic output from the surface mixing routine">
+<th scope="row"><code>debug_mixer</code></th>
+<td>Switch to write diagnostic output from the surface mixing routine</td>
+<td>[boolean]</td>
+<td>.true. OR .false.</td>
+<td>.false.</td>
+</tr>
+<tr data-search="debugging disable_evap switch to turn evaporation off entirely">
+<th scope="row"><code>disable_evap</code></th>
+<td>Switch to turn evaporation off entirely. Intended for isolating the water
+balance during testing</td>
+<td>[boolean]</td>
+<td>.true. OR .false.</td>
+<td>.false.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<h2 class="group">Plotting</h2>
+
+<p class="lede group-note">The three blocks below are <strong>not</strong> read from
+<code>glm3.nml</code>. They are read from a separate file, <code>plots.nml</code>
+in the working directory, and only apply to builds compiled with on-screen
+plotting support. A different filename can be given on the GLM command line. If
+the file cannot be opened, or a block within it cannot be read, GLM prints a
+warning and falls back to the built-in defaults shown below.</p>
+
+<section id="plots_window">
+<h3><code>&amp;plots_window</code></h3>
+<p class="note">Size of the window that holds the plot panels.</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr data-search="plots_window width width of the plot window in pixels">
+<th scope="row"><code>width</code></th>
+<td>Width of the plot window, in pixels</td>
+<td>[integer]</td>
+<td>-</td>
+<td>1000</td>
+</tr>
+<tr data-search="plots_window height height of the plot window in pixels">
+<th scope="row"><code>height</code></th>
+<td>Height of the plot window, in pixels</td>
+<td>[integer]</td>
+<td>-</td>
+<td>300</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="plots">
+<h3><code>&amp;plots</code></h3>
+<p class="note">Defines the contour panels drawn during the run. The list
+variables each supply one entry per panel.</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr data-search="plots nplots number of plot panels to draw">
+<th scope="row"><code>nplots</code></th>
+<td>Number of plot panels to draw</td>
+<td>[integer]</td>
+<td>Length of <code>vars</code></td>
+<td>2</td>
+</tr>
+<tr data-search="plots plot_width width of an individual plot panel in pixels">
+<th scope="row"><code>plot_width</code></th>
+<td>Width of an individual panel, in pixels</td>
+<td>[integer]</td>
+<td>-</td>
+<td>400</td>
+</tr>
+<tr data-search="plots plot_height height of an individual plot panel in pixels">
+<th scope="row"><code>plot_height</code></th>
+<td>Height of an individual panel, in pixels</td>
+<td>[integer]</td>
+<td>-</td>
+<td>200</td>
+</tr>
+<tr data-search="plots vars names of the variables to plot one per panel">
+<th scope="row"><code>vars</code></th>
+<td>Names of the variables to plot, one per panel</td>
+<td>[array]</td>
+<td>comma-separated list of <code>nplots</code> names</td>
+<td>temp, salt</td>
+</tr>
+<tr data-search="plots title titles displayed above each plot panel">
+<th scope="row"><code>title</code></th>
+<td>Title displayed above each panel</td>
+<td>[array]</td>
+<td>comma-separated list of <code>nplots</code> strings</td>
+<td>Temperature, Salinity</td>
+</tr>
+<tr data-search="plots title_font font used for the panel titles">
+<th scope="row"><code>title_font</code></th>
+<td>Font used for the panel titles</td>
+<td>[string]</td>
+<td></td>
+<td>-</td>
+</tr>
+<tr data-search="plots title_size point size of the panel titles">
+<th scope="row"><code>title_size</code></th>
+<td>Point size of the panel titles</td>
+<td>[integer]</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr data-search="plots label_font font used for the axis labels">
+<th scope="row"><code>label_font</code></th>
+<td>Font used for the axis labels</td>
+<td>[string]</td>
+<td></td>
+<td>-</td>
+</tr>
+<tr data-search="plots label_size point size of the axis labels">
+<th scope="row"><code>label_size</code></th>
+<td>Point size of the axis labels</td>
+<td>[integer]</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr data-search="plots min_z lower limit of the colour scale for each panel">
+<th scope="row"><code>min_z</code></th>
+<td>Lower limit of the colour scale for each panel</td>
+<td>[array]</td>
+<td>comma-separated list of <code>nplots</code> values</td>
+<td>-1.0, 0.0</td>
+</tr>
+<tr data-search="plots max_z upper limit of the colour scale for each panel">
+<th scope="row"><code>max_z</code></th>
+<td>Upper limit of the colour scale for each panel</td>
+<td>[array]</td>
+<td>comma-separated list of <code>nplots</code> values</td>
+<td>30.0, 0.6</td>
+</tr>
+<tr data-search="plots min_y lower limit of the vertical axis for each panel">
+<th scope="row"><code>min_y</code></th>
+<td>Lower limit of the vertical axis for each panel. Negative values leave the
+axis to be scaled automatically</td>
+<td>[array]</td>
+<td>comma-separated list of <code>nplots</code> values</td>
+<td>-1</td>
+</tr>
+<tr data-search="plots max_y upper limit of the vertical axis for each panel">
+<th scope="row"><code>max_y</code></th>
+<td>Upper limit of the vertical axis for each panel. Negative values leave the
+axis to be scaled automatically</td>
+<td>[array]</td>
+<td>comma-separated list of <code>nplots</code> values</td>
+<td>-1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details open><summary>Example</summary>
+<pre><code>&amp;plots_window
+   width  = 1000
+   height = 300
+/
+&amp;plots
+   nplots      = 2
+   plot_width  = 400
+   plot_height = 200
+   title       = 'Temperature', 'Salinity'
+   vars        = 'temp', 'salt'
+   min_z       = -1.0, 0.0
+   max_z       = 30.0, 0.6
+/</code></pre>
+</details>
+</section>
+
+<section id="animate">
+<h3><code>&amp;animate</code></h3>
+<p class="note">Writes the plot panels out as an image sequence so the run can
+be replayed as an animation.</p>
+<div class="table-scroll">
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Options</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr data-search="animate nanim number of variables to animate">
+<th scope="row"><code>nanim</code></th>
+<td>Number of variables to animate</td>
+<td>[integer]</td>
+<td>Length of <code>vars</code></td>
+<td>-</td>
+</tr>
+<tr data-search="animate vars names of the variables to animate">
+<th scope="row"><code>vars</code></th>
+<td>Names of the variables to animate</td>
+<td>[array]</td>
+<td>comma-separated list of <code>nanim</code> names</td>
+<td>-</td>
+</tr>
+<tr data-search="animate fnames output filenames for each animated variable">
+<th scope="row"><code>fnames</code></th>
+<td>Output filename for each animated variable</td>
+<td>[array]</td>
+<td>comma-separated list of <code>nanim</code> filenames</td>
+<td>-</td>
+</tr>
+<tr data-search="animate anim_delay delay between animation frames">
+<th scope="row"><code>anim_delay</code></th>
+<td>Delay between successive frames</td>
+<td>[integer]</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</div>
 </section>
 </main>
 </div>
