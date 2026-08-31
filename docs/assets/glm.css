@@ -79,7 +79,10 @@ nav.top a:hover { color: var(--accent); }
 .page { max-width: 900px; padding-top: 44px; padding-bottom: 72px; }
 
 .hero h1 { font-size: 38px; line-height: 1.15; margin: 0 0 12px; }
-.hero .lede { font-size: 18px; max-width: 58ch; margin: 0; }
+/* Prose here runs to the same width as the figures and the tile grid above it,
+   rather than the narrower measure the reference page uses -- a short column
+   floating beside empty space reads as a mistake at this page width. */
+.hero .lede { font-size: 18px; max-width: none; margin: 0; }
 
 /* The landing page has no sticky bar to clear, so its anchors want a normal
    offset rather than the jump-bar allowance the reference page needs. */
@@ -91,10 +94,10 @@ figure.shot img {
   border: 1px solid var(--line); border-radius: 8px; background: var(--panel);
 }
 figure.shot figcaption {
-  margin: 9px 0 0; font-size: 13px; color: var(--muted); max-width: 68ch;
+  margin: 9px 0 0; font-size: 13px; color: var(--muted); max-width: none;
 }
 
-.prose p { max-width: 68ch; }
+.prose p { max-width: none; }
 .prose p + p { margin-top: 14px; }
 .prose h3 { font-size: 18px; margin: 28px 0 8px; }
 
