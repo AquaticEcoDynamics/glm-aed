@@ -56,7 +56,7 @@ export HDF5=hdf5-${HDF5V}
 #-----------------------------------------------------------
 
 # https://download.savannah.gnu.org/releases/freetype
-export FREETYPE2V=2.14.3
+export FREETYPE2V=2.13.2
 
 # http://www.ijg.org/files
 export JPEGV=10
